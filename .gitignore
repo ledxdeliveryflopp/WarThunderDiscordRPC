@@ -19,3 +19,13 @@
 
 # Go workspace file
 go.work
+
+# logs
+cmd/wt/logrus.log
+
+# settings
+cmd/wt/settings.json
+
+# builds
+cmd/wt/main.exe
+cmd/wt/wt_presence.exe

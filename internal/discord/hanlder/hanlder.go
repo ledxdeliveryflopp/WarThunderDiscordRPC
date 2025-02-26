@@ -17,12 +17,14 @@ import (
 //
 // Аргументы: state string - Состояние, details string - Основное описание,
 // largeImg string - Ссылка или код основного изображения, largeText string - Текст основного изображения
-func setPresence(state string, details string, largeImg string, largeText string) {
+func setPresence(state string, details string, largeImg string, largeText string, smallImg string, smallText string) {
 	err := client.SetActivity("1344195597485211790", client.Activity{
 		State:      state,
 		Details:    details,
 		LargeImage: largeImg,
 		LargeText:  largeText,
+		SmallImage: smallImg,
+		SmallText:  smallText,
 		Timestamps: &client.Timestamps{
 			Start: &discordCommon.GameTime,
 		},
@@ -37,6 +39,8 @@ func setPresence(state string, details string, largeImg string, largeText string
 	log.Infof("Details: %s", details)
 	log.Infof("largeImg: %s", largeImg)
 	log.Infof("largeText: %s", largeText)
+	log.Infof("SmallImg: %s", smallImg)
+	log.Infof("largeText: %s", smallText)
 	return
 }
 
@@ -70,7 +74,7 @@ func RunUpdatePresenceLoop(settings *configs.PresenceSettings, httpClient http.C
 		}
 		switch {
 		case indicators.Vehicle == "dummy_plane" && mapData.Valid == true:
-			setPresence("loading", "", "", "")
+			setPresence("loading", "", settings.MainLogoTheme, "War Thunder", "", "")
 			continue
 		case indicators.Army == "air" && mapData.Valid == true:
 			indicators.Img = fmt.Sprintf("https://static.encyclopedia.warthunder.com/images/%s.png", indicators.Vehicle)
@@ -86,19 +90,19 @@ func RunUpdatePresenceLoop(settings *configs.PresenceSettings, httpClient http.C
 				fmt.Println("Error while building air state info, see log for info")
 				continue
 			}
-			state := fmt.Sprintf("speedTas: %s | altitude:%s m", indicatorsTasAltitude.TasSpeed, indicatorsTasAltitude.Altitude)
-			details := fmt.Sprintf("Playing in: %s", indicators.ReadableVehicle)
-			setPresence(state, details, indicators.Img, indicators.ReadableVehicle)
+			state := fmt.Sprintf("Speed Tas: %s | Altitude:%s m", indicatorsTasAltitude.TasSpeed, indicatorsTasAltitude.Altitude)
+			details := fmt.Sprintf("Plays on: %s", indicators.ReadableVehicle)
+			setPresence(state, details, indicators.Img, indicators.ReadableVehicle, settings.MainLogoTheme, "War Thunder")
 			continue
 		case indicators.Army == "tank" && mapData.Valid == true:
 			indicators.BuildTankInfo()
 			state := fmt.Sprintf("speed: %d | crew: %d/%d", int(indicators.SpeedTank), int(indicators.CrewTotal),
 				int(indicators.CrewCurrent))
-			details := fmt.Sprintf("Playing in: %s", indicators.ReadableVehicle)
-			setPresence(state, details, indicators.Img, indicators.ReadableVehicle)
+			details := fmt.Sprintf("Plays on: %s", indicators.ReadableVehicle)
+			setPresence(state, details, indicators.Img, indicators.ReadableVehicle, settings.MainLogoTheme, "War Thunder")
 			continue
 		default:
-			setPresence("In menu", "", "", "")
+			setPresence("In the hangar", "", settings.MainLogoTheme, "War Thunder", "", "")
 			continue
 		}
 	}

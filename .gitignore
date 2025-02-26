@@ -20,8 +20,14 @@
 # Go workspace file
 go.work
 
+# Goland
+.idea
+
 # logs
 cmd/wt/logrus.log
+
+#collector
+cmd/wt/vehicle.txt
 
 # settings
 cmd/wt/settings.json

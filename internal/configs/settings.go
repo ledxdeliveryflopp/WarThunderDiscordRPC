@@ -10,7 +10,8 @@ import (
 )
 
 type PresenceSettings struct {
-	RefreshTime time.Duration `json:"refresh_time"`
+	RefreshTime   time.Duration `json:"refresh_time"`
+	MainLogoTheme string        `json:"main_logo_theme"`
 }
 
 func InitPresenceSettings() PresenceSettings {
@@ -23,21 +24,29 @@ func InitPresenceSettings() PresenceSettings {
 	}
 	var settings PresenceSettings
 	err = json.Unmarshal(fileData, &settings)
-	if err != nil {
+	switch {
+	case err != nil:
+		fmt.Println("An error occurred when reading settings.json, see log for info")
+		fmt.Println("Close application...")
+		time.Sleep(5 * time.Second)
 		log.Panicln(err)
-	}
-	if settings == (PresenceSettings{}) {
+	case settings == (PresenceSettings{}):
 		fmt.Println("Empty settings file")
 		fmt.Println("Close application...")
 		time.Sleep(5 * time.Second)
 		os.Exit(3)
-	}
-	if settings.RefreshTime < 5 {
+	case settings.RefreshTime < 5:
 		fmt.Println("The refresh timer cannot be less than 5")
 		fmt.Println("Close application...")
 		time.Sleep(5 * time.Second)
 		os.Exit(3)
+	case settings.MainLogoTheme != "main_red" == true:
+		if settings.MainLogoTheme != "main_white" == true {
+			fmt.Println("Bad main logo key, set white theme")
+			settings.MainLogoTheme = "main_white"
+		}
 	}
+
 	return settings
 }
 

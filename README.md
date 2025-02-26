@@ -42,6 +42,7 @@ This application modifies in no way whatsoever any data from the game, it is com
 ![plot](/git/static/air.png)
 
 **Vehicle with an unsaved name**
+
 ![plot](/git/static/unknow.png)
 
 ## How to Install
@@ -101,6 +102,7 @@ This application modifies in no way whatsoever any data from the game, it is com
 ![plot](/git/static/air.png)
 
 **Техника с названием которого нет в списке с форматированием**
+
 ![plot](/git/static/unknow.png)
 
 ## Как использовать

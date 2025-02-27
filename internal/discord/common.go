@@ -15,6 +15,7 @@ var VehicleGroundDict = map[string]string{
 	"us_m1128_wolfpack":          "M1128 Wolfpack",
 	"us_m1a1_hc_usmc":            "M1A1 Click-Bait",
 	"germ_leopard_2a4_pzbtl_123": "Leopard 2 (PzBtl 123)",
+	"jp_type_16_mod":             "Type 16 (FPS)",
 }
 
 var GameTime = time.Now()

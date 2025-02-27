@@ -13,12 +13,14 @@ func IndicatorsRequest(errorChan chan error, wg *sync.WaitGroup, indicators *dis
 	indicatorsResponse, err := httpClient.Get("http://127.0.0.1:8111/indicators")
 	defer wg.Done()
 	if err != nil {
+		log.Println("-----------------------------------------------------------------")
 		log.Errorf("error while make indicators request: %s", err)
 		errorChan <- err
 		return
 	}
 	err = json.NewDecoder(indicatorsResponse.Body).Decode(&indicators)
 	if err != nil {
+		log.Println("-----------------------------------------------------------------")
 		log.Errorf("error while decode indicators json: %s", err)
 		errorChan <- err
 		return
@@ -31,12 +33,14 @@ func MapRequest(errorChan chan error, wg *sync.WaitGroup, mapData *discordTypes.
 	mapResponse, err := httpClient.Get("http://127.0.0.1:8111/map_info.json")
 	defer wg.Done()
 	if err != nil {
+		log.Println("-----------------------------------------------------------------")
 		log.Errorf("error while make map request: %s", err)
 		errorChan <- err
 		return
 	}
 	err = json.NewDecoder(mapResponse.Body).Decode(&mapData)
 	if err != nil {
+		log.Println("-----------------------------------------------------------------")
 		log.Errorf("error while decode map json: %s", err)
 		errorChan <- err
 		return
@@ -49,12 +53,14 @@ func StateRequest(errorChan chan error, indicatorsTasAltitude *discordTypes.TasA
 	stateResponse, err := httpClient.Get("http://127.0.0.1:8111/state")
 	defer wg.Done()
 	if err != nil {
+		log.Println("-----------------------------------------------------------------")
 		log.Errorf("error while make state request: %s", err)
 		errorChan <- err
 		return
 	}
 	err = discordTools.BuildTasAltitudeInfo(indicatorsTasAltitude, stateResponse.Body)
 	if err != nil {
+		log.Println("-----------------------------------------------------------------")
 		log.Errorf("error while build tas/altitude: %s", err)
 		errorChan <- err
 		return

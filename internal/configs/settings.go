@@ -46,7 +46,7 @@ func InitPresenceSettings() PresenceSettings {
 			settings.MainLogoTheme = "main_white"
 		}
 	}
-
+	log.Println("settings inited")
 	return settings
 }
 

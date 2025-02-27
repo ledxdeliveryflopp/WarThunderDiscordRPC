@@ -30,17 +30,17 @@ func setPresence(state string, details string, largeImg string, largeText string
 		},
 	})
 	if err != nil {
-		log.Error("error while set presence", err)
+		log.Println("-----------------------------------------------------------------")
+		log.Error("error while set presence: ", err)
+		log.Infof("State: %s", state)
+		log.Infof("Details: %s", details)
+		log.Infof("largeImg: %s", largeImg)
+		log.Infof("largeText: %s", largeText)
+		log.Infof("SmallImg: %s", smallImg)
+		log.Infof("largeText: %s", smallText)
 		return
 	}
-	log.Println("-----------------------------------------------------------")
-	log.Println("presence set success")
-	log.Infof("State: %s", state)
-	log.Infof("Details: %s", details)
-	log.Infof("largeImg: %s", largeImg)
-	log.Infof("largeText: %s", largeText)
-	log.Infof("SmallImg: %s", smallImg)
-	log.Infof("largeText: %s", smallText)
+	fmt.Println("Presence set success")
 	return
 }
 

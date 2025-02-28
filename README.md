@@ -19,7 +19,7 @@ This application modifies in no way whatsoever any data from the game, it is com
 1. Shows if you are in the hangar, in a match, or loading in game.
 2. Show what vehicle you are using.(Ground or air).
 3. Displays an image of the vehicle you are using.
-4. Сonverts the system name of the technique to a readable format (if the name of the technique is not saved in the list) or converts them to a readable format if the name is saved in the list (according to the name of the technique in the game).
+4. Сonverts the system name of the vehicle to a readable format (if the name of the vehicle is not saved in the list) or converts them to a readable format if the name is saved in the list (according to the name of the vehicle in the game).
 5. Show simple vehicle stats(Speed | Crew total/Crew current for ground vehicle, Speed TAS | Altitude for air vehicle).
 6. Show the game logo in the specified color (from the available list).
 

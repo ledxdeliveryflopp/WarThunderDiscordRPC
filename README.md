@@ -1,6 +1,8 @@
 # WarThunder Discord Rich Presence (RPC)
  Integration of Discord rich presence for the War Thunder
 
+[EN](#About) | [RU](#что-это)
+
 ## About
 
 This is a application which adds War Thunder as a Discord Rich Presence.

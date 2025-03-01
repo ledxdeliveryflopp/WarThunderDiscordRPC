@@ -24,5 +24,6 @@ func main() {
 	collector.InitCollectorTxt()
 	fmt.Println("Start updating presence")
 	log.Println("start logging main loop")
+	log.Println("----------------------------------------------")
 	discordHanlder.RunUpdatePresenceLoop(&settings, *httpClient)
 }

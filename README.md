@@ -29,23 +29,31 @@ This application modifies in no way whatsoever any data from the game, it is com
 
 **White main logo**
 
-![plot](/git/static/main_white.png)
+![plot](/git/static/en/main_white_en.png)
 
 **Red main logo**
 
-![plot](/git/static/main_red.png)
+![plot](/git/static/en/main_red_en.png)
 
-**Ground vehicle**
+**Ground vehicle (basic)**
 
-![plot](/git/static/ground.png)
+![plot](/git/static/en/ground_en_basic.png)
 
-**Air vehicle**
+**Ground vehicle (alternative)**
 
-![plot](/git/static/air.png)
+![plot](/git/static/en/ground_en_alt.png)
+
+**Air vehicle (basic)**
+
+![plot](/git/static/en/air_en_basic.png)
+
+**Air vehicle (alternative)**
+
+![plot](/git/static/en/air_en_alt.png)
 
 **Vehicle with an unsaved name**
 
-![plot](/git/static/unknow.png)
+![plot](/git/static/en/unknow.png)
 
 ## How to Install
 
@@ -55,6 +63,8 @@ This application modifies in no way whatsoever any data from the game, it is com
 {
   "refresh_time": 7, // It is responsible for the time between status updates and cannot be less than 5
   "main_logo_theme": "main_red"  // Game logo in the specified color, color list: main_red, main_white
+  "alt_presence": false, // Alternative display of vehicle(speed, etc..) statistics
+  "lang": "en" // lang code
 }
 ```
 3. Launch the app at any time.
@@ -89,23 +99,27 @@ This application modifies in no way whatsoever any data from the game, it is com
 
 **Белое лого игры**
 
-![plot](/git/static/main_white.png)
+![plot](/git/static/ru/main_white_ru.png)
 
 **Красное лого игры**
 
-![plot](/git/static/main_red.png)
+![plot](/git/static/ru/main_red_ru.png)
 
-**Наземная техника**
+**Наземная техника (стандарт)**
 
-![plot](/git/static/ground.png)
+![plot](/git/static/ru/ground_ru_basic.png)
 
-**Авиация**
+**Наземная техника (альтернативная)**
 
-![plot](/git/static/air.png)
+![plot](/git/static/ru/ground_ru_alt.png)
 
-**Техника с названием которого нет в списке с форматированием**
+**Авиация (стандарт)**
 
-![plot](/git/static/unknow.png)
+![plot](/git/static/ru/air_ru_basic.png)
+
+**Авиация (альтернативная)**
+
+![plot](/git/static/ru/air_ru_alt.png)
 
 ## Как использовать
 
@@ -113,8 +127,10 @@ This application modifies in no way whatsoever any data from the game, it is com
 2. **(Если не скачали settings.json)** Создайте рядом с exe файл "settings.json" с ключами:
 ```json
 {
-  "refresh_time": 7, // Задержка между обновлениями статуса Discord в секундах, не может быть меньше 5 секунд.
+  "refresh_time": 7, // Частота обновления статуса в Discord
   "main_logo_theme": "main_red"  // Вариант лога игры, доступные: "main_red" - красное лого, "main_white" - белое лого.
+  "alt_presence": false, // Альтернативный вариант отображение статискики техники (скорость и тд)
+  "lang": "en" // На каком языке отображать текст в статусе
 }
 ```
 3. Запустите приложение в любое время.
@@ -122,6 +138,8 @@ This application modifies in no way whatsoever any data from the game, it is com
 ## Известные ошибки
 1. Высота и скорость может устанавливать с задержкой(иногда очень большой), можете поэкспериментировать с параметром "refresh_time" в настройках.
 
+(Вероятно не является ошибкой)
+
 ## Что планируется добавить
 1. Дополнительную технику в список форматирования(лучше выглядит и работает быстрее чем резать название).
-2. Русскую локализацию для текста в статусах.
+2. ~~Русскую локализацию для текста в статусах.~~

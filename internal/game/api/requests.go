@@ -1,70 +1,51 @@
 package api
 
 import (
-	discordTools "WT_rich_presence/internal/discord/tools"
 	discordTypes "WT_rich_presence/internal/discord/types"
 	"encoding/json"
 	log "github.com/sirupsen/logrus"
+	"io"
 	"net/http"
-	"sync"
 )
 
-func IndicatorsRequest(errorChan chan error, wg *sync.WaitGroup, indicators *discordTypes.IndicatorsStruct, httpClient *http.Client) {
+func MainInfoRequest(indicators *discordTypes.MainInfoStruct, httpClient *http.Client) error {
 	indicatorsResponse, err := httpClient.Get("http://127.0.0.1:8111/indicators")
-	defer wg.Done()
 	if err != nil {
 		log.Println("-----------------------------------------------------------------")
-		log.Errorf("error while make indicators request: %s", err)
-		errorChan <- err
-		return
+		log.Errorf("error while make main info request: %s", err)
+		return err
 	}
 	err = json.NewDecoder(indicatorsResponse.Body).Decode(&indicators)
 	if err != nil {
 		log.Println("-----------------------------------------------------------------")
-		log.Errorf("error while decode indicators json: %s", err)
-		errorChan <- err
-		return
+		log.Errorf("error while decode response body in main info: %s", err)
+		return err
 	}
-	errorChan <- nil
-	return
+	return nil
 }
 
-func MapRequest(errorChan chan error, wg *sync.WaitGroup, mapData *discordTypes.MapStruct, httpClient *http.Client) {
+func MapRequest(mapData *discordTypes.MapStruct, httpClient *http.Client) error {
 	mapResponse, err := httpClient.Get("http://127.0.0.1:8111/map_info.json")
-	defer wg.Done()
 	if err != nil {
 		log.Println("-----------------------------------------------------------------")
 		log.Errorf("error while make map request: %s", err)
-		errorChan <- err
-		return
+		return err
 	}
 	err = json.NewDecoder(mapResponse.Body).Decode(&mapData)
 	if err != nil {
 		log.Println("-----------------------------------------------------------------")
 		log.Errorf("error while decode map json: %s", err)
-		errorChan <- err
-		return
+		return err
 	}
-	errorChan <- nil
-	return
+	return nil
 }
 
-func StateRequest(errorChan chan error, indicatorsTasAltitude *discordTypes.TasAltitudeStruct, wg *sync.WaitGroup, httpClient *http.Client) {
+func AirStateRequest(httpClient *http.Client) (error, io.Reader) {
 	stateResponse, err := httpClient.Get("http://127.0.0.1:8111/state")
-	defer wg.Done()
 	if err != nil {
 		log.Println("-----------------------------------------------------------------")
 		log.Errorf("error while make state request: %s", err)
-		errorChan <- err
-		return
+		return err, nil
 	}
-	err = discordTools.BuildTasAltitudeInfo(indicatorsTasAltitude, stateResponse.Body)
-	if err != nil {
-		log.Println("-----------------------------------------------------------------")
-		log.Errorf("error while build tas/altitude: %s", err)
-		errorChan <- err
-		return
-	}
-	errorChan <- nil
-	return
+	return nil, stateResponse.Body
 }

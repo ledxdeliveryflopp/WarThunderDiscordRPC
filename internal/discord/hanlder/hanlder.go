@@ -9,7 +9,6 @@ import (
 	"github.com/hugolgst/rich-go/client"
 	log "github.com/sirupsen/logrus"
 	"net/http"
-	"sync"
 	"time"
 )
 
@@ -17,7 +16,7 @@ import (
 //
 // Аргументы: state string - Состояние, details string - Основное описание,
 // largeImg string - Ссылка или код основного изображения, largeText string - Текст основного изображения
-func setPresence(state string, details string, largeImg string, largeText string, smallImg string, smallText string) {
+func setPresence(state string, details string, largeImg string, largeText string, smallImg string, smallText string) error {
 	err := client.SetActivity("1344195597485211790", client.Activity{
 		State:      state,
 		Details:    details,
@@ -30,6 +29,7 @@ func setPresence(state string, details string, largeImg string, largeText string
 		},
 	})
 	if err != nil {
+		fmt.Println("Error while set presence, see log file for info.")
 		log.Println("-----------------------------------------------------------------")
 		log.Error("error while set presence: ", err)
 		log.Infof("State: %s", state)
@@ -38,10 +38,54 @@ func setPresence(state string, details string, largeImg string, largeText string
 		log.Infof("largeText: %s", largeText)
 		log.Infof("SmallImg: %s", smallImg)
 		log.Infof("largeText: %s", smallText)
-		return
+		return err
 	}
-	fmt.Println("Presence set success")
-	return
+	fmt.Println("Success set presence.")
+	return nil
+}
+
+func setGroundState(settings *configs.PresenceSettings, mainInfo *discordTypes.MainInfoStruct) error {
+	var groundIndicators discordTypes.IndicatorsGroundStruct
+	groundIndicators.SetGroundVehicleName(&mainInfo.VehicleGameName, settings)
+	groundIndicators.SetSpeedCrewData(&mainInfo.Speed, &mainInfo.CrewTotal, &mainInfo.CrewCurrent)
+	groundIndicators.SetBigImgText(settings)
+	groundIndicators.SetState(settings)
+	groundIndicators.SetDetails(settings)
+	fmt.Println("-----------------------------")
+	fmt.Println("Setting up an ground combat presence")
+	err := setPresence(groundIndicators.State, groundIndicators.Details, groundIndicators.Img, groundIndicators.BigText, settings.MainLogoTheme, "War Thunder")
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func setAirState(settings *configs.PresenceSettings, httpClient http.Client, mainInfo *discordTypes.MainInfoStruct) error {
+	err, stateBody := gameRequests.AirStateRequest(&httpClient)
+	if err != nil {
+		fmt.Println("-----------------------------")
+		fmt.Println("Error while send request to WT API, maybe timeout error or json decode error, see log for info")
+		return err
+	}
+	var airIndicators discordTypes.IndicatorsAirStruct
+	err = airIndicators.BuildTasAltitudeInfo(&stateBody)
+	if err != nil {
+		fmt.Println("-----------------------------")
+		fmt.Println("Error while set TAS/Altitude for vehicle, skip presence.")
+		return err
+	}
+	airIndicators.SetAirVehicleName(&mainInfo.VehicleGameName, settings)
+	airIndicators.SetVehicleImg(&mainInfo.VehicleGameName)
+	airIndicators.SetBigImgText(settings)
+	airIndicators.SetState(settings)
+	airIndicators.SetDetails(settings)
+	fmt.Println("-----------------------------")
+	fmt.Println("Setting up an air combat presence")
+	err = setPresence(airIndicators.State, airIndicators.Details, airIndicators.Img, airIndicators.BigText, settings.MainLogoTheme, "War Thunder")
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 // RunUpdatePresenceLoop - Функция, для
@@ -49,58 +93,61 @@ func setPresence(state string, details string, largeImg string, largeText string
 // Аргументы: state string - Состояние, details string - Основное описание,
 // largeImg string - Ссылка или код основного изображения, largeText string - Текст основного изображения
 func RunUpdatePresenceLoop(settings *configs.PresenceSettings, httpClient http.Client) {
-	var wg sync.WaitGroup
 	for {
-		wg.Add(2)
 		time.Sleep(settings.RefreshTime * time.Second)
-		var indicators discordTypes.IndicatorsStruct
 		var mapData discordTypes.MapStruct
-		indicatorsErrorChan := make(chan error)
-		mapErrorChan := make(chan error)
-		go gameRequests.IndicatorsRequest(indicatorsErrorChan, &wg, &indicators, &httpClient)
-		go gameRequests.MapRequest(mapErrorChan, &wg, &mapData, &httpClient)
-		errIndicators := <-indicatorsErrorChan
-		errMap := <-mapErrorChan
-		wg.Wait()
-		close(indicatorsErrorChan)
-		close(mapErrorChan)
-		if errIndicators != nil || errMap != nil {
-			fmt.Println("Error while send request to WT API, maybe timeout error or json decode error")
+		err := gameRequests.MapRequest(&mapData, &httpClient)
+		if err != nil {
+			fmt.Println("-----------------------------")
+			fmt.Println("Error while send request to WT API, maybe timeout error or json decode error, see log for info")
 			continue
 		}
+		log.Printf("Map Data: %t", mapData.Valid)
 		if mapData.Valid == true {
-			switch {
-			case indicators.Vehicle == "dummy_plane":
-				setPresence("loading", "", settings.MainLogoTheme, "War Thunder", "", "")
+			var indicators discordTypes.MainInfoStruct
+			err = gameRequests.MainInfoRequest(&indicators, &httpClient)
+			if err != nil {
+				fmt.Println("-----------------------------")
+				fmt.Println("Error while send request to WT API, maybe timeout error or json decode error, see log for info")
 				continue
-			case indicators.Army == "air":
-				indicators.Img = fmt.Sprintf("https://static.encyclopedia.warthunder.com/images/%s.png", indicators.Vehicle)
-				wg.Add(2)
-				ErrorChan := make(chan error)
-				var indicatorsTasAltitude discordTypes.TasAltitudeStruct
-				go gameRequests.StateRequest(ErrorChan, &indicatorsTasAltitude, &wg, &httpClient)
-				go indicators.FixAirVehicleName(&wg)
-				err := <-ErrorChan
-				wg.Wait()
-				close(ErrorChan)
+			}
+			switch {
+			case indicators.ArmyType == "dummy_plane":
+				fmt.Println("-----------------------------")
+				fmt.Println("Setting up an loading presence")
+				err = setPresence(discordCommon.BasicStateDict["loading"][settings.Lang], "", settings.MainLogoTheme, "War Thunder", "", "")
 				if err != nil {
-					fmt.Println("Error while building air state info, see log for info")
+					fmt.Println("-----------------------------")
+					fmt.Println("Error while set loading presence, see log for info.")
 					continue
 				}
-				state := fmt.Sprintf("Speed Tas: %s | Altitude:%s m", indicatorsTasAltitude.TasSpeed, indicatorsTasAltitude.Altitude)
-				details := fmt.Sprintf("Plays on: %s", indicators.ReadableVehicle)
-				setPresence(state, details, indicators.Img, indicators.ReadableVehicle, settings.MainLogoTheme, "War Thunder")
 				continue
-			case indicators.Army == "tank":
-				indicators.BuildTankInfo()
-				state := fmt.Sprintf("speed: %d | crew: %d/%d", int(indicators.SpeedTank), int(indicators.CrewTotal),
-					int(indicators.CrewCurrent))
-				details := fmt.Sprintf("Plays on: %s", indicators.ReadableVehicle)
-				setPresence(state, details, indicators.Img, indicators.ReadableVehicle, settings.MainLogoTheme, "War Thunder")
+			case indicators.ArmyType == "air":
+				err = setAirState(settings, httpClient, &indicators)
+				if err != nil {
+					fmt.Println("-----------------------------")
+					fmt.Println("Error while set air presence, see log for info.")
+					continue
+				}
+				continue
+			case indicators.ArmyType == "tank":
+				err = setGroundState(settings, &indicators)
+				if err != nil {
+					fmt.Println("-----------------------------")
+					fmt.Println("Error while set ground presence, see log for info.")
+					continue
+				}
 				continue
 			}
 		} else {
-			setPresence("In the hangar", "", settings.MainLogoTheme, "War Thunder", "", "")
+			fmt.Println("-----------------------------")
+			fmt.Println("Setting up an hangar presence")
+			err = setPresence(discordCommon.BasicStateDict["hangar"][settings.Lang], "", settings.MainLogoTheme, "War Thunder", "", "")
+			if err != nil {
+				fmt.Println("-----------------------------")
+				fmt.Println("Error while set hangar presence, see log for info.")
+				continue
+			}
 			continue
 		}
 	}

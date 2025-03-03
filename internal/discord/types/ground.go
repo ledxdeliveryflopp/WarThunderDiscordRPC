@@ -48,8 +48,8 @@ func (s *IndicatorsGroundStruct) SetGroundVehicleName(vehicleGameName *string, s
 
 func (s *IndicatorsGroundStruct) SetBigImgText(settings *configs.PresenceSettings) {
 	if settings.AltPresence == true {
-		s.BigText = fmt.Sprintf("%s: %d | %s: %d/%d", discordCommon.StatesDict["speed_ground"][settings.Lang], int(s.speed),
-			discordCommon.StatesDict["crew_count"][settings.Lang], int(s.TotalCrew), int(s.CurrentCrew))
+		s.BigText = fmt.Sprintf("%s: %d | %s: %d/%d", discordCommon.VehicleStatesDict["speed_ground"][settings.Lang], int(s.speed),
+			discordCommon.VehicleStatesDict["crew_count"][settings.Lang], int(s.TotalCrew), int(s.CurrentCrew))
 		return
 	} else {
 		s.BigText = s.ReadableVehicleName
@@ -59,8 +59,8 @@ func (s *IndicatorsGroundStruct) SetBigImgText(settings *configs.PresenceSetting
 
 func (s *IndicatorsGroundStruct) SetState(settings *configs.PresenceSettings) {
 	if settings.AltPresence == false {
-		s.State = fmt.Sprintf("%s: %d | %s: %d/%d", discordCommon.StatesDict["speed_ground"][settings.Lang], int(s.speed),
-			discordCommon.StatesDict["crew_count"][settings.Lang], int(s.TotalCrew), int(s.CurrentCrew))
+		s.State = fmt.Sprintf("%s: %d | %s: %d/%d", discordCommon.VehicleStatesDict["speed_ground"][settings.Lang], int(s.speed),
+			discordCommon.VehicleStatesDict["crew_count"][settings.Lang], int(s.TotalCrew), int(s.CurrentCrew))
 		return
 	} else {
 		s.State = ""
@@ -69,6 +69,6 @@ func (s *IndicatorsGroundStruct) SetState(settings *configs.PresenceSettings) {
 }
 
 func (s *IndicatorsGroundStruct) SetDetails(settings *configs.PresenceSettings) {
-	s.Details = fmt.Sprintf("%s: %s", discordCommon.StatesDict["play_on"][settings.Lang], s.ReadableVehicleName)
+	s.Details = fmt.Sprintf("%s: %s", discordCommon.VehicleStatesDict["play_on"][settings.Lang], s.ReadableVehicleName)
 	return
 }

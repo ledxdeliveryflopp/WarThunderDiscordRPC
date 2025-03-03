@@ -53,8 +53,8 @@ func (s *IndicatorsAirStruct) BuildTasAltitudeInfo(body *io.Reader) error {
 
 func (s *IndicatorsAirStruct) SetBigImgText(settings *configs.PresenceSettings) {
 	if settings.AltPresence == true {
-		s.BigText = fmt.Sprintf("%s: %s | %s: %s m", discordCommon.StatesDict["speed_tas"][settings.Lang],
-			s.TasSpeed, discordCommon.StatesDict["altitude"][settings.Lang], s.Altitude)
+		s.BigText = fmt.Sprintf("%s: %s | %s: %s m", discordCommon.VehicleStatesDict["speed_tas"][settings.Lang],
+			s.TasSpeed, discordCommon.VehicleStatesDict["altitude"][settings.Lang], s.Altitude)
 		return
 	} else {
 		s.BigText = s.ReadableVehicleName
@@ -64,8 +64,8 @@ func (s *IndicatorsAirStruct) SetBigImgText(settings *configs.PresenceSettings) 
 
 func (s *IndicatorsAirStruct) SetState(settings *configs.PresenceSettings) {
 	if settings.AltPresence == false {
-		s.State = fmt.Sprintf("%s: %s | %s: %s m", discordCommon.StatesDict["speed_tas"][settings.Lang],
-			s.TasSpeed, discordCommon.StatesDict["altitude"][settings.Lang], s.Altitude)
+		s.State = fmt.Sprintf("%s: %s | %s: %s m", discordCommon.VehicleStatesDict["speed_tas"][settings.Lang],
+			s.TasSpeed, discordCommon.VehicleStatesDict["altitude"][settings.Lang], s.Altitude)
 		return
 	} else {
 		s.State = ""
@@ -74,6 +74,6 @@ func (s *IndicatorsAirStruct) SetState(settings *configs.PresenceSettings) {
 }
 
 func (s *IndicatorsAirStruct) SetDetails(settings *configs.PresenceSettings) {
-	s.Details = fmt.Sprintf("%s: %s", discordCommon.StatesDict["play_on"][settings.Lang], s.ReadableVehicleName)
+	s.Details = fmt.Sprintf("%s: %s", discordCommon.VehicleStatesDict["play_on"][settings.Lang], s.ReadableVehicleName)
 	return
 }

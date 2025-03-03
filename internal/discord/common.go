@@ -16,6 +16,7 @@ var VehicleAirDict = map[string]map[string]string{
 	"ah_1s_late":     {"ru": "AH-1S", "en": "AH-1S"},
 	"ah_1s_early":    {"ru": "AH-1E", "en": "AH-1E"},
 	"su_33":          {"ru": "Су-33", "en": "Su-33"},
+	"ka_50":          {"ru": "Ка-50", "en": "Ka-50"},
 }
 
 var VehicleGroundDict = map[string]map[string]string{
@@ -32,7 +33,6 @@ var VehicleGroundDict = map[string]map[string]string{
 	"ussr_zprk_2s6":                 {"ru": "2С6 \"Тунгуска\"", "en": "2С6 \"Tunguska\""},
 	"ussr_9a35_m2":                  {"ru": "9А35 \"Стрела-10\"", "en": "Strela-10M2"},
 	"ussr_t_80bvm":                  {"ru": "Т-80БВМ", "en": "T-80BVM"},
-	"ka_50":                         {"ru": "Ка-50", "en": "Ka-50"},
 	"ussr_bmp_2m":                   {"ru": "БМП-2М \"Бережок\"", "en": "BMP-2M"},
 	"ussr_2s25m":                    {"ru": "2С25М \"Спрут-СДМ1\"", "en": "2S25M"},
 	"ussr_t_80u":                    {"ru": "Т-80У", "en": "T-80U"},

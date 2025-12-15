@@ -1,0 +1,21 @@
+[project]
+name = "warthunderdiscordrpc"
+version = "2.0.0"
+description = ""
+authors = [
+    {name = "LedxDelivery",email = "korstim18@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.13,<4.0"
+dependencies = [
+    "pypresence (>=4.6.1,<5.0.0)",
+    "pydantic (>=2.12.5,<3.0.0)",
+    "loguru (>=0.7.3,<0.8.0)",
+    "pyyaml (>=6.0.3,<7.0.0)",
+    "httpx (>=0.28.1,<0.29.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

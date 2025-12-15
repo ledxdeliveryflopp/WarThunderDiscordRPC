@@ -1,0 +1,43 @@
+air_list:
+  f_16c_block_50:
+    ru: "F-16C Block 50"
+    en: "F-16C Block 50"
+  f_15c_msip2:
+    ru: "F-15C \"MSIP II\""
+    en: "F-15C \"MSIP II\""
+  mig_23ml:
+    ru: "МиГ-23МЛ"
+    en: "MiG-23ML"
+  mig_29smt_9_19:
+    ru: "МиГ-29СМТ (9-19)"
+    en: "MiG-29SMT (9-19)"
+  su_25tm:
+    ru: "Су-39"
+    en: "Su-39"
+  mi_24p:
+    ru: "Ми-24П"
+    en: "Mi-24P"
+  mi_24v:
+    ru: "Ми-24В"
+    en: "Mi-24V"
+  mi_24a:
+    ru: "Ми-24А"
+    en: "Mi-24A"
+  mi_4av:
+    ru: "Ми-4АВ"
+    en: "Mi-4AV"
+  ah_64d_japan:
+    ru: "AH-64DJP"
+    en: "AH-64DJP"
+  ah_1s_late:
+    ru: "AH-1S"
+    en: "AH-1S"
+  ah_1s_early:
+    ru: "AH-1E"
+    en: "AH-1E"
+  su_33:
+    ru: "Су-33"
+    en: "Su-33"
+  ka_50:
+    ru: "Ка-50"
+    en: "Ka-50"

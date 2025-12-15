@@ -48,7 +48,7 @@ class PresenceService(Presence, WtApi):
 
     def set_air_presence(self, vehicle_name: str) -> None:
         vehicle_image = self.get_vehicle_image(vehicle_tech_name=vehicle_name)
-        readable_name = parser.get_readable_air_name(air_parsed_name=vehicle_name)
+        readable_name = parser.get_readable_air_name(air_name=vehicle_name)
         details = f'Играет на: {readable_name}'
         state = None
         self.update(

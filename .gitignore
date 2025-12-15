@@ -35,3 +35,6 @@ cmd/wt/settings.json
 # builds
 cmd/wt/main.exe
 cmd/wt/wt_presence.exe
+dist
+build
+*.log

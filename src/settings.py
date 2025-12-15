@@ -60,13 +60,13 @@ class Settings:
 
     @logger.catch(reraise=True)
     def __load_air_vehicle_settings(self) -> dict:
-        with open('air_vehicle.yaml', 'r') as settings_data:
+        with open('air_vehicle.yaml', 'r', encoding='utf-8') as settings_data:
             data = yaml.load(settings_data, Loader=SafeLoader)
             return data['air_list']
 
     @logger.catch(reraise=True)
     def __load_ground_vehicle_settings(self) -> dict:
-        with open('ground_vehicle.yaml', 'r') as settings_data:
+        with open('ground_vehicle.yaml', 'r', encoding='utf-8') as settings_data:
             data = yaml.load(settings_data, Loader=SafeLoader)
             return data['ground_list']
 

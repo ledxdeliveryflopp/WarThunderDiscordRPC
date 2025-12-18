@@ -50,3 +50,9 @@ air_list:
   su_24m:
     ru: Су-24М
     en: Su-24M
+  i-16_type27:
+    ru: И-16 тип 27
+    en: I-16 type 27
+  mig-21_s:
+    ru: МиГ-21С (Р-13-300)
+    en: MiG-21S (R-13-300)

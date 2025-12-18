@@ -1,3 +1,4 @@
+import os
 from typing import Literal
 
 import yaml
@@ -82,6 +83,7 @@ class Settings:
 
     def set_settings(self) -> None:
         logger.info('----Configuring app----')
+        os.makedirs('static', exist_ok=True)
         main_settings_data = self.__load_main_settings()
         self.__set_api_settings(settings_data=main_settings_data)
         self.__set_presence_settings(settings_data=main_settings_data)
@@ -94,8 +96,14 @@ class Settings:
         logger.info('----Settings loaded----')
 
     def reset_air_vehicle_settings(self) -> None:
+        logger.debug('Reseting air Vehicle Settings')
         air_vehicle_data = self.__load_air_vehicle_settings()
         self.__set_air_vehicle_info(settings_data=air_vehicle_data)
+
+    def reset_ground_vehicle_settings(self) -> None:
+        logger.debug('Reseting ground Vehicle Settings')
+        ground_vehicle_data = self.__load_ground_vehicle_settings()
+        self.__set_ground_vehicle_info(settings_data=ground_vehicle_data)
 
 
 settings = Settings()

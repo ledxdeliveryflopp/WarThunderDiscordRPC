@@ -9,7 +9,7 @@ if __name__ == '__main__':
     logger.add(
         'wt_presence_{time}.log',
         format="{time:DD-MM-YYYY at HH:mm:ss} | {level} | {message}",
-        level='DEBUG',
+        level='INFO',
         diagnose=False,
     )
     settings.set_settings()

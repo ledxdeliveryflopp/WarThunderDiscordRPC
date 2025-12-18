@@ -7,8 +7,8 @@ settings:
     air_info_endpoint: '/state'
   presence:
     show_indicators: True
-    lang: en
-    logo_theme: main_red
+    lang: ru
+    logo_theme: main_white
   air_indicators:
     air_speed_type: IAS
-    altitude_type: RADIO
+    altitude_type: ABSOLUTE

@@ -1,0 +1,14 @@
+settings:
+  api:
+    api_ip: '127.0.0.1'
+    api_port: 8111
+    indicators_endpoint: '/indicators'
+    map_endpoint: '/map_info.json'
+    air_info_endpoint: '/state'
+  presence:
+    show_indicators: True
+    lang: ru
+    logo_theme: main_white
+  air_indicators:
+    air_speed_type: IAS
+    altitude_type: ABSOLUTE

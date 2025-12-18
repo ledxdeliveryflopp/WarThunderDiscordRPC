@@ -6,6 +6,9 @@ settings:
     map_endpoint: '/map_info.json'
     air_info_endpoint: '/state'
   presence:
-    show_indicators: False
+    show_indicators: True
     lang: en
-    logo_theme: main_white
+    logo_theme: main_red
+  air_indicators:
+    air_speed_type: IAS
+    altitude_type: RADIO

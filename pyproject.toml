@@ -13,7 +13,8 @@ dependencies = [
     "loguru (>=0.7.3,<0.8.0)",
     "pyyaml (>=6.0.3,<7.0.0)",
     "httpx (>=0.28.1,<0.29.0)",
-    "pyinstaller (>=6.17.0,<7.0.0)"
+    "pyinstaller (>=6.17.0,<7.0.0)",
+    "pydoll-python (>=2.14.0,<3.0.0)"
 ]
 
 

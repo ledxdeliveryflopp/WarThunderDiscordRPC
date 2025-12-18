@@ -27,3 +27,14 @@ class PresenceSettingsData(BaseModel):
 class PresenceSettings(BaseModel):
 
     presence: PresenceSettingsData
+
+
+class AirInfoSettingsData(BaseModel):
+
+    air_speed_type: Literal['IAS', 'TAS']
+    altitude_type: Literal['RADIO', 'ABSOLUTE']
+
+
+class AirInfoSettings(BaseModel):
+
+    air_indicators: AirInfoSettingsData

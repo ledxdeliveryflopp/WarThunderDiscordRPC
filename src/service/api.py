@@ -17,6 +17,7 @@ class WtApi:
     @staticmethod
     @logger.catch
     def get_main_info() -> MainInfoSchemas:
+        "Indicators"
         response = httpx.get(url=settings.main_info_url)
         logger.debug(f'main info response -> {response.json()}')
         validated = MainInfoSchemas(**response.json())
@@ -37,6 +38,7 @@ class WtApi:
     @staticmethod
     @logger.catch
     def get_air_state_request() -> AircraftInfoSchemas:
+        "STATE"
         response = httpx.get(url=settings.air_info_url)
         logger.debug(f'air info response -> {response.json()}')
         validated = AircraftInfoSchemas(**response.json())

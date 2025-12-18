@@ -5,11 +5,13 @@ from pypresence import Presence, ActivityType
 
 from src.const import const
 from src.service.api import WtApi
+from src.service.builder import Builder
 from src.service.parser import parser
 from src.settings import settings
+from src.shemas.api import MainInfoSchemas
 
 
-class PresenceService(Presence, WtApi):
+class PresenceService(Presence, WtApi, Builder):
 
     def __init__(self, client_id: str = '1344195597485211790'):
         self.start_time = time.time()
@@ -46,17 +48,25 @@ class PresenceService(Presence, WtApi):
             start=self.start_time
         )
 
-    def set_air_presence(self, vehicle_name: str) -> None:
+    def set_air_presence(self, indicator_schemas: MainInfoSchemas) -> None:
+        vehicle_name = indicator_schemas.vehicle_tech_name
         vehicle_image = self.get_vehicle_image(vehicle_tech_name=vehicle_name)
         readable_name = parser.get_readable_air_name(air_name=vehicle_name)
         details = f'Играет на: {readable_name}'
-        state = None
+        if settings.show_indicators is True:
+            states_schemas = self.get_air_state_request()
+            state = self.build_air_state(
+                indicators_schemas=indicator_schemas,
+                states_schemas=states_schemas,
+            )
+        else:
+            state = None
         self.update(
             activity_type=ActivityType.PLAYING,
             details=details,
             state=state,
             large_image=vehicle_image,
-            large_text=vehicle_name,
+            large_text=readable_name,
             small_text=const.game_name,
             small_image=settings.logo_theme,
             start=self.start_time
@@ -91,7 +101,7 @@ class PresenceService(Presence, WtApi):
         if army_type == 'dummy_plane' or vehicle_name == 'dummy_plane':
             self.set_loading_presence()
         elif army_type == 'air':
-            self.set_air_presence(vehicle_name=vehicle_name)
+            self.set_air_presence(indicator_schemas=main_info)
         elif army_type == 'tank':
             self.set_tank_presence(vehicle_name=vehicle_name)
         logger.debug('----Finish set presence----')

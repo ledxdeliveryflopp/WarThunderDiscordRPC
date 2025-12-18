@@ -1,8 +1,10 @@
+from typing import Literal
+
 import yaml
 from loguru import logger
 from yaml import SafeLoader
 
-from src.shemas.settings import ApiSettings, PresenceSettings
+from src.shemas.settings import ApiSettings, PresenceSettings, AirInfoSettings
 
 
 class Settings:
@@ -13,6 +15,8 @@ class Settings:
         self.map_endpoint: str | None = None
         self.air_info_endpoint: str | None = None
         self.show_indicators: bool | None = None
+        self.air_speed_type: Literal['IAS', 'TAS'] | None = None
+        self.altitude_type: Literal['RADIO', 'ABSOLUTE'] | None = None
         self.lang: str | None = None
         self.logo_theme: str | None = None
         self.main_info_url: str | None = None
@@ -52,6 +56,12 @@ class Settings:
     def __set_ground_vehicle_info(self, settings_data: dict) -> None:
         self.ground_dict = settings_data
 
+    def __set_air_info_settings(self, settings_data: dict) -> None:
+        validated_settings = AirInfoSettings(**settings_data)
+        logger.debug(f'air indicators settings - {validated_settings.model_dump()}')
+        self.air_speed_type = validated_settings.air_indicators.air_speed_type
+        self.altitude_type = validated_settings.air_indicators.altitude_type
+
     @logger.catch(reraise=True)
     def __load_main_settings(self) -> dict:
         with open('settings.yaml', 'r') as settings_data:
@@ -75,12 +85,17 @@ class Settings:
         main_settings_data = self.__load_main_settings()
         self.__set_api_settings(settings_data=main_settings_data)
         self.__set_presence_settings(settings_data=main_settings_data)
+        self.__set_air_info_settings(settings_data=main_settings_data)
         air_vehicle_data = self.__load_air_vehicle_settings()
         self.__set_air_vehicle_info(settings_data=air_vehicle_data)
         ground_vehicle_data = self.__load_ground_vehicle_settings()
         self.__set_ground_vehicle_info(settings_data=ground_vehicle_data)
         self.__set_endpoints()
         logger.info('----Settings loaded----')
+
+    def reset_air_vehicle_settings(self) -> None:
+        air_vehicle_data = self.__load_air_vehicle_settings()
+        self.__set_air_vehicle_info(settings_data=air_vehicle_data)
 
 
 settings = Settings()

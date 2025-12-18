@@ -20,7 +20,7 @@ class PresenceService(Presence, WtApi, Builder):
 
     def set_menu_presence(self) -> None:
         logger.debug('Set lobby presence')
-        details = 'В ангаре'
+        details = const.presence_lang.hangar[settings.lang]
         state = None
         self.update(
             activity_type=ActivityType.PLAYING,
@@ -35,7 +35,7 @@ class PresenceService(Presence, WtApi, Builder):
 
     def set_loading_presence(self) -> None:
         logger.debug('Set loading presence')
-        details = 'Загружается...'
+        details = const.presence_lang.loading[settings.lang]
         state = None
         self.update(
             activity_type=ActivityType.PLAYING,

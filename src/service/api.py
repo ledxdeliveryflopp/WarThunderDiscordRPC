@@ -26,24 +26,16 @@ class WtApi:
     @staticmethod
     @logger.catch
     def get_map_info() -> MapInfoSchemas | None:
-        try:
-            response = httpx.get(url=settings.map_info_url)
-            logger.debug(f'map info response -> {response.json()}')
-            validated = MapInfoSchemas(**response.json())
-            return validated
-        except httpx.ConnectError as connect_err:
-            logger.error(f'{connect_err}, url -> {settings.map_info_url}')
-            return None
+        response = httpx.get(url=settings.map_info_url)
+        logger.debug(f'map info response -> {response.json()}')
+        validated = MapInfoSchemas(**response.json())
+        return validated
 
     @staticmethod
     @logger.catch
     def get_air_state_request() -> AircraftInfoSchemas | None:
         "STATE"
-        try:
-            response = httpx.get(url=settings.air_info_url)
-            logger.debug(f'air info response -> {response.json()}')
-            validated = AircraftInfoSchemas(**response.json())
-            return validated
-        except httpx.ConnectError as connect_err:
-            logger.error(f'{connect_err}, url -> {settings.map_info_url}')
-            return None
+        response = httpx.get(url=settings.air_info_url)
+        logger.debug(f'air info response -> {response.json()}')
+        validated = AircraftInfoSchemas(**response.json())
+        return validated

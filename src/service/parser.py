@@ -39,6 +39,7 @@ class ParserService:
         return air_readable_name[settings.lang]
 
     @staticmethod
+    @logger.catch
     def __update_air_vehicle_list(
             air_tech_name: str, air_readable_name_ru: str, air_readable_name_en: str,
     ) -> None:
@@ -58,6 +59,7 @@ class ParserService:
             settings.reset_air_vehicle_settings()
 
     @staticmethod
+    @logger.catch
     def __update_ground_vehicle_list(
             ground_tech_name: str, ground_readable_name_ru: str, ground_readable_name_en: str,
     ) -> None:
@@ -77,6 +79,7 @@ class ParserService:
             settings.reset_ground_vehicle_settings()
 
     @staticmethod
+    @logger.catch
     def __setup_browser() -> ChromiumOptions:
         options = ChromiumOptions()
         options.headless = True

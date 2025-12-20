@@ -18,6 +18,7 @@ class PresenceService(Presence, WtApi, Builder):
         super().__init__(client_id=client_id)
         self.connect()
 
+    @logger.catch
     def set_menu_presence(self) -> None:
         logger.debug('Set lobby presence')
         details = const.presence_lang.hangar[settings.lang]
@@ -33,6 +34,7 @@ class PresenceService(Presence, WtApi, Builder):
             start=self.start_time
         )
 
+    @logger.catch
     def set_loading_presence(self) -> None:
         logger.debug('Set loading presence')
         details = const.presence_lang.loading[settings.lang]
@@ -48,6 +50,7 @@ class PresenceService(Presence, WtApi, Builder):
             start=self.start_time
         )
 
+    @logger.catch
     def set_air_presence(self, indicator_schemas: MainInfoSchemas) -> None:
         vehicle_name = indicator_schemas.vehicle_tech_name
         vehicle_image = self.get_vehicle_image(vehicle_tech_name=vehicle_name)
@@ -73,6 +76,7 @@ class PresenceService(Presence, WtApi, Builder):
             start=self.start_time
         )
 
+    @logger.catch
     def set_tank_presence(self, indicator_schemas: MainInfoSchemas) -> None:
         vehicle_name = indicator_schemas.vehicle_tech_name
         tank_parsed_name = parser.parse_tank_name(tank_tech_name=vehicle_name)

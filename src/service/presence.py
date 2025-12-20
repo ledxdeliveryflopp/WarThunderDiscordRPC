@@ -99,6 +99,7 @@ class PresenceService(Presence, WtApi, Builder):
             start=self.start_time
         )
 
+    @logger.catch
     def set_presence(self) -> None:
         logger.info('----Set presence----')
         map_info = self.get_map_info()

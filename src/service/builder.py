@@ -9,7 +9,10 @@ class Builder:
 
     @staticmethod
     @logger.catch
-    def build_air_state(indicators_schemas: MainInfoSchemas, states_schemas: AircraftInfoSchemas) -> str:
+    def build_air_state(
+            indicators_schemas: MainInfoSchemas,
+            states_schemas: AircraftInfoSchemas,
+    ) -> str:
         if settings.air_speed_type == 'TAS':
             speed = states_schemas.tas_speed
             state_info = const.presence_lang.tas_speed[settings.lang]
@@ -18,11 +21,12 @@ class Builder:
             speed = states_schemas.ias_speed
             state_info = const.presence_lang.ias_speed[settings.lang]
             speed_state = f'{state_info}: {speed}'
-        if settings.altitude_type == 'RADIO' and indicators_schemas.radio_altitude:
+        alt_type = settings.altitude_type
+        if alt_type == 'RADIO' and indicators_schemas.radio_altitude:
             altitude = int(indicators_schemas.radio_altitude)
             state_info = const.presence_lang.radio_altitude[settings.lang]
             altitude_state = f'{state_info}: {altitude}'
-        elif settings.altitude_type == 'ABSOLUTE' or indicators_schemas.radio_altitude is None:
+        elif alt_type == 'ABSOLUTE' or indicators_schemas.radio_altitude is None:
             altitude = int(states_schemas.water_altitude)
             state_info = const.presence_lang.absolute_altitude[settings.lang]
             altitude_state = f'{state_info}: {altitude}'

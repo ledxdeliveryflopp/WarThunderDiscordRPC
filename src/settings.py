@@ -46,7 +46,9 @@ class Settings:
 
     def __set_presence_settings(self, settings_data: dict) -> None:
         validated = PresenceSettings(**settings_data)
-        logger.debug(f'presence settings - {validated.model_dump()}')
+        logger.debug(
+            f'presence settings - {validated.model_dump()}',
+        )
         self.show_indicators = validated.presence.show_indicators
         self.lang = validated.presence.lang
         self.logo_theme = validated.presence.logo_theme
@@ -59,7 +61,9 @@ class Settings:
 
     def __set_air_info_settings(self, settings_data: dict) -> None:
         validated_settings = AirInfoSettings(**settings_data)
-        logger.debug(f'air indicators settings - {validated_settings.model_dump()}')
+        logger.debug(
+            f'air indicators settings - {validated_settings.model_dump()}',
+        )
         self.air_speed_type = validated_settings.air_indicators.air_speed_type
         self.altitude_type = validated_settings.air_indicators.altitude_type
 
@@ -81,7 +85,20 @@ class Settings:
             data = yaml.load(settings_data, Loader=SafeLoader)
             return data['ground_list']
 
+    @staticmethod
+    def __load_logs_settings() -> None:
+        with open('settings.yaml', 'r') as settings_data:
+            data = yaml.load(settings_data, Loader=SafeLoader)
+        log_level = data['settings']['logger']['level']
+        logger.add(
+            'wt_presence_{time}.log',
+            format="{time:DD-MM-YYYY at HH:mm:ss} | {level} | {message}",
+            level=log_level.upper(),
+        )
+        logger.info(f'Log level -> {log_level}')
+
     def set_settings(self) -> None:
+        self.__load_logs_settings()
         logger.info('----Configuring app----')
         os.makedirs('static', exist_ok=True)
         main_settings_data = self.__load_main_settings()
@@ -96,12 +113,12 @@ class Settings:
         logger.info('----Settings loaded----')
 
     def reset_air_vehicle_settings(self) -> None:
-        logger.debug('Reseting air Vehicle Settings')
+        logger.debug('Resetting air Vehicle Settings')
         air_vehicle_data = self.__load_air_vehicle_settings()
         self.__set_air_vehicle_info(settings_data=air_vehicle_data)
 
     def reset_ground_vehicle_settings(self) -> None:
-        logger.debug('Reseting ground Vehicle Settings')
+        logger.debug('Resetting ground Vehicle Settings')
         ground_vehicle_data = self.__load_ground_vehicle_settings()
         self.__set_ground_vehicle_info(settings_data=ground_vehicle_data)
 

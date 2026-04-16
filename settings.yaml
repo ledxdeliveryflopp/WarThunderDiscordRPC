@@ -12,3 +12,5 @@ settings:
   air_indicators:
     air_speed_type: IAS
     altitude_type: ABSOLUTE
+  logger:
+    level: 'DEBUG'

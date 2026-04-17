@@ -1,11 +1,10 @@
-## 2.1.0
+## 2.2.0
 ---
-## V2.1.0
-1. Change logger level
-2. Added settings for logger level
-3. Added an auxiliary application to add the main application to autorun
-4. Build main app to windowed mode
-
+## V2.2.0
+1. Transfer the application to async
+2. Changed the principle of resetting the status from closing to clearing the status
+3. Bugfix for saving Russian names of aircraft
+4. 
 ## How to use the Exe?(Windows)
 
 1. Download the archive
@@ -29,18 +28,16 @@ settings:
     altitude_type: ABSOLUTE  # ABSOLUTE  | RADIO
   logger:
     level: 'INFO' # log level
+  loop:
+    timeout: 50 # seconds after disconnect
 ```
 4. start exe file
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
-## V2.1.0
-1. Изменил изначальный уровень логирования на INFO
-2. Изменил уровни логирования внутри приложения
-3. Добавил возможность установки уровня логирования
-4. Добавил вспомогательное приложение для установки автозапуска
-5. Добавил логирование версии приложения при запуске
-6. Добавил проверку на подключение к дискору
-7. Добавил возможность переподключения к дискорду
+## V2.2.0
+1. Перевод приложения на async
+2. Изменил принцип сброса статуса с закрытия, на очистку статуса
+3. Багфикс сохранения русских названий воздушной техники
 
 ## Как использовать Exe?(Windows)
 
@@ -65,6 +62,8 @@ settings:
     altitude_type: ABSOLUTE  # ABSOLUTE  | RADIO выводить в индикаторы высоту относительно моря или по радиовысотомеру
   logger:
     level: 'INFO' # Уровень логирования
+  loop:
+    timeout: 50 # время ожидания между попытками поставить статус из-за закрытия игры или дискорда
 ```
 4. Запустите exe
 

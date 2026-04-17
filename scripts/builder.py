@@ -68,6 +68,7 @@ def set_default_app_settings() -> None:
     data['settings']['air_indicators']['air_speed_type'] = 'IAS'
     data['settings']['air_indicators']['altitude_type'] = 'ABSOLUTE'
     data['settings']['logger']['level'] = 'INFO'
+    data['settings']['loop']['timeout'] = 50
     logger.debug(f'Settings -> {data}')
     with open('dist/settings.yaml', 'w') as file:
         yaml.safe_dump(data, file)

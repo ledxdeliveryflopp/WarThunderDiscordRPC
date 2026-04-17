@@ -15,38 +15,36 @@ class ParserService:
 
     @staticmethod
     @logger.catch
-    def parse_tank_name(tank_tech_name: str) -> str:
+    async def parse_tank_name(tank_tech_name: str) -> str:
         parsed_name = tank_tech_name.replace('tankModels/', '').lower()
         logger.debug(f'tank parse name result -> {parsed_name}')
         return parsed_name
 
     @logger.catch
-    def get_readable_tank_name(self, tank_parsed_name: str) -> str:
+    async def get_readable_tank_name(self, tank_parsed_name: str) -> str:
         tank_readable_name = settings.ground_dict.get(tank_parsed_name, None)
         logger.info(f'Tank readable name -> {tank_readable_name}')
         if tank_readable_name is None:
-            asyncio.run(self.__get_vehicle_name_from_wiki(
+            await self.__get_vehicle_name_from_wiki(
                 vehicle_code=tank_parsed_name, army_type='tank',
-            )
             )
             return tank_parsed_name
         return tank_readable_name[settings.lang]
 
     @logger.catch
-    def get_readable_air_name(self, air_name: str) -> str:
+    async def get_readable_air_name(self, air_name: str) -> str:
         air_readable_name = settings.air_dict.get(air_name, None)
         logger.info(f'Air readable name -> {air_readable_name}')
         if air_readable_name is None:
-            asyncio.run(self.__get_vehicle_name_from_wiki(
+            await self.__get_vehicle_name_from_wiki(
                 vehicle_code=air_name, army_type='air',
-            )
             )
             return air_name
         return air_readable_name[settings.lang]
 
     @staticmethod
     @logger.catch
-    def __update_air_vehicle_list(
+    async def __update_air_vehicle_list(
             air_tech_name: str,
             air_readable_name_ru: str,
             air_readable_name_en: str,
@@ -64,11 +62,11 @@ class ParserService:
             data['air_list'][air_tech_name] = new_entry
         with open('air_vehicle.yaml', 'w', encoding='utf-8') as new_air_data:
             yaml.dump(data, new_air_data, allow_unicode=True, sort_keys=False)
-            settings.reset_air_vehicle_settings()
+            await settings.reset_air_vehicle_settings()
 
     @staticmethod
     @logger.catch
-    def __update_ground_vehicle_list(
+    async def __update_ground_vehicle_list(
             ground_tech_name: str,
             ground_readable_name_ru: str,
             ground_readable_name_en: str,
@@ -90,11 +88,11 @@ class ParserService:
             yaml.dump(
                 data, new_ground_data, allow_unicode=True, sort_keys=False,
             )
-            settings.reset_ground_vehicle_settings()
+            await settings.reset_ground_vehicle_settings()
 
     @staticmethod
     @logger.catch
-    def __setup_browser() -> ChromiumOptions:
+    async def __setup_browser() -> ChromiumOptions:
         options = ChromiumOptions()
         options.headless = True
         options.binary_location = 'chrome-win64/chrome.exe'
@@ -126,7 +124,7 @@ class ParserService:
         logger.info('Start search vehicle readable name!')
         logger.debug(f'Empty vehicle name -> {vehicle_code}')
         logger.debug(f'army_type -> {army_type}')
-        options = self.__setup_browser()
+        options = await self.__setup_browser()
 
         async with Chrome(options=options) as browser:
             tab = await browser.start()
@@ -150,7 +148,7 @@ class ParserService:
             )
             await asyncio.sleep(3)
             screenshot_path = os.path.join(
-                '{os.getcwd()}/static', f'{vehicle_code}_ru.png',
+                f'{os.getcwd()}/static', f'{vehicle_code}_ru.png',
             )
             logger.debug(f'Save screenshot to -> {screenshot_path}')
             await tab.take_screenshot(path=screenshot_path)
@@ -162,13 +160,13 @@ class ParserService:
                 logger.debug('Error while find title ru locator')
             if ru_title_bar or en_title_bar:
                 if army_type == 'air':
-                    self.__update_air_vehicle_list(
+                    await self.__update_air_vehicle_list(
                         air_tech_name=vehicle_code,
                         air_readable_name_ru=ru_title_text,
                         air_readable_name_en=en_title_text,
                     )
                 elif army_type == 'tank':
-                    self.__update_ground_vehicle_list(
+                    await self.__update_ground_vehicle_list(
                         ground_tech_name=vehicle_code,
                         ground_readable_name_ru=ru_title_text,
                         ground_readable_name_en=en_title_text,

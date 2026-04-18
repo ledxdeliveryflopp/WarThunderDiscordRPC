@@ -56,8 +56,8 @@ class ParserService:
         with open('air_vehicle.yaml', 'r', encoding='utf-8') as air_data:
             data = yaml.load(air_data, Loader=SafeLoader)
             new_entry = {
-                'ru': air_readable_name_ru,
-                'en': air_readable_name_en,
+                'ru': f'🛦{air_readable_name_ru}',
+                'en': f'🛦{air_readable_name_en}',
             }
             data['air_list'][air_tech_name] = new_entry
         with open('air_vehicle.yaml', 'w', encoding='utf-8') as new_air_data:
@@ -78,8 +78,8 @@ class ParserService:
         with open('ground_vehicle.yaml', 'r', encoding='utf-8') as air_data:
             data = yaml.load(air_data, Loader=SafeLoader)
             new_entry = {
-                'ru': ground_readable_name_ru,
-                'en': ground_readable_name_en,
+                'ru': f'⚔{ground_readable_name_ru}',
+                'en': f'⚔{ground_readable_name_en}',
             }
             data['ground_list'][ground_tech_name] = new_entry
         with open(

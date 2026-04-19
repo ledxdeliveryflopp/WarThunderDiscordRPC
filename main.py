@@ -21,7 +21,7 @@ async def main() -> None:
         if notify_service.win_version == '11':
             logger.info('Start plyer loop')
             notify_process = mp.Process(
-                target=notify_service.plyer_notify_loop,
+                target=notify_service.win11_notify_loop,
                 args=(settings,),
                 name='NotifyProcess',
                 daemon=False,
@@ -29,7 +29,7 @@ async def main() -> None:
         else:
             logger.info('Start win10-toast loop')
             notify_process = mp.Process(
-                target=notify_service.toast_notify_loop,
+                target=notify_service.win10_notify_loop,
                 args=(settings,),
                 name='NotifyProcess',
                 daemon=False,

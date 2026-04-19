@@ -1,13 +1,13 @@
+import os
 import platform
 import time
 
 from loguru import logger
 from win10toast import ToastNotifier
+from win11toast import notify
 
 from src.const import const
 from src.service.github import GitHubService
-
-from plyer import notification as win_notify
 
 from src.settings import Settings
 
@@ -21,9 +21,9 @@ class WinNotificationService(GitHubService):
         return version[0]
 
     @logger.catch
-    def plyer_notify_loop(self, app_settings: Settings) -> None:
+    def win11_notify_loop(self, app_settings: Settings) -> None:
         """Win11 notify loop"""
-        logger.add('notify_plyer.log', level='DEBUG')
+        logger.add('win11_notify.log', level='DEBUG')
         logger.debug(f'Notify settings -> {app_settings.__dict__}')
         while True:
             latest_release_data = self.get_latest_release()
@@ -47,29 +47,33 @@ class WinNotificationService(GitHubService):
                         '%d.%m.%Y'
                     )
                     date_msg = 'Дата релиза: '
+                    version_text = 'Версия: '
+                    url_text = 'Нажмите что бы открыть релиз'
                 else:
                     date = created_at.strftime(
                         '%m.%d.%Y'
                     )
                     date_msg = 'Release date: '
-                message_info = f'{latest_tag} \n{date_msg}{date}'
+                    version_text = 'Version: '
+                    url_text = 'Click to see the latest release'
+                message_info = f'{version_text}{latest_tag} \n{date_msg}{date} \n{url_text}'
                 message = f'{message_base}{message_info}'
                 logger.debug('Show notification')
                 logger.debug(f'Notify title -> {title}')
                 logger.debug(f'Notify message -> {message}')
-                win_notify.notify(
-                    title=title,
-                    message=message,
-                    app_name='WTDRPC',
-                    app_icon='app_icon.ico',
-                    timeout=10,
+                icon = f'file://{os.getcwd()}/notify_img.png'
+                notify(
+                    title,
+                    message_info,
+                    icon=icon,
+                    on_click=latest_release_data.html_url,
                 )
             time.sleep(3600)
 
     @logger.catch
-    def toast_notify_loop(self, app_settings: Settings) -> None:
+    def win10_notify_loop(self, app_settings: Settings) -> None:
         """Win10 notify loop"""
-        logger.add('notify_toast.log', level='DEBUG')
+        logger.add('win10_notify.log', level='DEBUG')
         logger.debug(f'Notify settings -> {app_settings.__dict__}')
         while True:
             latest_release_data = self.get_latest_release()

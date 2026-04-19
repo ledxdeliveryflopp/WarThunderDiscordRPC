@@ -1,7 +1,8 @@
-## 2.6.0
+## 2.7.0
 ---
-## V2.6.0
-1. Add notification support for win 10
+## V2.7.0
+1. Change lib for win11 notification
+2. Change lib for win10 notification
 
 ## How to use the Exe?(Windows)
 
@@ -34,8 +35,9 @@ settings:
 4. start exe file
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
-## V2.6.0
-1. Добавил поддержку нотификаций для win 10
+## V2.7.0
+1. Перевел уведомления в win11 на win11toast
+2. Перевел уведомления в win11 на win10toast
 
 ## Как использовать Exe?(Windows)
 

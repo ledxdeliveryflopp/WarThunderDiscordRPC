@@ -23,7 +23,8 @@ class Lang:
     tank_speed: dict = {'en': 'Speed', 'ru': 'Скорость'}
     tank_crew: dict = {'en': 'Crew', 'ru': 'Экипаж'}
     update_header: dict = {
-        'en': 'Version checker', 'ru': 'Информация об обновлении',
+        'en': 'WTDRP - version checker',
+        'ru': 'WTDRP - информация об обновлениях',
     }
     update_message: dict = {
         'en': 'New app version available: ', 'ru': 'Доступна новая версия: ',
@@ -32,7 +33,7 @@ class Lang:
 
 class Constants:
 
-    APP_VERSION = '2.5.0'
+    APP_VERSION = '2.7.0'
     game_name: str = 'War Thunder'
     presence_lang: Lang = Lang()
     github: Git = Git()

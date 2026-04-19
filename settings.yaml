@@ -7,7 +7,7 @@ settings:
     air_info_endpoint: '/state'
   presence:
     show_indicators: True
-    lang: en
+    lang: ru
     logo_theme: main_white
     custom_images: True
   air_indicators:

@@ -1158,24 +1158,6 @@ files = [
 ]
 
 [[package]]
-name = "plyer"
-version = "2.1.0"
-description = "Platform-independent wrapper for platform-dependent APIs"
-optional = false
-python-versions = "*"
-groups = ["main"]
-files = [
-    {file = "plyer-2.1.0-py2.py3-none-any.whl", hash = "sha256:1b1772060df8b3045ed4f08231690ec8f7de30f5a004aa1724665a9074eed113"},
-    {file = "plyer-2.1.0.tar.gz", hash = "sha256:65b7dfb7e11e07af37a8487eb2aa69524276ef70dad500b07228ce64736baa61"},
-]
-
-[package.extras]
-android = ["pyjnius"]
-dev = ["flake8", "mock"]
-ios = ["pyobjus"]
-macosx = ["pyobjus"]
-
-[[package]]
 name = "propcache"
 version = "0.4.1"
 description = "Accelerated property cache"
@@ -2134,6 +2116,32 @@ pypiwin32 = "*"
 setuptools = "*"
 
 [[package]]
+name = "win11toast"
+version = "0.36.3"
+description = "Toast notifications for Windows 10 and 11"
+optional = false
+python-versions = "*"
+groups = ["main"]
+files = [
+    {file = "win11toast-0.36.3-py3-none-any.whl", hash = "sha256:25bba8a906358520558313181b021c7b4fe31cfdf849e15c39b41f97dbdc839d"},
+    {file = "win11toast-0.36.3.tar.gz", hash = "sha256:6a9acb89165d56ca23b993cd95fcb3dbeb090f1711cbb631f539e92174fd390d"},
+]
+
+[package.dependencies]
+"winrt-Windows.Data.Xml.Dom" = "*"
+"winrt-Windows.Foundation" = "*"
+"winrt.windows.Foundation.Collections" = "*"
+"winrt-Windows.Globalization" = "*"
+"winrt-Windows.Graphics.Imaging" = "*"
+"winrt-Windows.Media.Core" = "*"
+"winrt-Windows.Media.Ocr" = "*"
+"winrt-Windows.Media.Playback" = "*"
+"winrt-Windows.Media.Speechsynthesis" = "*"
+"winrt-Windows.Storage" = "*"
+"winrt-Windows.Storage.Streams" = "*"
+"winrt-Windows.UI.Notifications" = "*"
+
+[[package]]
 name = "win32-setctime"
 version = "1.2.0"
 description = "A small Python utility to set file creation time on Windows"
@@ -2148,6 +2156,458 @@ files = [
 
 [package.extras]
 dev = ["black (>=19.3b0) ; python_version >= \"3.6\"", "pytest (>=4.6.2)"]
+
+[[package]]
+name = "winrt-runtime"
+version = "3.2.1"
+description = "Python projection of Windows Runtime (WinRT) APIs"
+optional = false
+python-versions = ">=3.9"
+groups = ["main"]
+files = [
+    {file = "winrt_runtime-3.2.1-cp310-cp310-win32.whl", hash = "sha256:25a2d1e2b45423742319f7e10fa8ca2e7063f01284b6e85e99d805c4b50bbfb3"},
+    {file = "winrt_runtime-3.2.1-cp310-cp310-win_amd64.whl", hash = "sha256:dc81d5fb736bf1ddecf743928622253dce4d0aac9a57faad776d7a3834e13257"},
+    {file = "winrt_runtime-3.2.1-cp310-cp310-win_arm64.whl", hash = "sha256:363f584b1e9fcb601e3e178636d8877e6f0537ac3c96ce4a96f06066f8ff0eae"},
+    {file = "winrt_runtime-3.2.1-cp311-cp311-win32.whl", hash = "sha256:9e9b64f1ba631cc4b9fe60b8ff16fef3f32c7ce2fcc84735a63129ff8b15c022"},
+    {file = "winrt_runtime-3.2.1-cp311-cp311-win_amd64.whl", hash = "sha256:c0a9046ae416808420a358c51705af8ae100acd40bc578be57ddfdd51cbb0f9c"},
+    {file = "winrt_runtime-3.2.1-cp311-cp311-win_arm64.whl", hash = "sha256:e94f3cb40ea2d723c44c82c16d715c03c6b3bd977d135b49535fdd5415fd9130"},
+    {file = "winrt_runtime-3.2.1-cp312-cp312-win32.whl", hash = "sha256:762b3d972a2f7037f7db3acbaf379dd6d8f6cda505f71f66c6b425d1a1eae2f1"},
+    {file = "winrt_runtime-3.2.1-cp312-cp312-win_amd64.whl", hash = "sha256:06510db215d4f0dc45c00fbb1251c6544e91742a0ad928011db33b30677e1576"},
+    {file = "winrt_runtime-3.2.1-cp312-cp312-win_arm64.whl", hash = "sha256:14562c29a087ccad38e379e585fef333e5c94166c807bdde67b508a6261aa195"},
+    {file = "winrt_runtime-3.2.1-cp313-cp313-win32.whl", hash = "sha256:44e2733bc709b76c554aee6c7fe079443b8306b2e661e82eecfebe8b9d71e4d1"},
+    {file = "winrt_runtime-3.2.1-cp313-cp313-win_amd64.whl", hash = "sha256:3c1fdcaeedeb2920dc3b9039db64089a6093cad2be56a3e64acc938849245a6d"},
+    {file = "winrt_runtime-3.2.1-cp313-cp313-win_arm64.whl", hash = "sha256:28f3dab083412625ff4d2b46e81246932e6bebddf67bea7f05e01712f54e6159"},
+    {file = "winrt_runtime-3.2.1-cp314-cp314-win32.whl", hash = "sha256:9b6298375468ac2f6815d0c008a059fc16508c8f587e824c7936ed9216480dad"},
+    {file = "winrt_runtime-3.2.1-cp314-cp314-win_amd64.whl", hash = "sha256:e36e587ab5fd681ee472cd9a5995743f75107a1a84d749c64f7e490bc86bc814"},
+    {file = "winrt_runtime-3.2.1-cp314-cp314-win_arm64.whl", hash = "sha256:35d6241a2ebd5598e4788e69768b8890ee1eee401a819865767a1fbdd3e9a650"},
+    {file = "winrt_runtime-3.2.1-cp39-cp39-win32.whl", hash = "sha256:07c0cb4a53a4448c2cb7597b62ae8c94343c289eeebd8f83f946eb2c817bde01"},
+    {file = "winrt_runtime-3.2.1-cp39-cp39-win_amd64.whl", hash = "sha256:1856325ca3354b45e0789cf279be9a882134085d34214946db76110d98391efa"},
+    {file = "winrt_runtime-3.2.1-cp39-cp39-win_arm64.whl", hash = "sha256:cf237858de1d62e4c9b132c66b52028a7a3e8534e8ab90b0e29a68f24f7be39d"},
+    {file = "winrt_runtime-3.2.1.tar.gz", hash = "sha256:c8dca19e12b234ae6c3dadf1a4d0761b51e708457492c13beb666556958801ea"},
+]
+
+[package.dependencies]
+typing_extensions = ">=4.12.2"
+
+[[package]]
+name = "winrt-windows-data-xml-dom"
+version = "3.2.1"
+description = "Python projection of Windows Runtime (WinRT) APIs"
+optional = false
+python-versions = ">=3.9"
+groups = ["main"]
+files = [
+    {file = "winrt_windows_data_xml_dom-3.2.1-cp310-cp310-win32.whl", hash = "sha256:ac2c823a328f6a532b45067d3ced3490aebc14afaac9fd9d04a1dad7cb8be74b"},
+    {file = "winrt_windows_data_xml_dom-3.2.1-cp310-cp310-win_amd64.whl", hash = "sha256:bf9125e5c84e595d7dafb36c20ed49170c14b96c0c544ba9acba1f1b5a347a2a"},
+    {file = "winrt_windows_data_xml_dom-3.2.1-cp310-cp310-win_arm64.whl", hash = "sha256:0617d77e9be9adb13a8620394dac0ae03714a2cadc5ed7728f4761ec1148fd77"},
+    {file = "winrt_windows_data_xml_dom-3.2.1-cp311-cp311-win32.whl", hash = "sha256:50e09bff8652adacb91115d5c6ff6372f4c9c9d277d63b5e4d3958b8c34420cf"},
+    {file = "winrt_windows_data_xml_dom-3.2.1-cp311-cp311-win_amd64.whl", hash = "sha256:a507631812307ad65d8928a382ac2b9f21b81627db11410570e6686951e0dc55"},
+    {file = "winrt_windows_data_xml_dom-3.2.1-cp311-cp311-win_arm64.whl", hash = "sha256:0d8ed4093792d207e8961bd50665374e15b49d8f7a274369257e4ad93e0731a5"},
+    {file = "winrt_windows_data_xml_dom-3.2.1-cp312-cp312-win32.whl", hash = "sha256:be2e9edbc4702c0cfd88ae48260b55bb30ee3e15c86c6c4240aaf4f2c54ff380"},
+    {file = "winrt_windows_data_xml_dom-3.2.1-cp312-cp312-win_amd64.whl", hash = "sha256:b531a61a30106ecc7c7b3ad8f1b22e98d8366bbc2c60c47f5053fe62479109d6"},
+    {file = "winrt_windows_data_xml_dom-3.2.1-cp312-cp312-win_arm64.whl", hash = "sha256:0b3eed7fd618d0bfbafea730bbcb24cb6a94dcd742b2b9c7d5d66319494e5f35"},
+    {file = "winrt_windows_data_xml_dom-3.2.1-cp313-cp313-win32.whl", hash = "sha256:7091ee8d472a18336887edee6bf90d9261783f82b1a0fec00ba0e6a1a00623eb"},
+    {file = "winrt_windows_data_xml_dom-3.2.1-cp313-cp313-win_amd64.whl", hash = "sha256:b51b67c0bf88995827151d4e8ff0edcb2120406d4aedcb9574854b904b92a11f"},
+    {file = "winrt_windows_data_xml_dom-3.2.1-cp313-cp313-win_arm64.whl", hash = "sha256:e4ed27ec593b96bcd13fffd9fd0bf74744b0dacc249faa5af0ef1d903ed59c1b"},
+    {file = "winrt_windows_data_xml_dom-3.2.1-cp314-cp314-win32.whl", hash = "sha256:77258030a725a32359fd2a93855cafa0e3f3f38e67afd5dfe74a8a215cbb31c4"},
+    {file = "winrt_windows_data_xml_dom-3.2.1-cp314-cp314-win_amd64.whl", hash = "sha256:1cf1b6f31fff4e4c0ae30f1643b169da72b3b053a2996010f2c3a1e26b5d4970"},
+    {file = "winrt_windows_data_xml_dom-3.2.1-cp314-cp314-win_arm64.whl", hash = "sha256:6de83f853d889444e4897413c2fa8183f86aa602edd34abf36a4fdc69db1650e"},
+    {file = "winrt_windows_data_xml_dom-3.2.1-cp39-cp39-win32.whl", hash = "sha256:08d7e240c55c3b81e1bc04a45d7450f89196825de64637a3df2e2d3c4c13a124"},
+    {file = "winrt_windows_data_xml_dom-3.2.1-cp39-cp39-win_amd64.whl", hash = "sha256:9eb51bf2df8e32b65a2c3ca3d8d6e9f88805d05b710964a2302d14f80628244d"},
+    {file = "winrt_windows_data_xml_dom-3.2.1-cp39-cp39-win_arm64.whl", hash = "sha256:4ed0fb1bcdcb919d93c2691363d4995838c6bd52a1d324f3fb4b9844cc3ac322"},
+    {file = "winrt_windows_data_xml_dom-3.2.1.tar.gz", hash = "sha256:db81f5956bf63ce8c9d8bfb6d0794ab2849f26e62a6256b833af8de3d6451399"},
+]
+
+[package.dependencies]
+winrt-runtime = ">=3.2.1.0,<3.3.0.0"
+
+[package.extras]
+all = ["winrt-Windows.Foundation.Collections[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Foundation[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Storage.Streams[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Storage[all] (>=3.2.1.0,<3.3.0.0)"]
+
+[[package]]
+name = "winrt-windows-foundation"
+version = "3.2.1"
+description = "Python projection of Windows Runtime (WinRT) APIs"
+optional = false
+python-versions = ">=3.9"
+groups = ["main"]
+files = [
+    {file = "winrt_windows_foundation-3.2.1-cp310-cp310-win32.whl", hash = "sha256:677e98165dcbbf7a2367f905bc61090ef2c568b6e465f87cf7276df4734f3b0b"},
+    {file = "winrt_windows_foundation-3.2.1-cp310-cp310-win_amd64.whl", hash = "sha256:a8f27b4f0fdb73ccc4a3e24bc8010a6607b2bdd722fa799eafce7daa87d19d39"},
+    {file = "winrt_windows_foundation-3.2.1-cp310-cp310-win_arm64.whl", hash = "sha256:d900c6165fab4ea589811efa2feed27b532e1b6f505f63bf63e2052b8cb6bdc4"},
+    {file = "winrt_windows_foundation-3.2.1-cp311-cp311-win32.whl", hash = "sha256:d1b5970241ccd61428f7330d099be75f4f52f25e510d82c84dbbdaadd625e437"},
+    {file = "winrt_windows_foundation-3.2.1-cp311-cp311-win_amd64.whl", hash = "sha256:f3762be2f6e0f2aedf83a0742fd727290b397ffe3463d963d29211e4ebb53a7e"},
+    {file = "winrt_windows_foundation-3.2.1-cp311-cp311-win_arm64.whl", hash = "sha256:806c77818217b3476e6c617293b3d5b0ff8a9901549dc3417586f6799938d671"},
+    {file = "winrt_windows_foundation-3.2.1-cp312-cp312-win32.whl", hash = "sha256:867642ccf629611733db482c4288e17b7919f743a5873450efb6d69ae09fdc2b"},
+    {file = "winrt_windows_foundation-3.2.1-cp312-cp312-win_amd64.whl", hash = "sha256:45550c5b6c2125cde495c409633e6b1ea5aa1677724e3b95eb8140bfccbe30c9"},
+    {file = "winrt_windows_foundation-3.2.1-cp312-cp312-win_arm64.whl", hash = "sha256:94f4661d71cb35ebc52be7af112f2eeabdfa02cb05e0243bf9d6bd2cafaa6f37"},
+    {file = "winrt_windows_foundation-3.2.1-cp313-cp313-win32.whl", hash = "sha256:3998dc58ed50ecbdbabace1cdef3a12920b725e32a5806d648ad3f4829d5ba46"},
+    {file = "winrt_windows_foundation-3.2.1-cp313-cp313-win_amd64.whl", hash = "sha256:6e98617c1e46665c7a56ce3f5d28e252798416d1ebfee3201267a644a4e3c479"},
+    {file = "winrt_windows_foundation-3.2.1-cp313-cp313-win_arm64.whl", hash = "sha256:2a8c1204db5c352f6a563130a5a41d25b887aff7897bb677d4ff0b660315aad4"},
+    {file = "winrt_windows_foundation-3.2.1-cp314-cp314-win32.whl", hash = "sha256:35e973ab3c77c2a943e139302256c040e017fd6ff1a75911c102964603bba1da"},
+    {file = "winrt_windows_foundation-3.2.1-cp314-cp314-win_amd64.whl", hash = "sha256:a22a7ebcec0d262e60119cff728f32962a02df60471ded8b2735a655eccc0ef5"},
+    {file = "winrt_windows_foundation-3.2.1-cp314-cp314-win_arm64.whl", hash = "sha256:3be7fbae829b98a6a946db4fbaf356b11db1fbcbb5d4f37e7a73ac6b25de8b87"},
+    {file = "winrt_windows_foundation-3.2.1-cp39-cp39-win32.whl", hash = "sha256:14d5191725301498e4feb744d91f5b46ce317bf3d28370efda407d5c87f4423b"},
+    {file = "winrt_windows_foundation-3.2.1-cp39-cp39-win_amd64.whl", hash = "sha256:de5e4f61d253a91ba05019dbf4338c43f962bdad935721ced5e7997933994af5"},
+    {file = "winrt_windows_foundation-3.2.1-cp39-cp39-win_arm64.whl", hash = "sha256:ebbf6e8168398c9ed0c72c8bdde95a406b9fbb9a23e3705d4f0fe28e5a209705"},
+    {file = "winrt_windows_foundation-3.2.1.tar.gz", hash = "sha256:ad2f1fcaa6c34672df45527d7c533731fdf65b67c4638c2b4aca949f6eec0656"},
+]
+
+[package.dependencies]
+winrt-runtime = ">=3.2.1.0,<3.3.0.0"
+
+[package.extras]
+all = ["winrt-Windows.Foundation.Collections[all] (>=3.2.1.0,<3.3.0.0)"]
+
+[[package]]
+name = "winrt-windows-foundation-collections"
+version = "3.2.1"
+description = "Python projection of Windows Runtime (WinRT) APIs"
+optional = false
+python-versions = ">=3.9"
+groups = ["main"]
+files = [
+    {file = "winrt_windows_foundation_collections-3.2.1-cp310-cp310-win32.whl", hash = "sha256:46948484addfc4db981dab35688d4457533ceb54d4954922af41503fddaa8389"},
+    {file = "winrt_windows_foundation_collections-3.2.1-cp310-cp310-win_amd64.whl", hash = "sha256:899eaa3a93c35bfb1857d649e8dd60c38b978dda7cedd9725fcdbcebba156fd6"},
+    {file = "winrt_windows_foundation_collections-3.2.1-cp310-cp310-win_arm64.whl", hash = "sha256:c36eb49ad1eba1b32134df768bb47af13cabb9b59f974a3cea37843e2d80e0e6"},
+    {file = "winrt_windows_foundation_collections-3.2.1-cp311-cp311-win32.whl", hash = "sha256:9b272d9936e7db4840881c5dcf921eb26789ae4ef23fb6ec15e13e19a16254e7"},
+    {file = "winrt_windows_foundation_collections-3.2.1-cp311-cp311-win_amd64.whl", hash = "sha256:c646a5d442dd6540ade50890081ca118b41f073356e19032d0a5d7d0d38fbc89"},
+    {file = "winrt_windows_foundation_collections-3.2.1-cp311-cp311-win_arm64.whl", hash = "sha256:2c4630027c93cdd518b0cf4cc726b8fbdbc3388e36d02aa1de190a0fc18ca523"},
+    {file = "winrt_windows_foundation_collections-3.2.1-cp312-cp312-win32.whl", hash = "sha256:15704eef3125788f846f269cf54a3d89656fa09a1dc8428b70871f717d595ad6"},
+    {file = "winrt_windows_foundation_collections-3.2.1-cp312-cp312-win_amd64.whl", hash = "sha256:550dfb8c82fe74d9e0728a2a16a9175cc9e34ca2b8ef758d69b2a398894b698b"},
+    {file = "winrt_windows_foundation_collections-3.2.1-cp312-cp312-win_arm64.whl", hash = "sha256:810ad4bd11ab4a74fdbcd3ed33b597ef7c0b03af73fc9d7986c22bcf3bd24f84"},
+    {file = "winrt_windows_foundation_collections-3.2.1-cp313-cp313-win32.whl", hash = "sha256:4267a711b63476d36d39227883aeb3fb19ac92b88a9fc9973e66fbce1fd4aed9"},
+    {file = "winrt_windows_foundation_collections-3.2.1-cp313-cp313-win_amd64.whl", hash = "sha256:5e12a6e75036ee90484c33e204b85fb6785fcc9e7c8066ad65097301f48cdd10"},
+    {file = "winrt_windows_foundation_collections-3.2.1-cp313-cp313-win_arm64.whl", hash = "sha256:34b556255562f1b36d07fba933c2bcd9f0db167fa96727a6cbb4717b152ad7a2"},
+    {file = "winrt_windows_foundation_collections-3.2.1-cp314-cp314-win32.whl", hash = "sha256:33188ed2d63e844c8adfbb82d1d3d461d64aaf78d225ce9c5930421b413c45ab"},
+    {file = "winrt_windows_foundation_collections-3.2.1-cp314-cp314-win_amd64.whl", hash = "sha256:d4cfece7e9c0ead2941e55a1da82f20d2b9c8003bb7a8853bb7f999b539f80a4"},
+    {file = "winrt_windows_foundation_collections-3.2.1-cp314-cp314-win_arm64.whl", hash = "sha256:3884146fea13727510458f6a14040b7632d5d90127028b9bfd503c6c655d0c01"},
+    {file = "winrt_windows_foundation_collections-3.2.1-cp39-cp39-win32.whl", hash = "sha256:20610f098b84c87765018cbc71471092197881f3b92e5d06158fad3bfcea2563"},
+    {file = "winrt_windows_foundation_collections-3.2.1-cp39-cp39-win_amd64.whl", hash = "sha256:e9739775320ac4c0238e1775d94a54e886d621f9995977e65d4feb8b3778c111"},
+    {file = "winrt_windows_foundation_collections-3.2.1-cp39-cp39-win_arm64.whl", hash = "sha256:e4c6bddb1359d5014ceb45fe2ecd838d4afeb1184f2ea202c2d21037af0d08a3"},
+    {file = "winrt_windows_foundation_collections-3.2.1.tar.gz", hash = "sha256:0eff1ad0d8d763ad17e9e7bbd0c26a62b27215016393c05b09b046d6503ae6d5"},
+]
+
+[package.dependencies]
+winrt-runtime = ">=3.2.1.0,<3.3.0.0"
+
+[package.extras]
+all = ["winrt-Windows.Foundation[all] (>=3.2.1.0,<3.3.0.0)"]
+
+[[package]]
+name = "winrt-windows-globalization"
+version = "3.2.1"
+description = "Python projection of Windows Runtime (WinRT) APIs"
+optional = false
+python-versions = ">=3.9"
+groups = ["main"]
+files = [
+    {file = "winrt_windows_globalization-3.2.1-cp310-cp310-win32.whl", hash = "sha256:dd6ced887ec39ca502a96640e1563f89515c505d32bad51939d8b6c78855477a"},
+    {file = "winrt_windows_globalization-3.2.1-cp310-cp310-win_amd64.whl", hash = "sha256:a43e4ed880961c0639d09f2d5bd51fb97f27ef95f6732285a64342121d601a39"},
+    {file = "winrt_windows_globalization-3.2.1-cp310-cp310-win_arm64.whl", hash = "sha256:5ffd6c934b72cbad281c8f5bd8d6f01d5c6a86f39cc7a944a460cd3b5c5da632"},
+    {file = "winrt_windows_globalization-3.2.1-cp311-cp311-win32.whl", hash = "sha256:d873bee4d092ddc37a434d45989049fc203c0231e700961ea45d96d4fa8ba8f0"},
+    {file = "winrt_windows_globalization-3.2.1-cp311-cp311-win_amd64.whl", hash = "sha256:dbd1bd81bc926efbccc6bc7bc04bf7668d045802f9e07cef821d69b717793f6f"},
+    {file = "winrt_windows_globalization-3.2.1-cp311-cp311-win_arm64.whl", hash = "sha256:6b6232e404c0521ff7d181651899da84e2b6cf67a5c249d2c2cbca695d60e2d6"},
+    {file = "winrt_windows_globalization-3.2.1-cp312-cp312-win32.whl", hash = "sha256:77886c2b1c7a8781100dea1201b4667a6cbe2dc9fb2f84c436e9d55c99225e4e"},
+    {file = "winrt_windows_globalization-3.2.1-cp312-cp312-win_amd64.whl", hash = "sha256:fa4dbf6b18586e435bdd5d40b8536fe1dfd95810a264a135d121b34e33d39aa5"},
+    {file = "winrt_windows_globalization-3.2.1-cp312-cp312-win_arm64.whl", hash = "sha256:c0dac787143e6855a2429209e03b17ea493e344c95e96c1caa9b181b846401da"},
+    {file = "winrt_windows_globalization-3.2.1-cp313-cp313-win32.whl", hash = "sha256:c0bdba6dcedfa1ca894fe8de2c58cb23274d524dc048e1585d383c2732a666a5"},
+    {file = "winrt_windows_globalization-3.2.1-cp313-cp313-win_amd64.whl", hash = "sha256:e03c3339a9632bf855c7f24479d6014627dc15882a12a712f2706c2380e094cf"},
+    {file = "winrt_windows_globalization-3.2.1-cp313-cp313-win_arm64.whl", hash = "sha256:ae8cbc0fd548afc2733c6550842d121139f2e85db9763c7e5afd740f0e921437"},
+    {file = "winrt_windows_globalization-3.2.1-cp314-cp314-win32.whl", hash = "sha256:487772ddae211ad5dbe0364edc5443e1a091b713ed4cf67d753fb20e212065b4"},
+    {file = "winrt_windows_globalization-3.2.1-cp314-cp314-win_amd64.whl", hash = "sha256:60761540a6acb1273ea024e98616996522f485075ae48e5954d797896c5e2fc2"},
+    {file = "winrt_windows_globalization-3.2.1-cp314-cp314-win_arm64.whl", hash = "sha256:9cb07af0c26f2fdb144fd2806a6c0de30b6c78f3afdf5a574375dd77de4574ff"},
+    {file = "winrt_windows_globalization-3.2.1-cp39-cp39-win32.whl", hash = "sha256:a1f0962a8eb6ae09a4f6209020f38cf3df97efed58cd0b935bb72182e0755951"},
+    {file = "winrt_windows_globalization-3.2.1-cp39-cp39-win_amd64.whl", hash = "sha256:bb5470af8d9ad1deb27563361482ad39242dbeed5cbce4fd800d01ccdbac82ac"},
+    {file = "winrt_windows_globalization-3.2.1-cp39-cp39-win_arm64.whl", hash = "sha256:0978ab32a0e485d877d31251229c74cdf21918a39f2b0cb537db0db04c7de8f6"},
+    {file = "winrt_windows_globalization-3.2.1.tar.gz", hash = "sha256:bf81ba15b33b34d94f68c0c97a3916c57c5a624b55abf409811320dee2a4dab4"},
+]
+
+[package.dependencies]
+winrt-runtime = ">=3.2.1.0,<3.3.0.0"
+
+[package.extras]
+all = ["winrt-Windows.Foundation.Collections[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Foundation[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.System[all] (>=3.2.1.0,<3.3.0.0)"]
+
+[[package]]
+name = "winrt-windows-graphics-imaging"
+version = "3.2.1"
+description = "Python projection of Windows Runtime (WinRT) APIs"
+optional = false
+python-versions = ">=3.9"
+groups = ["main"]
+files = [
+    {file = "winrt_windows_graphics_imaging-3.2.1-cp310-cp310-win32.whl", hash = "sha256:bcfbae441b0e8db388f23a7861496e206cf4fe59ab75991ddcf340dac3d2a344"},
+    {file = "winrt_windows_graphics_imaging-3.2.1-cp310-cp310-win_amd64.whl", hash = "sha256:412eb738f55d4ba9f1df99116f3ceede2d678d3ad578d0e231e901c46a8d2240"},
+    {file = "winrt_windows_graphics_imaging-3.2.1-cp310-cp310-win_arm64.whl", hash = "sha256:c6f9bf94f41335b184bf165569012bef6f4819fb7da057b153e5f8f7d1536c85"},
+    {file = "winrt_windows_graphics_imaging-3.2.1-cp311-cp311-win32.whl", hash = "sha256:6c538087b8955a8ba9cd067588a3a000390e05783875da33059bab9c5cd38a0a"},
+    {file = "winrt_windows_graphics_imaging-3.2.1-cp311-cp311-win_amd64.whl", hash = "sha256:fa349bb85d69b75ee05a223e4383eecb74c82df50db9b450d4d3b174f98577a6"},
+    {file = "winrt_windows_graphics_imaging-3.2.1-cp311-cp311-win_arm64.whl", hash = "sha256:25956a9fc7cc6f2aabdb43b07e6f058ff4abaa8a9116b68a9bf26a9a27a802fe"},
+    {file = "winrt_windows_graphics_imaging-3.2.1-cp312-cp312-win32.whl", hash = "sha256:9694d7753b88f8ea4ee85564208e534e5d15474e88709aba99d16d783b633de2"},
+    {file = "winrt_windows_graphics_imaging-3.2.1-cp312-cp312-win_amd64.whl", hash = "sha256:066038a96df12c23d6da6a591472436ada50103f575d8a1f802778a044f668c8"},
+    {file = "winrt_windows_graphics_imaging-3.2.1-cp312-cp312-win_arm64.whl", hash = "sha256:5850bbfa0ad87dd138fbd2c3088d0641b34393c0d60d4679296596574199d210"},
+    {file = "winrt_windows_graphics_imaging-3.2.1-cp313-cp313-win32.whl", hash = "sha256:9bcff883e1bb9819a651ad1151779b30fd3c7ed838e1f59e894984b9df54e54b"},
+    {file = "winrt_windows_graphics_imaging-3.2.1-cp313-cp313-win_amd64.whl", hash = "sha256:7026df3274e20f72678b5d1a1425358004d9fe4316b775e413123841936345a5"},
+    {file = "winrt_windows_graphics_imaging-3.2.1-cp313-cp313-win_arm64.whl", hash = "sha256:a8eb06ba156e65a42ef47bf18d2fc7cd3f558cc72af3b2743fb5f8ef92778117"},
+    {file = "winrt_windows_graphics_imaging-3.2.1-cp314-cp314-win32.whl", hash = "sha256:7e4a41592dc0f7e0275fe46f86d916cc15aa85afde4f08110b6aa19cfbc9265e"},
+    {file = "winrt_windows_graphics_imaging-3.2.1-cp314-cp314-win_amd64.whl", hash = "sha256:c9ed3f4805c205e15696993a4ee099ae36ccb4c4cbaa05415e8db1bf71d5ccc6"},
+    {file = "winrt_windows_graphics_imaging-3.2.1-cp314-cp314-win_arm64.whl", hash = "sha256:3b7f81a839e4c6a68cddc1ec89b02aa7ed5a8cb8e6f8e669a13a5771439a7568"},
+    {file = "winrt_windows_graphics_imaging-3.2.1-cp39-cp39-win32.whl", hash = "sha256:10efc70f1e7a5e270fbe3ea12eeeed526a7ddf223576032fc8f2ea8a0091a88e"},
+    {file = "winrt_windows_graphics_imaging-3.2.1-cp39-cp39-win_amd64.whl", hash = "sha256:0d9230d6414fafe5b441f7eb179c40eb35b7b0453bf96a4db8727aa72e755e4a"},
+    {file = "winrt_windows_graphics_imaging-3.2.1-cp39-cp39-win_arm64.whl", hash = "sha256:78e0cbf9d82ffb661d3fe6c5b8c06613d50883f648a422305bd15c489ec2183a"},
+    {file = "winrt_windows_graphics_imaging-3.2.1.tar.gz", hash = "sha256:1e0bdb08625b0ce144a2e76dd5ed86605906e41196df92d660c8f87a993a1513"},
+]
+
+[package.dependencies]
+winrt-runtime = ">=3.2.1.0,<3.3.0.0"
+
+[package.extras]
+all = ["winrt-Windows.Foundation.Collections[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Foundation[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Graphics.DirectX.Direct3D11[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Storage.Streams[all] (>=3.2.1.0,<3.3.0.0)"]
+
+[[package]]
+name = "winrt-windows-media-core"
+version = "3.2.1"
+description = "Python projection of Windows Runtime (WinRT) APIs"
+optional = false
+python-versions = ">=3.9"
+groups = ["main"]
+files = [
+    {file = "winrt_windows_media_core-3.2.1-cp310-cp310-win32.whl", hash = "sha256:23d037e3cbc7f72a961364bd7da1469416325c0871e2af1620d7f30b11777dc6"},
+    {file = "winrt_windows_media_core-3.2.1-cp310-cp310-win_amd64.whl", hash = "sha256:deedbdee87af4be4317f25d50902b266fa9d57befbf56d2391eb1948ffacacd0"},
+    {file = "winrt_windows_media_core-3.2.1-cp310-cp310-win_arm64.whl", hash = "sha256:ebb74e16b0cd6ec7a22d6534efc85640c3cf51963d968dae416a903339055785"},
+    {file = "winrt_windows_media_core-3.2.1-cp311-cp311-win32.whl", hash = "sha256:f3c0bb9e607d8117988d612ff0927baaddd5067dd63fe24bcaa7c94300ffce9f"},
+    {file = "winrt_windows_media_core-3.2.1-cp311-cp311-win_amd64.whl", hash = "sha256:8805d31dd107f8e03ed8e8cb8de12dada0f6b478ad2b113513ccee0842ed9471"},
+    {file = "winrt_windows_media_core-3.2.1-cp311-cp311-win_arm64.whl", hash = "sha256:ce93a5147b861e70eda464add9289c1cad2bad744e3f8f0688edf6316992e30a"},
+    {file = "winrt_windows_media_core-3.2.1-cp312-cp312-win32.whl", hash = "sha256:f1cf4b3a875813e492e1424758b9ccd9b40a2b0d0044579e1e20e3a218a5357e"},
+    {file = "winrt_windows_media_core-3.2.1-cp312-cp312-win_amd64.whl", hash = "sha256:cb621505ab28a045312a106fd98c77e470a0f85b18570cc398fbbe2927bd7c5c"},
+    {file = "winrt_windows_media_core-3.2.1-cp312-cp312-win_arm64.whl", hash = "sha256:20012b538122d90db5237adda92217ef661e29d083c36103e67869e98059f996"},
+    {file = "winrt_windows_media_core-3.2.1-cp313-cp313-win32.whl", hash = "sha256:5509db7fefb9997ad3bb4487f013e639b2ddafdc149cb9d063da53c818bd2500"},
+    {file = "winrt_windows_media_core-3.2.1-cp313-cp313-win_amd64.whl", hash = "sha256:d8015ee22f89af2199faf9dffd891093ea1c87c787fff4355c7b14e564cbbd02"},
+    {file = "winrt_windows_media_core-3.2.1-cp313-cp313-win_arm64.whl", hash = "sha256:9fcdfa30c44c0b4cf6a6a692aa78ba511daec05747ef34e0f6507cfb9cd595ac"},
+    {file = "winrt_windows_media_core-3.2.1-cp314-cp314-win32.whl", hash = "sha256:373622f840ca3abeae352322518c6f48b4f02500743eb02fcc0567fb2e5690ec"},
+    {file = "winrt_windows_media_core-3.2.1-cp314-cp314-win_amd64.whl", hash = "sha256:be35656c77705ddc061654da45f0b1e011ecfd4cd031a50ba5f639cdc47c3109"},
+    {file = "winrt_windows_media_core-3.2.1-cp314-cp314-win_arm64.whl", hash = "sha256:aa3ad1c59f896e88d220f6bf65201ae061425cbf35beeb98456782b731f18c12"},
+    {file = "winrt_windows_media_core-3.2.1-cp39-cp39-win32.whl", hash = "sha256:0ffeeacab3d00033e8461a769c9fd4783840c9062464de9c4c5aba3e3ab97dbe"},
+    {file = "winrt_windows_media_core-3.2.1-cp39-cp39-win_amd64.whl", hash = "sha256:3c051087ae155bdb134c009e44423886199606d57732baffb256dbc4a13f763c"},
+    {file = "winrt_windows_media_core-3.2.1-cp39-cp39-win_arm64.whl", hash = "sha256:c5e5eb62a56795d0ef60cb125e669e55b1895409109ed9b314a80f2bf9ecef68"},
+    {file = "winrt_windows_media_core-3.2.1.tar.gz", hash = "sha256:a673cde3df58bb0798401a06c923e25da79dbd6f0c5486f29cdbe409f5730ed4"},
+]
+
+[package.dependencies]
+winrt-runtime = ">=3.2.1.0,<3.3.0.0"
+
+[package.extras]
+all = ["winrt-Windows.ApplicationModel.AppService[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Foundation.Collections[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Foundation[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Graphics.DirectX.Direct3D11[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Graphics.Imaging[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Media.Capture.Frames[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Media.Capture[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Media.Devices.Core[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Media.Devices[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Media.FaceAnalysis[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Media.MediaProperties[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Media.Playback[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Media.Protection[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Media.Streaming.Adaptive[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Networking.BackgroundTransfer[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Storage.FileProperties[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Storage.Streams[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Storage[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.UI[all] (>=3.2.1.0,<3.3.0.0)"]
+
+[[package]]
+name = "winrt-windows-media-ocr"
+version = "3.2.1"
+description = "Python projection of Windows Runtime (WinRT) APIs"
+optional = false
+python-versions = ">=3.9"
+groups = ["main"]
+files = [
+    {file = "winrt_windows_media_ocr-3.2.1-cp310-cp310-win32.whl", hash = "sha256:c3f2e5120cc41eef5f8f0a1c3039f98fa4236c0b0fcf5078f42274a1d2d5d61c"},
+    {file = "winrt_windows_media_ocr-3.2.1-cp310-cp310-win_amd64.whl", hash = "sha256:dd2a8f427f18c122cbeb9f556999650bd8bf55402f648005efc29a2972878f5b"},
+    {file = "winrt_windows_media_ocr-3.2.1-cp310-cp310-win_arm64.whl", hash = "sha256:0b3046adb48478dd3c65a1e63f104668d40f0b026d33a0d6ea337f4705a6796f"},
+    {file = "winrt_windows_media_ocr-3.2.1-cp311-cp311-win32.whl", hash = "sha256:20a1bc66461eaa6004261cad83226ca3df2e43e0fedff6fff08646844b772fd0"},
+    {file = "winrt_windows_media_ocr-3.2.1-cp311-cp311-win_amd64.whl", hash = "sha256:e1d44b85875643b4718d1094dbe75cee72b3cecedafe37c3f27b738f53bef96c"},
+    {file = "winrt_windows_media_ocr-3.2.1-cp311-cp311-win_arm64.whl", hash = "sha256:45b65325701de8eb11dd2f883a69a1a1a7a518c4563605fe994e7379ee8559e7"},
+    {file = "winrt_windows_media_ocr-3.2.1-cp312-cp312-win32.whl", hash = "sha256:80a8aeaced0ffd7dfc411529ed9acfaabd437f145b16db9d6539ef5ad26622bc"},
+    {file = "winrt_windows_media_ocr-3.2.1-cp312-cp312-win_amd64.whl", hash = "sha256:9984824864b49eb65765f60ea9d910928888efe3cdf5f71f037d6fe9133134f6"},
+    {file = "winrt_windows_media_ocr-3.2.1-cp312-cp312-win_arm64.whl", hash = "sha256:5ea135c42c8451ba3e202de149acd0db63d6925deca51c79fb244b1f33d6a2c9"},
+    {file = "winrt_windows_media_ocr-3.2.1-cp313-cp313-win32.whl", hash = "sha256:74e3e3c060656ea80cd961adaffe2461fc0233fc9e4658feb3469cdf77ba7c02"},
+    {file = "winrt_windows_media_ocr-3.2.1-cp313-cp313-win_amd64.whl", hash = "sha256:8252e790211a0ddace4513988dc4c36edaf727060cf5f6d4f1a1e11bc0020854"},
+    {file = "winrt_windows_media_ocr-3.2.1-cp313-cp313-win_arm64.whl", hash = "sha256:7d241eb5616772031f691111a8e0c70729bf8372ea552fdcb1a35544b7e9e832"},
+    {file = "winrt_windows_media_ocr-3.2.1-cp314-cp314-win32.whl", hash = "sha256:c67fa675947e40f13c58ef4a1c49f8c779d3e6f1fdc91733a506a5e41ebf0007"},
+    {file = "winrt_windows_media_ocr-3.2.1-cp314-cp314-win_amd64.whl", hash = "sha256:31a620f6704cf8a27bc38a5e4f7a7888c935aecc5443c6dfbfddca331259e2af"},
+    {file = "winrt_windows_media_ocr-3.2.1-cp314-cp314-win_arm64.whl", hash = "sha256:e731cf200a4731f53c0e40fba72e0312e895f80ab4e3574dc45ef3b1e35509ef"},
+    {file = "winrt_windows_media_ocr-3.2.1-cp39-cp39-win32.whl", hash = "sha256:5785d56c5264d3db2fbfdd88ce3af92bec7e57eb3b65800801c14389ce7803e5"},
+    {file = "winrt_windows_media_ocr-3.2.1-cp39-cp39-win_amd64.whl", hash = "sha256:611ae13dc62c0ff4787e54275e0e09d73f6081aed427bf40d031892cec0429c7"},
+    {file = "winrt_windows_media_ocr-3.2.1-cp39-cp39-win_arm64.whl", hash = "sha256:4f5a851a0e520b1592d629f30dc140111bcbb5e3a47b1cb1bf4d67b1cfc01256"},
+    {file = "winrt_windows_media_ocr-3.2.1.tar.gz", hash = "sha256:521e63c42073ee911f373aa24a67eea0f2903b3bb91febdbc34875b254f2b66e"},
+]
+
+[package.dependencies]
+winrt-runtime = ">=3.2.1.0,<3.3.0.0"
+
+[package.extras]
+all = ["winrt-Windows.Foundation.Collections[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Foundation[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Globalization[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Graphics.Imaging[all] (>=3.2.1.0,<3.3.0.0)"]
+
+[[package]]
+name = "winrt-windows-media-playback"
+version = "3.2.1"
+description = "Python projection of Windows Runtime (WinRT) APIs"
+optional = false
+python-versions = ">=3.9"
+groups = ["main"]
+files = [
+    {file = "winrt_windows_media_playback-3.2.1-cp310-cp310-win32.whl", hash = "sha256:9ea29b2f1fe69e1320792027036f70051e13026e582ea14c0ca778268e5cbcc6"},
+    {file = "winrt_windows_media_playback-3.2.1-cp310-cp310-win_amd64.whl", hash = "sha256:eb1b946444e5fb7520961057842543f833cfa2d0dae6137c2c9386a47e6d608a"},
+    {file = "winrt_windows_media_playback-3.2.1-cp310-cp310-win_arm64.whl", hash = "sha256:b49a4362d02b8c431c5b9294d4318c8e146c32d2c45f0c48e3990d9309a06c76"},
+    {file = "winrt_windows_media_playback-3.2.1-cp311-cp311-win32.whl", hash = "sha256:94af1a72d5c39a13e8885250d8ae11ce00db1fba4a14c89bf910e06b3bdbf4da"},
+    {file = "winrt_windows_media_playback-3.2.1-cp311-cp311-win_amd64.whl", hash = "sha256:b46c2490000308306a776057397d882e177f628e2fb5f37200107b82232df3e2"},
+    {file = "winrt_windows_media_playback-3.2.1-cp311-cp311-win_arm64.whl", hash = "sha256:3d0e005430dbce819377dec8f4b788bc682545fa957d4149f75906c49bc5a56c"},
+    {file = "winrt_windows_media_playback-3.2.1-cp312-cp312-win32.whl", hash = "sha256:7e0bf3a1e7fa527f792953f341f712c8b382516e0e39038a947255f73845b622"},
+    {file = "winrt_windows_media_playback-3.2.1-cp312-cp312-win_amd64.whl", hash = "sha256:f1c86e67692c7f4749fbfc5d1a069cfae4c6fee7673356baf4f2151968f3ce53"},
+    {file = "winrt_windows_media_playback-3.2.1-cp312-cp312-win_arm64.whl", hash = "sha256:d6c2cf93914e8b208d97217d1c5106ce2612b19fe4e4ae3dbd97edf153edfaa6"},
+    {file = "winrt_windows_media_playback-3.2.1-cp313-cp313-win32.whl", hash = "sha256:84091a30d715a5cda9857517f29937a2ac0d8bf46f1280e2d93246890d5efd82"},
+    {file = "winrt_windows_media_playback-3.2.1-cp313-cp313-win_amd64.whl", hash = "sha256:950f3d10c6d634b928171032919941bcbc74eaf6ca9f5201cf57c4fd56a93775"},
+    {file = "winrt_windows_media_playback-3.2.1-cp313-cp313-win_arm64.whl", hash = "sha256:fd0c6634a6ad49655d5e36779c3217e3c88a9bb05563062e2535c1eb367ef0c9"},
+    {file = "winrt_windows_media_playback-3.2.1-cp314-cp314-win32.whl", hash = "sha256:c954ca3ef9827a1cd9512da21cc3d4b2a7083d8d12909fcb99db8b954878996c"},
+    {file = "winrt_windows_media_playback-3.2.1-cp314-cp314-win_amd64.whl", hash = "sha256:eee23df620cae49bac27d089ed7efa6de6908b7e4aa5e8c2251c3e6ee783e8f2"},
+    {file = "winrt_windows_media_playback-3.2.1-cp314-cp314-win_arm64.whl", hash = "sha256:42283ccea1665aeaa441310afe705a5e003d3087783aeabf15c4c170bbfbbc54"},
+    {file = "winrt_windows_media_playback-3.2.1-cp39-cp39-win32.whl", hash = "sha256:9b9bd111b707ba2cd35649d6f13d2fa9d0b70c1a846cd45e2beac4e83d1cc356"},
+    {file = "winrt_windows_media_playback-3.2.1-cp39-cp39-win_amd64.whl", hash = "sha256:6db4fb8980b24ef53754e8184e22b437a1a723fe01da3d83f0e03b62062396ba"},
+    {file = "winrt_windows_media_playback-3.2.1-cp39-cp39-win_arm64.whl", hash = "sha256:187d7702ab2fddd108cb7c9bb4a208548f5aa687d0178dfa520675153e01b7be"},
+    {file = "winrt_windows_media_playback-3.2.1.tar.gz", hash = "sha256:f16107755c28e23fd8827563eb3103fc4783d269402288b366b8d1a02d4948e4"},
+]
+
+[package.dependencies]
+winrt-runtime = ">=3.2.1.0,<3.3.0.0"
+
+[package.extras]
+all = ["winrt-Windows.Devices.Enumeration[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Foundation.Collections[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Foundation.Numerics[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Foundation[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Graphics.DirectX.Direct3D11[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Media.Audio[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Media.Casting[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Media.Core[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Media.MediaProperties[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Media.Protection[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Media[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Storage.Streams[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Storage[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.UI.Composition[all] (>=3.2.1.0,<3.3.0.0)"]
+
+[[package]]
+name = "winrt-windows-media-speechsynthesis"
+version = "3.2.1"
+description = "Python projection of Windows Runtime (WinRT) APIs"
+optional = false
+python-versions = ">=3.9"
+groups = ["main"]
+files = [
+    {file = "winrt_windows_media_speechsynthesis-3.2.1-cp310-cp310-win32.whl", hash = "sha256:700f4c81b112ae384ad6c994a5d32a51c125137647fdcab28a2d60cf4b1e589a"},
+    {file = "winrt_windows_media_speechsynthesis-3.2.1-cp310-cp310-win_amd64.whl", hash = "sha256:dded5b9124ece66db22ab596a429a79b538d0b4dff3dbee8d10e1cf4938877d4"},
+    {file = "winrt_windows_media_speechsynthesis-3.2.1-cp310-cp310-win_arm64.whl", hash = "sha256:76c3194a881624f3586f4146c1c7e04019b7352307a59134934db1adbb203ade"},
+    {file = "winrt_windows_media_speechsynthesis-3.2.1-cp311-cp311-win32.whl", hash = "sha256:a91e49b91980976ea4cf584e87cba18f7efd70c851604f3a3570855201f7efb1"},
+    {file = "winrt_windows_media_speechsynthesis-3.2.1-cp311-cp311-win_amd64.whl", hash = "sha256:dc0a3bb4fdc01015c407452126549967baa59fd8b9aa2daeb6e0953156fb20c6"},
+    {file = "winrt_windows_media_speechsynthesis-3.2.1-cp311-cp311-win_arm64.whl", hash = "sha256:abcd8131fb23a95ffab99200fb36e612cb1af794c4dc956b647b9b3f80fc153a"},
+    {file = "winrt_windows_media_speechsynthesis-3.2.1-cp312-cp312-win32.whl", hash = "sha256:d29a80055d5d73b8b518d6af9bf964bdc0f04c0533ff87a820c6f63c7d708b83"},
+    {file = "winrt_windows_media_speechsynthesis-3.2.1-cp312-cp312-win_amd64.whl", hash = "sha256:0835ff9b95d53c0d54f65695d7422bd5c3555bbbce651f0b9ccf45a7863c5b90"},
+    {file = "winrt_windows_media_speechsynthesis-3.2.1-cp312-cp312-win_arm64.whl", hash = "sha256:eb56cf356207503bea663b1117874ab77cd6d86c44da970aff65b809f7543171"},
+    {file = "winrt_windows_media_speechsynthesis-3.2.1-cp313-cp313-win32.whl", hash = "sha256:ad1e27ec0ee344172d3b19a638d7a787aefa72937435a88a0d7b09f89e8762ba"},
+    {file = "winrt_windows_media_speechsynthesis-3.2.1-cp313-cp313-win_amd64.whl", hash = "sha256:e474099bdb920cb9e8022bb1e451749a869b52004eb46b1ec713f51708159940"},
+    {file = "winrt_windows_media_speechsynthesis-3.2.1-cp313-cp313-win_arm64.whl", hash = "sha256:2cd5d57da559e8e6adf84f5456035d35e03c5525659a149bf31d6c2c21dbdc2f"},
+    {file = "winrt_windows_media_speechsynthesis-3.2.1-cp314-cp314-win32.whl", hash = "sha256:e5735f27eedb33fa026200e95e104097117d915006c44e543b89b3bf40f384b6"},
+    {file = "winrt_windows_media_speechsynthesis-3.2.1-cp314-cp314-win_amd64.whl", hash = "sha256:b7783f0a1053c4fedf2b53dc4ac84daf1463695d867a4d4e1fa6d46e073d13d2"},
+    {file = "winrt_windows_media_speechsynthesis-3.2.1-cp314-cp314-win_arm64.whl", hash = "sha256:0a7c1756c0a59ca7bdcef3a5a503dcf775cd3e94572d2bdc7cb51d6e72c33810"},
+    {file = "winrt_windows_media_speechsynthesis-3.2.1-cp39-cp39-win32.whl", hash = "sha256:7b7be9927716556504f53b3667f1baa04c3700f6ae1e307de119134e9d0083c5"},
+    {file = "winrt_windows_media_speechsynthesis-3.2.1-cp39-cp39-win_amd64.whl", hash = "sha256:550c8adeea9e4ac4d3f04b04db23b1669c37989419dfa0d01cf3027a628a5779"},
+    {file = "winrt_windows_media_speechsynthesis-3.2.1-cp39-cp39-win_arm64.whl", hash = "sha256:81440b351d5fbdc0f4f1d05f273c579dcaa7132cf9a589791f3430f33e6bc056"},
+    {file = "winrt_windows_media_speechsynthesis-3.2.1.tar.gz", hash = "sha256:22ee3ad568046ed51cca7d2583be9288e1274fbe4128445dde9be29dbda3c25e"},
+]
+
+[package.dependencies]
+winrt-runtime = ">=3.2.1.0,<3.3.0.0"
+
+[package.extras]
+all = ["winrt-Windows.Foundation.Collections[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Foundation[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Media.Core[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Media[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Storage.Streams[all] (>=3.2.1.0,<3.3.0.0)"]
+
+[[package]]
+name = "winrt-windows-storage"
+version = "3.2.1"
+description = "Python projection of Windows Runtime (WinRT) APIs"
+optional = false
+python-versions = ">=3.9"
+groups = ["main"]
+files = [
+    {file = "winrt_windows_storage-3.2.1-cp310-cp310-win32.whl", hash = "sha256:ddc5f82eee771cab9b57dc56908a3fdce7bbd3da1dd4d418df8436002e076f64"},
+    {file = "winrt_windows_storage-3.2.1-cp310-cp310-win_amd64.whl", hash = "sha256:f4ddf0826731f58df56bdf67a5e523adb9f22773dc179ac3bc0e86a02faf774c"},
+    {file = "winrt_windows_storage-3.2.1-cp310-cp310-win_arm64.whl", hash = "sha256:4a99cfa3e45169620d818750209c8bba426594012b336414671dcba9a3e8d5bf"},
+    {file = "winrt_windows_storage-3.2.1-cp311-cp311-win32.whl", hash = "sha256:78b70421bd19c6705f47bf96a34cce80477522fa9c7d182b56ca781a64e76543"},
+    {file = "winrt_windows_storage-3.2.1-cp311-cp311-win_amd64.whl", hash = "sha256:a9020311207e937bde7a0a1cbe277d08eb051b6c0d90b3482cf305ec2cff03dd"},
+    {file = "winrt_windows_storage-3.2.1-cp311-cp311-win_arm64.whl", hash = "sha256:4c916d94856ed89fb5c67f649852310fcffb9d948c3b931fd4d47e970c46d685"},
+    {file = "winrt_windows_storage-3.2.1-cp312-cp312-win32.whl", hash = "sha256:01a4ae3b61c30c3fb492615c6961791cc83f2344b2fc1a9bdb2fd8d83024fce0"},
+    {file = "winrt_windows_storage-3.2.1-cp312-cp312-win_amd64.whl", hash = "sha256:5bafa8c44238c3080c54fe44486c400a7a7a3f5ca9005e8fd97e6dd3e49920a2"},
+    {file = "winrt_windows_storage-3.2.1-cp312-cp312-win_arm64.whl", hash = "sha256:05cb70a8f5cc356257a5e51964b280bd40b200f7257f2438f6edc192e67a3a9b"},
+    {file = "winrt_windows_storage-3.2.1-cp313-cp313-win32.whl", hash = "sha256:fc0567ff2303bcf7d471dba178a997bfdab57371e8282e90a40cc522d7fb4421"},
+    {file = "winrt_windows_storage-3.2.1-cp313-cp313-win_amd64.whl", hash = "sha256:7a57e022bc8e7096a12f2b530ab544a71ede704a01cdfde75009ed40897b696e"},
+    {file = "winrt_windows_storage-3.2.1-cp313-cp313-win_arm64.whl", hash = "sha256:7827a46098e0b0c97fdb085c1ebb4de0b130f36402723d9f539a1c1fb399c8e7"},
+    {file = "winrt_windows_storage-3.2.1-cp314-cp314-win32.whl", hash = "sha256:b7d5739001d435c914da3354e2c173d3f3bc48b344ebf294308685db82240376"},
+    {file = "winrt_windows_storage-3.2.1-cp314-cp314-win_amd64.whl", hash = "sha256:f4f1fff7846f934f53b4cdc7089faa6d21ced9bc993215e95c4fcc716da851e7"},
+    {file = "winrt_windows_storage-3.2.1-cp314-cp314-win_arm64.whl", hash = "sha256:78d6191e1daabd4b6aff31b84cc890e5483f4e168bceb0ef6d099ec32af9b835"},
+    {file = "winrt_windows_storage-3.2.1-cp39-cp39-win32.whl", hash = "sha256:53984f0d0ba0027c23116b9084e5f5c48720466909dcad180240abdc880b9435"},
+    {file = "winrt_windows_storage-3.2.1-cp39-cp39-win_amd64.whl", hash = "sha256:699965462247f3affba041cb89fee2d8ab4bd48e64af6ac166478c2ded2f0d64"},
+    {file = "winrt_windows_storage-3.2.1-cp39-cp39-win_arm64.whl", hash = "sha256:cbf8c592e5ff62579990da34bbba2aadb4343ab332c6f1773c8ec4621d64fe47"},
+    {file = "winrt_windows_storage-3.2.1.tar.gz", hash = "sha256:c7d1c2326fd842babbf98d944d4991b7592ee8433c762af0a8b47696437fae0b"},
+]
+
+[package.dependencies]
+winrt-runtime = ">=3.2.1.0,<3.3.0.0"
+
+[package.extras]
+all = ["winrt-Windows.Foundation.Collections[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Foundation[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Storage.FileProperties[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Storage.Provider[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Storage.Search[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Storage.Streams[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.System[all] (>=3.2.1.0,<3.3.0.0)"]
+
+[[package]]
+name = "winrt-windows-storage-streams"
+version = "3.2.1"
+description = "Python projection of Windows Runtime (WinRT) APIs"
+optional = false
+python-versions = ">=3.9"
+groups = ["main"]
+files = [
+    {file = "winrt_windows_storage_streams-3.2.1-cp310-cp310-win32.whl", hash = "sha256:89bb2d667ebed6861af36ed2710757456e12921ee56347946540320dacf6c003"},
+    {file = "winrt_windows_storage_streams-3.2.1-cp310-cp310-win_amd64.whl", hash = "sha256:48a78e5dc7d3488eb77e449c278bc6d6ac28abcdda7df298462c4112d7635d00"},
+    {file = "winrt_windows_storage_streams-3.2.1-cp310-cp310-win_arm64.whl", hash = "sha256:da71231d4a554f9f15f1249b4990c6431176f6dfb0e3385c7caa7896f4ca24d6"},
+    {file = "winrt_windows_storage_streams-3.2.1-cp311-cp311-win32.whl", hash = "sha256:7dace2f9e364422255d0e2f335f741bfe7abb1f4d4f6003622b2450b87c91e69"},
+    {file = "winrt_windows_storage_streams-3.2.1-cp311-cp311-win_amd64.whl", hash = "sha256:b02fa251a7eef6081eca1a5f64ecf349cfd1ac0ac0c5a5a30be52897d060bed5"},
+    {file = "winrt_windows_storage_streams-3.2.1-cp311-cp311-win_arm64.whl", hash = "sha256:efdf250140340a75647e8e8ad002782d91308e9fdd1e19470a5b9cc969ae4780"},
+    {file = "winrt_windows_storage_streams-3.2.1-cp312-cp312-win32.whl", hash = "sha256:77c1f0e004b84347b5bd705e8f0fc63be8cd29a6093be13f1d0869d0d97b7d78"},
+    {file = "winrt_windows_storage_streams-3.2.1-cp312-cp312-win_amd64.whl", hash = "sha256:e4508ee135af53e4fc142876abbf4bc7c2a95edfc7d19f52b291a8499cacd6dc"},
+    {file = "winrt_windows_storage_streams-3.2.1-cp312-cp312-win_arm64.whl", hash = "sha256:040cb94e6fb26b0d00a00e8b88b06fadf29dfe18cf24ed6cb3e69709c3613307"},
+    {file = "winrt_windows_storage_streams-3.2.1-cp313-cp313-win32.whl", hash = "sha256:401bb44371720dc43bd1e78662615a2124372e7d5d9d65dfa8f77877bbcb8163"},
+    {file = "winrt_windows_storage_streams-3.2.1-cp313-cp313-win_amd64.whl", hash = "sha256:202c5875606398b8bfaa2a290831458bb55f2196a39c1d4e5fa88a03d65ef915"},
+    {file = "winrt_windows_storage_streams-3.2.1-cp313-cp313-win_arm64.whl", hash = "sha256:ca3c5ec0aab60895006bf61053a1aca6418bc7f9a27a34791ba3443b789d230d"},
+    {file = "winrt_windows_storage_streams-3.2.1-cp314-cp314-win32.whl", hash = "sha256:5cd0dbad86fcc860366f6515fce97177b7eaa7069da261057be4813819ba37ee"},
+    {file = "winrt_windows_storage_streams-3.2.1-cp314-cp314-win_amd64.whl", hash = "sha256:3c5bf41d725369b9986e6d64bad7079372b95c329897d684f955d7028c7f27a0"},
+    {file = "winrt_windows_storage_streams-3.2.1-cp314-cp314-win_arm64.whl", hash = "sha256:293e09825559d0929bbe5de01e1e115f7a6283d8996ab55652e5af365f032987"},
+    {file = "winrt_windows_storage_streams-3.2.1-cp39-cp39-win32.whl", hash = "sha256:1c630cfdece58fcf82e4ed86c826326123529836d6d4d855ae8e9ceeff67b627"},
+    {file = "winrt_windows_storage_streams-3.2.1-cp39-cp39-win_amd64.whl", hash = "sha256:d7ff22434a4829d616a04b068a191ac79e008f6c27541bb178c1f6f1fe7a1657"},
+    {file = "winrt_windows_storage_streams-3.2.1-cp39-cp39-win_arm64.whl", hash = "sha256:fa90244191108f85f6f7afb43a11d365aca4e0722fe8adc62fb4d2c678d0993d"},
+    {file = "winrt_windows_storage_streams-3.2.1.tar.gz", hash = "sha256:476f522722751eb0b571bc7802d85a82a3cae8b1cce66061e6e758f525e7b80f"},
+]
+
+[package.dependencies]
+winrt-runtime = ">=3.2.1.0,<3.3.0.0"
+
+[package.extras]
+all = ["winrt-Windows.Foundation.Collections[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Foundation[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Storage[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.System[all] (>=3.2.1.0,<3.3.0.0)"]
+
+[[package]]
+name = "winrt-windows-ui-notifications"
+version = "3.2.1"
+description = "Python projection of Windows Runtime (WinRT) APIs"
+optional = false
+python-versions = ">=3.9"
+groups = ["main"]
+files = [
+    {file = "winrt_windows_ui_notifications-3.2.1-cp310-cp310-win32.whl", hash = "sha256:ad09c01d72298954c9401f085f1519045a07d140103bd93a041d6a9664c7dbd1"},
+    {file = "winrt_windows_ui_notifications-3.2.1-cp310-cp310-win_amd64.whl", hash = "sha256:9e3a4ae4669387e675df4ffc21591fea9c0d8af4d175679583b9dceec49ef468"},
+    {file = "winrt_windows_ui_notifications-3.2.1-cp310-cp310-win_arm64.whl", hash = "sha256:716341570e4e425ebdb4ff4cd41ca11f8bf305c780f1cb95b4d7453a3fe730dc"},
+    {file = "winrt_windows_ui_notifications-3.2.1-cp311-cp311-win32.whl", hash = "sha256:ad2bbdde0529766b2c4866204c0a7dedea0666fab8ec4c971824f2c1f40e90c6"},
+    {file = "winrt_windows_ui_notifications-3.2.1-cp311-cp311-win_amd64.whl", hash = "sha256:61ee8904ca17681c3e96fcf40bc115b8e1efe72c460e6df34b47eb254343018a"},
+    {file = "winrt_windows_ui_notifications-3.2.1-cp311-cp311-win_arm64.whl", hash = "sha256:db2dbf9dc6b836575f94a1fe165ac184d841ba5aeaed6870a3fe68367341cef3"},
+    {file = "winrt_windows_ui_notifications-3.2.1-cp312-cp312-win32.whl", hash = "sha256:041643bd83762900cdd5704a6e08f886879f78952cfc9834b184ee81df924d72"},
+    {file = "winrt_windows_ui_notifications-3.2.1-cp312-cp312-win_amd64.whl", hash = "sha256:7f2378246f6db14d16bf93830f1bcd8efa1c5b4c740878ad86d2f482fb08feab"},
+    {file = "winrt_windows_ui_notifications-3.2.1-cp312-cp312-win_arm64.whl", hash = "sha256:e7eda8cb11a1e82d2da87b2b98cbf73ce153417cb93debe95c739534c6dbde7c"},
+    {file = "winrt_windows_ui_notifications-3.2.1-cp313-cp313-win32.whl", hash = "sha256:cff07f0193365c38a07cf87030c609b57b7ca7fcbf8740c720425edfa6205fa8"},
+    {file = "winrt_windows_ui_notifications-3.2.1-cp313-cp313-win_amd64.whl", hash = "sha256:9f8d109c8c6634dac258a32d7f3d939aa50605bd7a6a43137a3ffc2ab4a8f667"},
+    {file = "winrt_windows_ui_notifications-3.2.1-cp313-cp313-win_arm64.whl", hash = "sha256:aec78f6a632e2ae57a55b7aee60f8df848ccffd1c4d14c3c9fbfaa6bb564e1a2"},
+    {file = "winrt_windows_ui_notifications-3.2.1-cp314-cp314-win32.whl", hash = "sha256:00a7579ca0870134c27def1418c259fb18efe5b88aa399de85b4712f1add1b55"},
+    {file = "winrt_windows_ui_notifications-3.2.1-cp314-cp314-win_amd64.whl", hash = "sha256:943599c727abf710ae94644b1d521e11857bd568e080e894a8be11aa717e383a"},
+    {file = "winrt_windows_ui_notifications-3.2.1-cp314-cp314-win_arm64.whl", hash = "sha256:2a496c7e796b537966df7b26753b20bc40c5c1fbe96b3b3051a1debc00b80f07"},
+    {file = "winrt_windows_ui_notifications-3.2.1-cp39-cp39-win32.whl", hash = "sha256:8c3e5c9e1a55056a2c3b4d22610082e6aa07d5b3a8df8ae797ab8404237ab191"},
+    {file = "winrt_windows_ui_notifications-3.2.1-cp39-cp39-win_amd64.whl", hash = "sha256:09e6b69f960d94755fdc7cc58496b314ca07fe04d8a49128d49446ce7af48934"},
+    {file = "winrt_windows_ui_notifications-3.2.1-cp39-cp39-win_arm64.whl", hash = "sha256:91be1386d1b9a38fad5cc0d6edb13c977bb9127dd880c1cce386f0e2a4b8b763"},
+    {file = "winrt_windows_ui_notifications-3.2.1.tar.gz", hash = "sha256:eb29bf1c3306f3ceabd71d092b5505d5fe73fbc0660347dcc63ebc4204d34d21"},
+]
+
+[package.dependencies]
+winrt-runtime = ">=3.2.1.0,<3.3.0.0"
+
+[package.extras]
+all = ["winrt-Windows.ApplicationModel[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Data.Xml.Dom[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Foundation.Collections[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.Foundation[all] (>=3.2.1.0,<3.3.0.0)", "winrt-Windows.System[all] (>=3.2.1.0,<3.3.0.0)"]
 
 [[package]]
 name = "yarl"
@@ -2297,4 +2757,4 @@ propcache = ">=0.2.1"
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.13,<3.15"
-content-hash = "216b3c1ba80ec0d51d9a113c61f7af9acf24448fa97ccd5b821268cd3d057f14"
+content-hash = "0b105d1e11162a64852fb00c6fcbcf52708c0d218703444ffb62246d3459fc5f"

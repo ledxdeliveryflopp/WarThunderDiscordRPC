@@ -1732,6 +1732,21 @@ packaging = ">=22.0"
 setuptools = ">=42.0.0"
 
 [[package]]
+name = "pypiwin32"
+version = "223"
+description = ""
+optional = false
+python-versions = "*"
+groups = ["main"]
+files = [
+    {file = "pypiwin32-223-py3-none-any.whl", hash = "sha256:67adf399debc1d5d14dffc1ab5acacb800da569754fafdc576b2a039485aa775"},
+    {file = "pypiwin32-223.tar.gz", hash = "sha256:71be40c1fbd28594214ecaecb58e7aa8b708eabfa0125c8a109ebd51edbd776a"},
+]
+
+[package.dependencies]
+pywin32 = ">=223"
+
+[[package]]
 name = "pyppmd"
 version = "1.3.1"
 description = "PPMd compression/decompression library"
@@ -2104,6 +2119,21 @@ files = [
 ]
 
 [[package]]
+name = "win10toast"
+version = "0.9"
+description = "An easy-to-use Python library for displaying Windows 10 Toast Notifications"
+optional = false
+python-versions = "*"
+groups = ["main"]
+files = [
+    {file = "win10toast-0.9-py2.py3-none-any.whl", hash = "sha256:44e5afa1001de88a0ee533872231521fa67c7d144f39974089af242d9c4620a4"},
+]
+
+[package.dependencies]
+pypiwin32 = "*"
+setuptools = "*"
+
+[[package]]
 name = "win32-setctime"
 version = "1.2.0"
 description = "A small Python utility to set file creation time on Windows"
@@ -2267,4 +2297,4 @@ propcache = ">=0.2.1"
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.13,<3.15"
-content-hash = "3dd62bdbb1e332531ce695c519877f8114f7235c8b115d63607e91d112f5f388"
+content-hash = "216b3c1ba80ec0d51d9a113c61f7af9acf24448fa97ccd5b821268cd3d057f14"

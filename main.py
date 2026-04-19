@@ -2,6 +2,7 @@ import asyncio
 import os
 import signal
 import time
+import sys
 from loguru import logger
 import multiprocessing as mp
 
@@ -17,12 +18,22 @@ async def main() -> None:
     logger.info(f'App version -> {const.APP_VERSION}')
     logger.info('Starting notify process')
     try:
-        notify_process = mp.Process(
-            target=notify_service.notify_loop,
-            name='NotifyProcess',
-            args=(settings,),
-            daemon=False,
-        )
+        if notify_service.win_version == '11':
+            logger.info('Start plyer loop')
+            notify_process = mp.Process(
+                target=notify_service.plyer_notify_loop,
+                args=(settings,),
+                name='NotifyProcess',
+                daemon=False,
+            )
+        else:
+            logger.info('Start win10-toast loop')
+            notify_process = mp.Process(
+                target=notify_service.toast_notify_loop,
+                args=(settings,),
+                name='NotifyProcess',
+                daemon=False,
+            )
         notify_process.start()
         notify_pid = notify_process.pid
         logger.info(f'Notify process pid: {notify_pid}')

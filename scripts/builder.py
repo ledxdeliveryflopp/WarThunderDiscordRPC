@@ -107,7 +107,12 @@ def build_app_spec(build_params: argparse.Namespace) -> list[str]:
     onefile_param = check_onefile(one_file_param=onefile)
     windowed_param = check_windowed(windowed_param=windowed)
     app_base_spec = [
-        main_file_path, '--clean', '--name=WTDRP', '--icon', main_file_ico,
+        main_file_path,
+        '--clean',
+        '--name=WTDRP',
+        '--hidden-import=multiprocessing.spawn',
+        '--icon',
+        main_file_ico,
     ]
     if onefile_param:
         app_base_spec.append(onefile_param)

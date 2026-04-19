@@ -50,8 +50,12 @@ This application modifies in no way whatsoever any data from the game, it is com
 2. Launch the app at any time.
 3. Execute autostart_service.exe with admin right, if you don't start main file everytime.
 
-## Know issue
-1. Speed/altitude information can be set late (you can experiment with "refresh_time" in the settings)
+## How activate windows notification about app new version
+1) Set the "show_notification" setting to True
+2) In Windows Settings -> System -> Notifications, disable the "Do not disturb" option
+
+![plot](/git_static/notify_settings.png)
+
 
 ## Что это?
 
@@ -123,6 +127,13 @@ This application modifies in no way whatsoever any data from the game, it is com
 3. По желанию настройке settings.yaml.
 4. Запустите exe
 5. Можете запустить autostart_service.exe с админ правами, что-бы добавить приложение в автозапуск
+
+
+## Как включить нотификации об обновлениях
+1) Поставьте настройку "show_notification" на True
+2) В настройках Windows -> Система -> Уведомления, отключите параметр "Не беспокоить"
+
+![plot](/git_static/notify_settings.png)
 
 ## Что планируется добавить
 1. ~~Дополнительную технику в список форматирования(лучше выглядит и работает быстрее чем резать название).~~

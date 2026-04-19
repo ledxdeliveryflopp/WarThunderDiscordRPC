@@ -28,6 +28,7 @@ class Settings:
         self.ground_dict: dict | None = None
         self.custom_images_dict: dict | None = None
         self.loop_timeout: int | None = None
+        self.show_update_notifications: bool | None = None
 
     async def __set_api_settings(self, settings_data: dict) -> None:
         validated = ApiSettings(**settings_data)
@@ -114,7 +115,9 @@ class Settings:
         logger.info('----Configuring app----')
         os.makedirs('static', exist_ok=True)
         main_settings_data = await self.__load_main_settings()
-        self.loop_timeout = main_settings_data['loop']['timeout']
+        self.loop_timeout = main_settings_data['core']['timeout']
+        show_notification = main_settings_data['core']['show_notification']
+        self.show_update_notifications = show_notification
         await self.__set_api_settings(settings_data=main_settings_data)
         await self.__set_presence_settings(settings_data=main_settings_data)
         custom_images_data = await self.__load_custom_images()

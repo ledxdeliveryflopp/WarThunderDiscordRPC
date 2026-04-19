@@ -1,9 +1,8 @@
-## 2.3.0
+## 2.4.0
 ---
-## V2.3.0
-1. Added caching
-2. Added custom images for some equipment
-3. Added icons to the names of the equipment, depending on their type
+## V2.4.0
+1. Added a check on the release of new versions of the application
+2. Added Windows notifications about the new version
 
 ## How to use the Exe?(Windows)
 
@@ -29,16 +28,16 @@ settings:
     altitude_type: ABSOLUTE  # ABSOLUTE  | RADIO
   logger:
     level: 'INFO' # log level
-  loop:
+  core:
     timeout: 50 # seconds after disconnect
+    show_notification: True # show windows notification about update
 ```
 4. start exe file
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
-## V2.3.0
-1. Добавил кэширование
-2. Добавил кастомные изображения для некоторой техники
-3. Добавил иконки к названиям техники в зависимости от их типа
+## V2.4.0
+1. Добавил проверку о выходе новых версий приложения
+2. Добавил нотификации Windows о новой версии
 
 ## Как использовать Exe?(Windows)
 
@@ -64,8 +63,9 @@ settings:
     altitude_type: ABSOLUTE  # ABSOLUTE  | RADIO выводить в индикаторы высоту относительно моря или по радиовысотомеру
   logger:
     level: 'INFO' # Уровень логирования
-  loop:
+  core:
     timeout: 50 # время ожидания между попытками поставить статус из-за закрытия игры или дискорда
+    show_notification: True # Показывать уведомления об доступных обновлениях приложения
 ```
 4. Запустите exe
 

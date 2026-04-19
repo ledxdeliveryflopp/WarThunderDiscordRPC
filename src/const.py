@@ -1,4 +1,14 @@
 
+class Git:
+
+    GITHUB_API: str = 'https://api.github.com/repos/'
+    GITHUB_OWNER: str = 'ledxdeliveryflopp'
+    GITHUB_REPO: str = 'WarThunderDiscordRPC'
+    GITHUB_PATH: str = '/releases/latest'
+
+    latest_url = f'{GITHUB_API}{GITHUB_OWNER}/{GITHUB_REPO}{GITHUB_PATH}'
+
+
 class Lang:
 
     hangar: dict = {'en': 'In hangar', 'ru': 'В ангаре'}
@@ -12,13 +22,20 @@ class Lang:
     }
     tank_speed: dict = {'en': 'Speed', 'ru': 'Скорость'}
     tank_crew: dict = {'en': 'Crew', 'ru': 'Экипаж'}
+    update_header: dict = {
+        'en': 'Version checker', 'ru': 'Информация об обновлении',
+    }
+    update_message: dict = {
+        'en': 'New app version available: ', 'ru': 'Доступна новая версия: ',
+    }
 
 
 class Constants:
 
-    APP_VERSION = '2.3.0'
+    APP_VERSION = '2.4.0'
     game_name: str = 'War Thunder'
     presence_lang: Lang = Lang()
+    github: Git = Git()
 
 
 const = Constants()

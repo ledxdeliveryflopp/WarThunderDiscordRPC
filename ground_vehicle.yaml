@@ -188,3 +188,15 @@ ground_list:
   ussr_t_72b3_arena:
     ru: Т-72Б3 "Арена"
     en: T-72B3 "Arena"
+  ussr_t_55_am:
+    ru: ⚔Т-55АМ-1
+    en: ⚔T-55AM-1
+  germ_leopard_i:
+    ru: ⚔Leopard I
+    en: ⚔Leopard I
+  germ_vilkas:
+    ru: ⚔Vilkas
+    en: ⚔Vilkas
+  ussr_t_80ue1:
+    ru: ⚔Т-80У-Е1
+    en: ⚔T-80U-E1

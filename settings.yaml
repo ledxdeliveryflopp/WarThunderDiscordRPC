@@ -7,12 +7,13 @@ settings:
     air_info_endpoint: '/state'
   presence:
     show_indicators: True
-    lang: ru
+    lang: en
     logo_theme: main_white
+    custom_images: True
   air_indicators:
     air_speed_type: IAS
-    altitude_type: ABSOLUTE
+    altitude_type: RADIO
   logger:
-    level: 'DEBUG'
+    level: 'TRACE'
   loop:
-    timeout: 50
+    timeout: 5

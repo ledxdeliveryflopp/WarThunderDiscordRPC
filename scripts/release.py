@@ -81,13 +81,14 @@ def upload_assets(release_id: str, asset_list: list[str]) -> None:
                     'content-type': asset_content_type,
                 },
                 data=file_data,
-                timeout=120,
+                timeout=360,
             )
             if response.status_code == HTTPStatus.CREATED:
                 logger.info(f'Assets {asset_name} uploaded!')
             else:
                 logger.error(f'Failed to upload {asset_name}')
                 logger.error(response.json())
+
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()

@@ -16,7 +16,7 @@ class Lang:
 
 class Constants:
 
-    APP_VERSION = '2.2.0'
+    APP_VERSION = '2.3.0'
     game_name: str = 'War Thunder'
     presence_lang: Lang = Lang()
 

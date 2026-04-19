@@ -1,10 +1,10 @@
-## 2.2.0
+## 2.3.0
 ---
-## V2.2.0
-1. Transfer the application to async
-2. Changed the principle of resetting the status from closing to clearing the status
-3. Bugfix for saving Russian names of aircraft
-4. 
+## V2.3.0
+1. Added caching
+2. Added custom images for some equipment
+3. Added icons to the names of the equipment, depending on their type
+
 ## How to use the Exe?(Windows)
 
 1. Download the archive
@@ -21,8 +21,9 @@ settings:
     air_info_endpoint: '/state'
   presence:
     show_indicators: True # True | False
-    lang: ru # en | ru
-    logo_theme: main_white # main_red | main_white
+    lang: en # en | ru
+    logo_theme: main_red # main_red | main_white
+    custom_images: True # custom images
   air_indicators:
     air_speed_type: IAS # IAS | TAS
     altitude_type: ABSOLUTE  # ABSOLUTE  | RADIO
@@ -34,10 +35,10 @@ settings:
 4. start exe file
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
-## V2.2.0
-1. Перевод приложения на async
-2. Изменил принцип сброса статуса с закрытия, на очистку статуса
-3. Багфикс сохранения русских названий воздушной техники
+## V2.3.0
+1. Добавил кэширование
+2. Добавил кастомные изображения для некоторой техники
+3. Добавил иконки к названиям техники в зависимости от их типа
 
 ## Как использовать Exe?(Windows)
 
@@ -56,7 +57,8 @@ settings:
   presence:
     show_indicators: True # True | False показывать ли индикаторы техники
     lang: ru # en | ru язык
-    logo_theme: main_white # main_red | main_white вариант логотипа
+    logo_theme: main_red # main_red | main_white вариант логотипа
+    custom_images: True # кастомные изображения для некоторой техники
   air_indicators:
     air_speed_type: IAS # IAS | TAS выводить в индикаторы скорость IAS или TAS
     altitude_type: ABSOLUTE  # ABSOLUTE  | RADIO выводить в индикаторы высоту относительно моря или по радиовысотомеру

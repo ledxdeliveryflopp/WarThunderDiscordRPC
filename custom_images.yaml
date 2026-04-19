@@ -1,0 +1,61 @@
+custom_images:
+  f_14b:
+    image_code: f_14b
+  f_14a_early:
+    image_code: f_14a
+  mig_25pd:
+    image_code: mig_25pd
+  f_16c_block_50:
+    image_code: f_16c_block_50
+  mig_23ml:
+    image_code: mig_23ml
+  mig_23m:
+    image_code: mig_23
+  mi_24p:
+    image_code: mi_24p
+  germ_leopard_2a7v:
+    image_code: germ_leopard_2a7v
+  ka_52:
+    image_code: ka_52
+  us_m1128_wolfpack:
+    image_code: us_m1128_wolfpack
+  germ_leopard_2a4_pzbtl_123:
+    image_code: germ_leopard_2a4_pzbtl_123
+  ussr_t_80bvm:
+    image_code: ussr_t_80bvm
+  ussr_bmp_2m:
+    image_code: ussr_bmp_2m
+  germ_leopard_2a6:
+    image_code: germ_leopard_2a6
+  germ_leopard_1a5:
+    image_code: germ_leopard_1a5
+  ussr_t_55_am:
+    image_code: ussr_t_55_am
+  germ_leopard_i:
+    image_code: germ_leopard_i
+  ussr_bmpt_72:
+    image_code: ussr_bmpt_72
+  germ_vilkas:
+    image_code: germ_vilkas
+  su_25k:
+    image_code: su_25k
+  fa_18e_block_2:
+    image_code: fa_18e_block_2
+  ussr_t_80ue1:
+    image_code: ussr_t_80ue1
+  rah_66:
+    image_code: rah_66
+  germ_iris_slm_launcher:
+    image_code: germ_iris_slm_launcher
+  germ_iris_slm_fcs:
+    image_code: germ_iris_slm_fcs
+  us_m1a2_sep2_abrams:
+    image_code: us_m1a2_sep2_abrams
+  uk_challenger_2_bn:
+    image_code: uk_challenger_2_bn
+  ussr_t_90a:
+    image_code: ussr_t_90a
+  rafale_c_f3:
+    image_code: rafale_c_f3
+  su_30sm:
+    image_code: su_30sm

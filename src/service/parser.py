@@ -1,5 +1,6 @@
 import asyncio
 import os
+from functools import lru_cache
 from typing import Literal
 
 import yaml
@@ -8,6 +9,7 @@ from pydoll.browser import Chrome
 from pydoll.browser.options import ChromiumOptions
 from yaml import SafeLoader
 
+from src.service.api import WtApi
 from src.settings import settings
 
 
@@ -15,7 +17,8 @@ class ParserService:
 
     @staticmethod
     @logger.catch
-    async def parse_tank_name(tank_tech_name: str) -> str:
+    @lru_cache
+    def parse_tank_name(tank_tech_name: str) -> str:
         parsed_name = tank_tech_name.replace('tankModels/', '').lower()
         logger.debug(f'tank parse name result -> {parsed_name}')
         return parsed_name
@@ -41,6 +44,22 @@ class ParserService:
             )
             return air_name
         return air_readable_name[settings.lang]
+
+    @staticmethod
+    @logger.catch
+    async def get_custom_vehicle_image(vehicle_tech_code: str) -> str:
+        logger.debug(f'Get custom vehicle image for -> {vehicle_tech_code}')
+        vehicle = settings.custom_images_dict.get(vehicle_tech_code, None)
+        logger.debug(f'Vehicle data -> {vehicle}')
+        if vehicle is None:
+            wiki_image = WtApi().get_vehicle_image(vehicle_tech_code)
+            return wiki_image
+        custom_image = vehicle.get('image_code', None)
+        logger.debug(f'Vehicle images -> {custom_image}')
+        if custom_image is None:
+            wiki_image = WtApi().get_vehicle_image(vehicle_tech_code)
+            return wiki_image
+        return custom_image
 
     @staticmethod
     @logger.catch

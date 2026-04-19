@@ -22,6 +22,7 @@ class PresenceSettingsData(BaseModel):
     show_indicators: bool
     lang: Literal['en', 'ru']
     logo_theme: Literal['main_red', 'main_white']
+    custom_images: bool
 
 
 class PresenceSettings(BaseModel):

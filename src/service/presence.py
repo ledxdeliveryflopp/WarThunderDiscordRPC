@@ -65,9 +65,14 @@ class PresenceService(AioPresence, WtApi, Builder):
             self, indicator_schemas: MainInfoSchemas,
     ) -> None:
         vehicle_name = indicator_schemas.vehicle_tech_name
-        vehicle_image = await self.get_vehicle_image(
-            vehicle_tech_name=vehicle_name,
-        )
+        if settings.custom_images is True:
+            vehicle_image = await parser.get_custom_vehicle_image(
+                vehicle_tech_code=vehicle_name,
+            )
+        else:
+            vehicle_image = self.get_vehicle_image(
+                vehicle_tech_name=vehicle_name,
+            )
         readable_name = await parser.get_readable_air_name(
             air_name=vehicle_name,
         )
@@ -95,15 +100,20 @@ class PresenceService(AioPresence, WtApi, Builder):
     @logger.catch(exclude=(AssertionError, PipeClosed, RuntimeError))
     async def set_tank_presence(self, indicator_schemas: MainInfoSchemas) -> None:
         vehicle_name = indicator_schemas.vehicle_tech_name
-        tank_parsed_name = await parser.parse_tank_name(
+        tank_parsed_name = parser.parse_tank_name(
             tank_tech_name=vehicle_name,
-        )
-        vehicle_image = await self.get_vehicle_image(
-            vehicle_tech_name=tank_parsed_name,
         )
         readable_name = await parser.get_readable_tank_name(
             tank_parsed_name=tank_parsed_name,
         )
+        if settings.custom_images is True:
+            vehicle_image = await parser.get_custom_vehicle_image(
+                vehicle_tech_code=tank_parsed_name,
+            )
+        else:
+            vehicle_image = self.get_vehicle_image(
+                vehicle_tech_name=tank_parsed_name,
+            )
         details_info = const.presence_lang.details[settings.lang]
         details = f'{details_info}: {readable_name}'
         if settings.show_indicators is True:

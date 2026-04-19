@@ -53,6 +53,16 @@ def get_release_files() -> list[str]:
     return all_items
 
 
+def set_default_vehicle_files() -> None:
+    logger.info('Setting default vehicle list')
+    with open('dist/ground_vehicle.yaml', 'w') as file:
+        data = {'ground_list': {}}
+        yaml.safe_dump(data, file)
+    with open('dist/air_vehicle.yaml', 'w') as file:
+        data = {'air_list': {}}
+        yaml.safe_dump(data, file)
+
+
 def set_default_app_settings() -> None:
     logger.info('Setting default app settings')
     with open('dist/settings.yaml', 'r') as file:
@@ -65,6 +75,7 @@ def set_default_app_settings() -> None:
     data['settings']['presence']['show_indicators'] = True
     data['settings']['presence']['lang'] = 'en'
     data['settings']['presence']['logo_theme'] = 'main_red'
+    data['settings']['presence']['custom_images'] = True
     data['settings']['air_indicators']['air_speed_type'] = 'IAS'
     data['settings']['air_indicators']['altitude_type'] = 'ABSOLUTE'
     data['settings']['logger']['level'] = 'INFO'
@@ -154,6 +165,7 @@ if __name__ == '__main__':
     build_app(build_info=app_spec)
     copy_additional_files(files=params.additional_files)
     set_default_app_settings()
+    set_default_vehicle_files()
     copy_browser_dir()
     copy_autostart_service()
     zip_release()

@@ -4,7 +4,7 @@ from pydantic import BaseModel, Field
 
 
 class MainInfoSchemas(BaseModel):
-    "Indicators"
+    """Indicators"""
 
     army_type: Literal['dummy_plane', 'air', 'tank'] = Field(alias='army')
     vehicle_tech_name: str = Field(alias='type')
@@ -21,7 +21,7 @@ class MapInfoSchemas(BaseModel):
 
 
 class AircraftInfoSchemas(BaseModel):
-    "STATE"
+    """STATE"""
 
     valid: bool
     tas_speed: int = Field(alias='TAS, km/h')

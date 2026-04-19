@@ -1,3 +1,5 @@
+from functools import lru_cache
+
 import httpx
 from loguru import logger
 
@@ -9,7 +11,8 @@ class WtApi:
 
     @staticmethod
     @logger.catch
-    async def get_vehicle_image(vehicle_tech_name: str) -> str:
+    @lru_cache
+    def get_vehicle_image(vehicle_tech_name: str) -> str:
         url = f'https://static.encyclopedia.warthunder.com/images/{vehicle_tech_name}.png' # noqa
         logger.debug(f'Vehicle -> {vehicle_tech_name}, image url -> {url}')
         return f'https://static.encyclopedia.warthunder.com/images/{vehicle_tech_name}.png' # noqa

@@ -1,10 +1,4 @@
 air_list:
-  f_16c_block_50:
-    ru: F-16C Block 50
-    en: F-16C Block 50
-  f_15c_msip2:
-    ru: F-15C "MSIP II"
-    en: F-15C "MSIP II"
   mig_23ml:
     ru: МиГ-23МЛ
     en: MiG-23ML
@@ -68,3 +62,24 @@ air_list:
   su-7bmk:
     ru: Сусемь))
     en: Su-7BMK
+  f_14a_early:
+    ru: 🛦F-14A Early
+    en: 🛦F-14A Early
+  mig_25pd:
+    ru: 🛦МиГ-25ПД
+    en: 🛦MiG-25PD
+  f_16c_block_50:
+    ru: 🛦F-16C
+    en: 🛦F-16C
+  mig_23m:
+    ru: 🛦МиГ-23М
+    en: 🛦MiG-23M
+  su_25k:
+    ru: 🛦Su-25K
+    en: 🛦Su-25K
+  fa_18e_block_2:
+    ru: 🛦F/A-18E
+    en: 🛦F/A-18E
+  rah_66:
+    ru: 🛦RAH-66
+    en: 🛦RAH-66

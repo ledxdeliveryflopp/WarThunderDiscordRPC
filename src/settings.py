@@ -18,6 +18,7 @@ class Settings:
         self.show_indicators: bool | None = None
         self.air_speed_type: Literal['IAS', 'TAS'] | None = None
         self.altitude_type: Literal['RADIO', 'ABSOLUTE'] | None = None
+        self.custom_images: bool | None = None
         self.lang: str | None = None
         self.logo_theme: str | None = None
         self.main_info_url: str | None = None
@@ -25,6 +26,7 @@ class Settings:
         self.air_info_url: str | None = None
         self.air_dict: dict | None = None
         self.ground_dict: dict | None = None
+        self.custom_images_dict: dict | None = None
         self.loop_timeout: int | None = None
 
     async def __set_api_settings(self, settings_data: dict) -> None:
@@ -53,6 +55,7 @@ class Settings:
         self.show_indicators = validated.presence.show_indicators
         self.lang = validated.presence.lang
         self.logo_theme = validated.presence.logo_theme
+        self.custom_images = validated.presence.custom_images
 
     async def __set_air_vehicle_info(self, settings_data: dict) -> None:
         self.air_dict = settings_data
@@ -75,15 +78,23 @@ class Settings:
             return data['settings']
 
     @logger.catch(reraise=True)
+    async def __load_custom_images(self) -> dict:
+        with open('custom_images.yaml', 'r') as settings_data:
+            data = yaml.load(settings_data, Loader=SafeLoader)
+            return data['custom_images']
+
+    @logger.catch(reraise=True)
     async def __load_air_vehicle_settings(self) -> dict:
         with open('air_vehicle.yaml', 'r', encoding='utf-8') as settings_data:
             data = yaml.load(settings_data, Loader=SafeLoader)
+            logger.debug(f'Air list -> {data}')
             return data['air_list']
 
     @logger.catch(reraise=True)
     async def __load_ground_vehicle_settings(self) -> dict:
         with open('ground_vehicle.yaml', 'r', encoding='utf-8') as settings_data:
             data = yaml.load(settings_data, Loader=SafeLoader)
+            logger.debug(f'Ground list -> {data}')
             return data['ground_list']
 
     @staticmethod
@@ -106,6 +117,8 @@ class Settings:
         self.loop_timeout = main_settings_data['loop']['timeout']
         await self.__set_api_settings(settings_data=main_settings_data)
         await self.__set_presence_settings(settings_data=main_settings_data)
+        custom_images_data = await self.__load_custom_images()
+        self.custom_images_dict = custom_images_data
         await self.__set_air_info_settings(settings_data=main_settings_data)
         air_vehicle_data = await self.__load_air_vehicle_settings()
         await self.__set_air_vehicle_info(settings_data=air_vehicle_data)

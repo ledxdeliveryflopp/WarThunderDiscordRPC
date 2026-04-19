@@ -12,7 +12,7 @@ This application modifies in no way whatsoever any data from the game, it is com
 
 ## Debugging requirements
 
-1. Golang 1.23
+1. Python 3.13.9
 2. Discord
 3. War Thunder
 
@@ -27,47 +27,27 @@ This application modifies in no way whatsoever any data from the game, it is com
 
 ## Images
 
-**White main logo**
-
-![plot](/git/static/en/main_white_en.png)
 
 **Red main logo**
 
-![plot](/git/static/en/main_red_en.png)
+![plot](/git_static/en/main_red.png)
 
-**Ground vehicle (basic)**
-
-![plot](/git/static/en/ground_en_basic.png)
-
-**Ground vehicle (alternative)**
-
-![plot](/git_static/en/ground_en_alt.png)
 
 **Air vehicle (basic)**
 
-![plot](/git/static/en/air_en_basic.png)
+![plot](/git_static/en/mig_21_lazur.png)
 
-**Air vehicle (alternative)**
 
-![plot](/git/static/en/air_en_alt.png)
+## Custom images
 
-**Vehicle with an unsaved name**
+![plot](/git_static/custom_en/F_A18.png)
 
-![plot](/git/static/en/unknow.png)
+![plot](/git_static/custom_en/rah_66.png)
 
 ## How to Install
 
 1. Go to "Releases" tab and download the latest version's .EXE file.
-2. **(If you haven't downloaded settings.json)** Create file "settings.json" with this keys:
-```json
-{
-  "refresh_time": 7, // It is responsible for the time between status updates and cannot be less than 5
-  "main_logo_theme": "main_red"  // Game logo in the specified color, color list: main_red, main_white
-  "alt_presence": false, // Alternative display of vehicle(speed, etc..) statistics
-  "lang": "en" // lang code
-}
-```
-3. Launch the app at any time.
+2. Launch the app at any time.
 
 ## Know issue
 1. Speed/altitude information can be set late (you can experiment with "refresh_time" in the settings)
@@ -126,6 +106,15 @@ This application modifies in no way whatsoever any data from the game, it is com
 ![plot](/git_static/ru/air_without_indicators.png)
 
 
+## Кастомные изображения
+
+![plot](/git_static/custom/mig23ml.png)
+
+![plot](/git_static/custom/mig25.png)
+
+![plot](/git_static/custom/wolfpack.png)
+
+
 ## Как использовать
 
 1. Перейдите в вкладку "Releases" и скачайте архив.
@@ -138,7 +127,12 @@ This application modifies in no way whatsoever any data from the game, it is com
 2. ~~Русскую локализацию для текста в статусах.~~
 3. ~~Автоматический парсинг названий техники с вики~~
 4. ~~Перевод приложения на Python~~
-5. Автозапуск
+5. ~~Автозапуск~~
 
 ## Примечания
 1. Если у самолета нет радиовысотомера, то принудительно будет выводиться высота относительно моря
+
+
+## Список кастомных изображений техники / custom vehicle image list
+
+![plot](/git_static/custom_list.png)

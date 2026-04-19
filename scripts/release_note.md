@@ -1,8 +1,7 @@
-## 2.4.0
+## 2.5.0
 ---
-## V2.4.0
-1. Added a check on the release of new versions of the application
-2. Added Windows notifications about the new version
+## V2.5.0
+1. Fix endless process spawn
 
 ## How to use the Exe?(Windows)
 
@@ -35,9 +34,8 @@ settings:
 4. start exe file
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
-## V2.4.0
-1. Добавил проверку о выходе новых версий приложения
-2. Добавил нотификации Windows о новой версии
+## V2.5.0
+1. Фикс бесконечного спауна приложения
 
 ## Как использовать Exe?(Windows)
 

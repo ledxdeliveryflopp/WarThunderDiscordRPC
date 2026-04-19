@@ -32,7 +32,7 @@ class Lang:
 
 class Constants:
 
-    APP_VERSION = '2.4.0'
+    APP_VERSION = '2.5.0'
     game_name: str = 'War Thunder'
     presence_lang: Lang = Lang()
     github: Git = Git()

@@ -56,6 +56,7 @@ This application modifies in no way whatsoever any data from the game, it is com
 
 ![plot](/git_static/notify_settings.png)
 
+![plot](/git_static/en/notify.png)
 
 ## Что это?
 
@@ -134,6 +135,8 @@ This application modifies in no way whatsoever any data from the game, it is com
 2) В настройках Windows -> Система -> Уведомления, отключите параметр "Не беспокоить"
 
 ![plot](/git_static/notify_settings.png)
+
+![plot](/git_static/ru/notify.png)
 
 ## Что планируется добавить
 1. ~~Дополнительную технику в список форматирования(лучше выглядит и работает быстрее чем резать название).~~

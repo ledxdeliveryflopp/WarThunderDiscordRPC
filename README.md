@@ -48,6 +48,7 @@ This application modifies in no way whatsoever any data from the game, it is com
 
 1. Go to "Releases" tab and download the latest version's .EXE file.
 2. Launch the app at any time.
+3. Execute autostart_service.exe with admin right, if you don't start main file everytime.
 
 ## Know issue
 1. Speed/altitude information can be set late (you can experiment with "refresh_time" in the settings)
@@ -121,6 +122,7 @@ This application modifies in no way whatsoever any data from the game, it is com
 2. Распакуйте архив
 3. По желанию настройке settings.yaml.
 4. Запустите exe
+5. Можете запустить autostart_service.exe с админ правами, что-бы добавить приложение в автозапуск
 
 ## Что планируется добавить
 1. ~~Дополнительную технику в список форматирования(лучше выглядит и работает быстрее чем резать название).~~

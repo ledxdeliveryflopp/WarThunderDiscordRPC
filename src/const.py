@@ -29,11 +29,16 @@ class Lang:
     update_message: dict = {
         'en': 'New app version available: ', 'ru': 'Доступна новая версия: ',
     }
+    app_start_notify: dict = {
+        'en': 'App started, version: ', 'ru': 'Приложение запущено, версия: ',
+    }
+    update_button: dict = {'en': 'Update', 'ru': 'Обновить'}
+    skip_update_button: dict = {'en': 'Skip update', 'ru': 'Пропустить'}
 
 
 class Constants:
 
-    APP_VERSION = '2.7.0'
+    APP_VERSION = '2.9.0'
     game_name: str = 'War Thunder'
     presence_lang: Lang = Lang()
     github: Git = Git()

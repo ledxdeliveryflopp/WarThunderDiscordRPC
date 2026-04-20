@@ -1,8 +1,7 @@
-## 2.7.0
+## 2.10.0
 ---
-## V2.7.0
-1. Change lib for win11 notification
-2. Change lib for win10 notification
+## V2.10.0
+1. test updater
 
 ## How to use the Exe?(Windows)
 
@@ -35,9 +34,8 @@ settings:
 4. start exe file
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
-## V2.7.0
-1. Перевел уведомления в win11 на win11toast
-2. Перевел уведомления в win11 на win10toast
+## V2.10.0
+1. test updater
 
 ## Как использовать Exe?(Windows)
 

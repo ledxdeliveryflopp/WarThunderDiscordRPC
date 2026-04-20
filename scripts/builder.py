@@ -48,6 +48,14 @@ def copy_autostart_service() -> None:
     )
 
 
+def copy_updater_service() -> None:
+    logger.info('Copying updater service')
+    shutil.copy2(
+        'updater.exe',
+        'dist/updater.exe',
+    )
+
+
 def get_release_files() -> list[str]:
     all_items = os.listdir('dist')
     return all_items
@@ -174,5 +182,6 @@ if __name__ == '__main__':
     set_default_vehicle_files()
     copy_browser_dir()
     copy_autostart_service()
+    copy_updater_service()
     zip_release()
     logger.info('Build complete')

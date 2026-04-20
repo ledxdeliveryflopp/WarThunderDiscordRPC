@@ -16,7 +16,7 @@ class GitHubService:
             self, current_version: str, latest_version: str,
     ) -> bool:
         logger.debug(f'current app version -> {current_version}')
-        logger.debug(f'latest app version -> {current_version}')
+        logger.debug(f'latest app version -> {latest_version}')
         if Version(current_version) < Version(latest_version):
             logger.debug('current app version < latest version')
             return True

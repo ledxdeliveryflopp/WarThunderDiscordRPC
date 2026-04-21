@@ -24,6 +24,9 @@ This application modifies in no way whatsoever any data from the game, it is com
 4. Сonverts the system name of the vehicle to a readable format (if the name of the vehicle is not saved in the list) or converts them to a readable format if the name is saved in the list (according to the name of the vehicle in the game).
 5. Show simple vehicle stats(Speed | Crew total/Crew current for ground vehicle, Speed TAS | Altitude for air vehicle).
 6. Show the game logo in the specified color (from the available list).
+7. Notifications about the release of a new version of the application.
+8. Auto-start.
+9. Update without manual download from GitHub.
 
 ## Images
 
@@ -80,6 +83,9 @@ This application modifies in no way whatsoever any data from the game, it is com
 4. Конвертирует в удобочитаемый формат название техники
 5. Отображает некоторые данные о технике: скорость + общее количество экипажа/текущее количество экипажа для наземной техники или TAS/IAS скорость + абсолютная высота/радиовысота для авиации.
 6. Отображает лого игры в выбранном цвете(красном или белом) при установке параметра в настройках(по умолчанию белый).
+7. Уведомления о выходе новой версии приложения.
+8. Автозапуск.
+9. Обновление без ручного скачивания с GitHub.
 
 ## Изображения
 

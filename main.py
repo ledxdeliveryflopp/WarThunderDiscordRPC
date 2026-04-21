@@ -1,6 +1,7 @@
 import asyncio
 import os
 import signal
+import threading
 import time
 import sys
 from loguru import logger
@@ -21,57 +22,53 @@ async def main() -> None:
     settings.rename_updater()
     settings.clear_install_temp()
     logger.info(f'App version -> {const.APP_VERSION}')
-    try:
-        notify_service = WinNotificationService(settings)
-        notify_service.start_notify(app_version=const.APP_VERSION)
-        if settings.show_update_notifications is True:
-            logger.info('Start notify loop')
-            notify_process = mp.Process(
-                target=notify_service.win_notify_loop,
-                name='NotifyProcess',
-                daemon=False,
-            )
-            notify_process.start()
-            notify_pid = notify_process.pid
-            await settings.add_notify_pid_to_sys_info(notify_pid)
-            logger.info(f'Notify process pid: {notify_pid}')
-        while True:
-            discord_status = await presence_service.get_discord_pipe()
-            if discord_status is None:
-                logger.warning('Discord pipe is empty')
-                time.sleep(settings.loop_timeout)
-                continue
-            game_status = await WtApi().health_check()
-            if game_status is False:
-                logger.warning('Game status is false')
-                if discord_status is not None:
-                    try:
-                        logger.debug('Close discord connection')
-                        await presence_service.clear()
-                    except (AssertionError, RuntimeError) as err:
-                        logger.warning(
-                            f'Error while clear status -> {err}',
-                        )
-                        pass
-                time.sleep(settings.loop_timeout)
-                continue
-            else:
+    notify_service = WinNotificationService(settings)
+    notify_service.start_notify(app_version=const.APP_VERSION)
+    if settings.show_update_notifications is True:
+        logger.info('Start notify loop')
+        notify_thread = threading.Thread(
+            target=notify_service.win_notify_loop,
+            daemon=True,
+            name='NotifyService',
+        )
+        notify_thread.start()
+        logger.debug(f'Notify thread -> {notify_thread.name}')
+    while True:
+        discord_status = await presence_service.get_discord_pipe()
+        if discord_status is None:
+            logger.warning('Discord pipe is empty')
+            time.sleep(settings.loop_timeout)
+            continue
+        game_status = await WtApi().health_check()
+        if game_status is False:
+            logger.warning('Game status is false')
+            if discord_status is not None:
                 try:
-                    await presence_service.set_presence()
-                    time.sleep(3)
-                except (AssertionError, RuntimeError) as exc:
-                    logger.warning(exc)
-                    await presence_service.connect()
-    finally:
-        if settings.show_update_notifications is True:
-            logger.debug(f'Stopping notify process')
-            notify_process.terminate()
+                    logger.debug('Close discord connection')
+                    await presence_service.clear()
+                except (AssertionError, RuntimeError) as err:
+                    logger.warning(
+                        f'Error while clear status -> {err}',
+                    )
+                    pass
+            time.sleep(settings.loop_timeout)
+            continue
+        else:
             try:
-                os.kill(notify_pid, signal.SIGTERM)
-            except Exception as e:
-                logger.warning(e)
+                await presence_service.set_presence()
+                time.sleep(3)
+            except (AssertionError, RuntimeError) as exc:
+                logger.warning(exc)
+                await presence_service.connect()
+
+
+def signal_handler(signum, frame):
+    logger.debug('Exit signal')
+    sys.exit(0)
+
 
 if __name__ == '__main__':
+    signal.signal(signal.SIGTERM, signal_handler)
     mp.freeze_support()
     mp.set_start_method('spawn', force=True)
     asyncio.run(main())

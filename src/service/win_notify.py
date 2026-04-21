@@ -1,4 +1,5 @@
 import os
+import signal
 import time
 
 from loguru import logger
@@ -52,8 +53,7 @@ class WinNotificationService(GitHubService):
             check_file = os.path.exists('updater.exe')
             if check_file is True:
                 os.startfile('updater.exe')
-                self.settings.kill_process(self.settings.main_pid)
-                self.settings.kill_process(self.settings.notify_pid)
+                os.kill(os.getpid(), signal.SIGTERM)
             else:
                 logger.warning('updater.exe dont found')
                 self.error_notify(

@@ -37,11 +37,14 @@ class Lang:
     updater_dont_found: dict = {
         'en': 'updater.exe dont found', 'ru': 'updater.exe не найден',
     }
+    close_tray: dict = {
+        'en': 'Close app', 'ru': 'Закрыть приложение',
+    }
 
 
 class Constants:
 
-    APP_VERSION = '2.10.0'
+    APP_VERSION = '2.11.0'
     game_name: str = 'War Thunder'
     presence_lang: Lang = Lang()
     github: Git = Git()

@@ -3,6 +3,7 @@ from functools import lru_cache
 import httpx
 from loguru import logger
 
+from src.logger import app_logger
 from src.settings import settings
 from src.shemas.api import MainInfoSchemas, MapInfoSchemas, AircraftInfoSchemas
 
@@ -14,7 +15,7 @@ class WtApi:
     @lru_cache
     def get_vehicle_image(vehicle_tech_name: str) -> str:
         url = f'https://static.encyclopedia.warthunder.com/images/{vehicle_tech_name}.png' # noqa
-        logger.debug(f'Vehicle -> {vehicle_tech_name}, image url -> {url}')
+        app_logger.debug(f'Vehicle -> {vehicle_tech_name}, image url -> {url}')
         return f'https://static.encyclopedia.warthunder.com/images/{vehicle_tech_name}.png' # noqa
 
     @staticmethod
@@ -24,9 +25,9 @@ class WtApi:
         try:
             response = httpx.get(url=settings.main_info_url)
         except httpx.ConnectError as connect_exc:
-            logger.warning(f'Connect Error -> {connect_exc}')
+            app_logger.warning(f'Connect Error -> {connect_exc}')
             return None
-        logger.debug(f'main info response -> {response.json()}')
+        app_logger.debug(f'main info response -> {response.json()}')
         validated = MainInfoSchemas(**response.json())
         return validated
 
@@ -36,9 +37,9 @@ class WtApi:
         try:
             response = httpx.get(url=settings.map_info_url)
         except httpx.ConnectError as connect_exc:
-            logger.warning(f'Connect Error -> {connect_exc}')
+            app_logger.warning(f'Connect Error -> {connect_exc}')
             return None
-        logger.debug(f'map info response -> {response.json()}')
+        app_logger.debug(f'map info response -> {response.json()}')
         validated = MapInfoSchemas(**response.json())
         return validated
 
@@ -48,9 +49,9 @@ class WtApi:
         try:
             response = httpx.get(url=settings.air_info_url)
         except httpx.ConnectError as connect_exc:
-            logger.warning(f'Connect Error -> {connect_exc}')
+            app_logger.warning(f'Connect Error -> {connect_exc}')
             return None
-        logger.debug(f'air info response -> {response.json()}')
+        app_logger.debug(f'air info response -> {response.json()}')
         validated = AircraftInfoSchemas(**response.json())
         return validated
 

@@ -1,13 +1,12 @@
 import asyncio
-import os
 import signal
 import threading
 import time
 import sys
 from loguru import logger
-import multiprocessing as mp
 
 from src.const import const
+from src.logger import app_logger
 from src.service.api import WtApi
 from src.service.presence import presence_service
 from src.service.win_notify import WinNotificationService
@@ -19,27 +18,27 @@ async def rpc_loop() -> None:
     await settings.set_settings()
     settings.rename_updater()
     settings.clear_install_temp()
-    logger.info(f'App version -> {const.APP_VERSION}')
+    app_logger.info(f'App version -> {const.APP_VERSION}')
     notify_service = WinNotificationService(settings)
     notify_service.start_notify(app_version=const.APP_VERSION)
     if settings.show_update_notifications is True:
-        logger.info('Start notify loop')
+        app_logger.info('Start notify loop')
         notify_thread = threading.Thread(
             target=notify_service.win_notify_loop,
             daemon=True,
             name='NotifyService',
         )
         notify_thread.start()
-        logger.debug(f'Notify thread -> {notify_thread.name}')
+        app_logger.debug(f'Notify thread -> {notify_thread.name}')
     while True:
         discord_status = await presence_service.get_discord_pipe()
         if discord_status is None:
-            logger.warning('Discord pipe is empty')
+            app_logger.warning('Discord pipe is empty')
             time.sleep(settings.loop_timeout)
             continue
         game_status = await WtApi().health_check()
         if game_status is False:
-            logger.warning('Game status is false')
+            app_logger.warning('Game status is false')
             if discord_status is not None:
                 try:
                     logger.debug('Close discord connection')
@@ -61,7 +60,7 @@ async def rpc_loop() -> None:
 
 
 def signal_handler(signum, frame):
-    logger.debug('Exit signal')
+    app_logger.debug('Exit signal')
     sys.exit(0)
 
 
@@ -73,7 +72,7 @@ def main() -> None:
 
     presence_thread = threading.Thread(target=run_rpc_loop, daemon=True)
     presence_thread.start()
-    logger.debug('Presence thread started')
+    app_logger.debug('Presence thread started')
     setup_tray()
 
 

@@ -1,10 +1,10 @@
-import sys
 import time
 
 from loguru import logger
 from pypresence import ActivityType, PipeClosed, AioPresence
 from pypresence.utils import get_ipc_path
 
+from main import app_logger
 from src.const import const
 from src.service.api import WtApi
 from src.service.builder import Builder
@@ -22,15 +22,15 @@ class PresenceService(AioPresence, WtApi, Builder):
     async def get_discord_pipe(self):
         try:
             ipc_pipe = get_ipc_path(self.pipe)
-            logger.debug(f'Discord pipe -> {ipc_pipe}')
+            app_logger.debug(f'Discord pipe -> {ipc_pipe}')
             return ipc_pipe
         except Exception as e:
-            logger.warning(e)
+            app_logger.warning(e)
             return None
 
     @logger.catch(exclude=(AssertionError, PipeClosed, RuntimeError))
     async def set_menu_presence(self) -> None:
-        logger.info('Set lobby presence')
+        app_logger.info('Set lobby presence')
         details = const.presence_lang.hangar[settings.lang]
         state = None
         await self.update(
@@ -46,7 +46,7 @@ class PresenceService(AioPresence, WtApi, Builder):
 
     @logger.catch(exclude=(AssertionError, PipeClosed, RuntimeError))
     async def set_loading_presence(self) -> None:
-        logger.info('Set loading presence')
+        app_logger.info('Set loading presence')
         details = const.presence_lang.loading[settings.lang]
         state = None
         await self.update(
@@ -136,7 +136,7 @@ class PresenceService(AioPresence, WtApi, Builder):
     @logger.catch(exclude=(AssertionError, PipeClosed, RuntimeError))
     async def set_presence(self) -> None:
         try:
-            logger.info('----Set presence----')
+            app_logger.info('----Set presence----')
             map_info = await self.get_map_info()
             if not map_info or map_info.valid is False:
                 await self.set_menu_presence()
@@ -150,10 +150,10 @@ class PresenceService(AioPresence, WtApi, Builder):
                 await self.set_air_presence(indicator_schemas=main_info)
             elif army_type == 'tank':
                 await self.set_tank_presence(indicator_schemas=main_info)
-            logger.info('----Finish set presence----')
+            app_logger.info('----Finish set presence----')
         except (AssertionError, PipeClosed) as error:
-            logger.warning(error)
-            logger.debug('Trying to connect discord')
+            app_logger.warning(error)
+            app_logger.debug('Trying to connect discord')
             await self.connect()
 
 

@@ -9,6 +9,7 @@ import yaml
 from loguru import logger
 from yaml import SafeLoader
 
+from src.logger import app_logger
 from src.shemas.settings import ApiSettings, PresenceSettings, AirInfoSettings
 
 
@@ -36,7 +37,7 @@ class Settings:
 
     async def __set_api_settings(self, settings_data: dict) -> None:
         validated = ApiSettings(**settings_data)
-        logger.debug(f'api settings - {validated.model_dump()}')
+        app_logger.debug(f'api settings - {validated.model_dump()}')
         api_ip = validated.api.api_ip
         api_port = validated.api.api_port
         self.server = f'{api_ip}:{api_port}'
@@ -48,13 +49,13 @@ class Settings:
         self.main_info_url: str = f'http://{self.server}{self.indicators_endpoint}'
         self.map_info_url: str = f'http://{self.server}{self.map_endpoint}'
         self.air_info_url: str = f'http://{self.server}{self.air_info_endpoint}'
-        logger.debug(f'main endpoints - {self.main_info_url}')
-        logger.debug(f'map endpoints - {self.main_info_url}')
-        logger.debug(f'air endpoints - {self.air_info_url}')
+        app_logger.debug(f'main endpoints - {self.main_info_url}')
+        app_logger.debug(f'map endpoints - {self.main_info_url}')
+        app_logger.debug(f'air endpoints - {self.air_info_url}')
 
     async def __set_presence_settings(self, settings_data: dict) -> None:
         validated = PresenceSettings(**settings_data)
-        logger.debug(
+        app_logger.debug(
             f'presence settings - {validated.model_dump()}',
         )
         self.show_indicators = validated.presence.show_indicators
@@ -70,7 +71,7 @@ class Settings:
 
     async def __set_air_info_settings(self, settings_data: dict) -> None:
         validated_settings = AirInfoSettings(**settings_data)
-        logger.debug(
+        app_logger.debug(
             f'air indicators settings - {validated_settings.model_dump()}',
         )
         self.air_speed_type = validated_settings.air_indicators.air_speed_type
@@ -92,14 +93,14 @@ class Settings:
     async def __load_air_vehicle_settings(self) -> dict:
         with open('air_vehicle.yaml', 'r', encoding='utf-8') as settings_data:
             data = yaml.load(settings_data, Loader=SafeLoader)
-            logger.debug(f'Air list -> {data}')
+            app_logger.debug(f'Air list -> {data}')
             return data['air_list']
 
     @logger.catch(reraise=True)
     async def __load_ground_vehicle_settings(self) -> dict:
         with open('ground_vehicle.yaml', 'r', encoding='utf-8') as settings_data:
             data = yaml.load(settings_data, Loader=SafeLoader)
-            logger.debug(f'Ground list -> {data}')
+            app_logger.debug(f'Ground list -> {data}')
             return data['ground_list']
 
     @staticmethod
@@ -109,21 +110,22 @@ class Settings:
         log_level = data['settings']['logger']['level']
         logger.add(
             'wt_presence_{time}.log',
-            filter=lambda record: record["extra"].get("source") == "app",
+            filter=lambda record: record['extra'].get('source') == 'app',
             level=log_level.upper(),
-            rotation="1 week"
+            rotation='1 week',
         )
         logger.add(
-            "notify.log",
-            filter=lambda record: record["extra"].get("source") == "notify",
-            level="DEBUG",
-            rotation="1 week"
+            'notify.log',
+            filter=lambda record: record['extra'].get('source') == 'notify',
+            level='DEBUG',
+            rotation='1 week',
         )
-        logger.info(f'Log level -> {log_level}')
+        logger.add('main.log', level='DEBUG')
+        app_logger.info(f'Log level -> {log_level}')
 
     async def set_settings(self) -> None:
         await self.__load_logs_settings()
-        logger.info('----Configuring app----')
+        app_logger.info('----Configuring app----')
         os.makedirs('static', exist_ok=True)
         main_settings_data = await self.__load_main_settings()
         self.loop_timeout = main_settings_data['core']['timeout']
@@ -139,15 +141,15 @@ class Settings:
         ground_vehicle_data = await self.__load_ground_vehicle_settings()
         await self.__set_ground_vehicle_info(settings_data=ground_vehicle_data)
         await self.__set_endpoints()
-        logger.info('----Settings loaded----')
+        app_logger.info('----Settings loaded----')
 
     async def reset_air_vehicle_settings(self) -> None:
-        logger.debug('Resetting air Vehicle Settings')
+        app_logger.debug('Resetting air Vehicle Settings')
         air_vehicle_data = await self.__load_air_vehicle_settings()
         await self.__set_air_vehicle_info(settings_data=air_vehicle_data)
 
     async def reset_ground_vehicle_settings(self) -> None:
-        logger.debug('Resetting ground Vehicle Settings')
+        app_logger.debug('Resetting ground Vehicle Settings')
         ground_vehicle_data = await self.__load_ground_vehicle_settings()
         await self.__set_ground_vehicle_info(settings_data=ground_vehicle_data)
 
@@ -180,28 +182,28 @@ class Settings:
     @property
     def win_version(self) -> str:
         version = platform.win32_ver()
-        logger.info(f'Windows data -> {version}')
+        app_logger.info(f'Windows data -> {version}')
         return version[0]
 
     @staticmethod
     def kill_process(pid: int) -> None:
-        logger.debug(f'Kill pid -> {pid}')
+        app_logger.debug(f'Kill pid -> {pid}')
         os.kill(pid, signal.SIGTERM)
 
     @staticmethod
     def clear_install_temp() -> None:
         temp_path = f'{os.getcwd()}/temp'
-        logger.info(f'Clearing temp dir -> {temp_path}')
+        app_logger.info(f'Clearing temp dir -> {temp_path}')
         if os.path.exists(temp_path) is True:
             shutil.rmtree(temp_path)
-            logger.info('Temp dir removed')
+            app_logger.info('Temp dir removed')
         else:
-            logger.info('Temp dir not found')
+            app_logger.info('Temp dir not found')
 
     @staticmethod
     @logger.catch
     def rename_updater():
-        logger.info('Renaming updater')
+        app_logger.info('Renaming updater')
         time.sleep(2)
         basic_updater_path = f'{os.getcwd()}/temp/updater.exe'
         new_updater = f'{os.getcwd()}/updater_new.exe'
@@ -209,12 +211,12 @@ class Settings:
         renamed_temp_exist = os.path.exists(new_updater)
         save_path = f'{os.getcwd()}/updater.exe'
         if basic_exist is True:
-            logger.debug('Basic updater exists')
+            app_logger.debug('Basic updater exists')
             os.remove('updater.exe')
             os.rename(basic_updater_path, save_path)
             return
         if renamed_temp_exist is True:
-            logger.debug('Renaming updater exists')
+            app_logger.debug('Renaming updater exists')
             os.remove('updater.exe')
             os.rename(new_updater, save_path)
             return

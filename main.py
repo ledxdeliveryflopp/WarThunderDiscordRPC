@@ -18,6 +18,8 @@ async def main() -> None:
     await settings.store_sys_data(
         pid=os.getpid(), os_data=settings.win_version,
     )
+    settings.rename_updater()
+    settings.clear_install_temp()
     logger.info(f'App version -> {const.APP_VERSION}')
     try:
         notify_service = WinNotificationService(settings)
@@ -73,5 +75,3 @@ if __name__ == '__main__':
     mp.freeze_support()
     mp.set_start_method('spawn', force=True)
     asyncio.run(main())
-    # updater = UpdaterService()
-    # updater.download_release_zip()

@@ -34,11 +34,14 @@ class Lang:
     }
     update_button: dict = {'en': 'Update', 'ru': 'Обновить'}
     skip_update_button: dict = {'en': 'Skip update', 'ru': 'Пропустить'}
+    updater_dont_found: dict = {
+        'en': 'updater.exe dont found', 'ru': 'updater.exe не найден',
+    }
 
 
 class Constants:
 
-    APP_VERSION = '2.9.0'
+    APP_VERSION = '2.10.0'
     game_name: str = 'War Thunder'
     presence_lang: Lang = Lang()
     github: Git = Git()

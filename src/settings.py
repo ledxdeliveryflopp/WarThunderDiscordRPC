@@ -1,6 +1,8 @@
 import os
 import platform
+import shutil
 import signal
+import time
 from typing import Literal, Any
 
 import yaml
@@ -178,6 +180,37 @@ class Settings:
     def kill_process(pid: int) -> None:
         logger.debug(f'Kill pid -> {pid}')
         os.kill(pid, signal.SIGTERM)
+
+    @staticmethod
+    def clear_install_temp() -> None:
+        temp_path = f'{os.getcwd()}/temp'
+        logger.info(f'Clearing temp dir -> {temp_path}')
+        if os.path.exists(temp_path) is True:
+            shutil.rmtree(temp_path)
+            logger.info('Temp dir removed')
+        else:
+            logger.info('Temp dir not found')
+
+    @staticmethod
+    @logger.catch
+    def rename_updater():
+        logger.info('Renaming updater')
+        time.sleep(2)
+        basic_updater_path = f'{os.getcwd()}/temp/updater.exe'
+        new_updater = f'{os.getcwd()}/updater_new.exe'
+        basic_exist = os.path.exists(basic_updater_path)
+        renamed_temp_exist = os.path.exists(new_updater)
+        save_path = f'{os.getcwd()}/updater.exe'
+        if basic_exist is True:
+            logger.debug('Basic updater exists')
+            os.remove('updater.exe')
+            os.rename(basic_updater_path, save_path)
+            return
+        if renamed_temp_exist is True:
+            logger.debug('Renaming updater exists')
+            os.remove('updater.exe')
+            os.rename(new_updater, save_path)
+            return
 
 
 settings = Settings()

@@ -1,5 +1,6 @@
 import os
 
+from loguru import logger
 from windows_toasts import (
     InteractableWindowsToaster, Toast,
     ToastDisplayImage, ToastImagePosition, ToastProgressBar, ToastDuration,
@@ -10,14 +11,17 @@ from service.local import localization
 
 class NotifyService:
 
+    app_name = 'WTDRP'
+
     def __init__(self, lang: str):
         self.lang = lang
+        self.img_path = f'{os.getcwd()}/notify_img.png'
 
     def download_notify(self) -> (InteractableWindowsToaster, Toast):
-        toaster = InteractableWindowsToaster('WTDRP')
+        logger.info('Start download notify')
+        toaster = InteractableWindowsToaster(self.app_name)
         new_toast = Toast([localization.install[self.lang]])
-        img_path = f'{os.getcwd()}/notify_img.png'
-        test = ToastDisplayImage.fromPath(img_path)
+        test = ToastDisplayImage.fromPath(self.img_path)
         test.position = ToastImagePosition.AppLogo
         test.circleCrop = True
         new_toast.AddImage(test)
@@ -29,11 +33,11 @@ class NotifyService:
         return toaster, new_toast
 
     def install_error_notify(self) -> None:
-        toaster = InteractableWindowsToaster('WTDRP')
+        logger.info('Start error notify')
+        toaster = InteractableWindowsToaster(self.app_name)
         message = localization.install_error[self.lang]
         new_toast = Toast([message])
-        img_path = f'{os.getcwd()}/notify_img.png'
-        test = ToastDisplayImage.fromPath(img_path)
+        test = ToastDisplayImage.fromPath(self.img_path)
         test.position = ToastImagePosition.AppLogo
         test.circleCrop = True
         new_toast.AddImage(test)
@@ -42,13 +46,14 @@ class NotifyService:
     def show_endless_notify(
             self, progress_text: str,
     ) -> InteractableWindowsToaster:
-        toaster = InteractableWindowsToaster('WTDRP')
+        logger.info('Start endless notify')
+        logger.debug(f'progress_text -> {progress_text}')
+        toaster = InteractableWindowsToaster(self.app_name)
         new_toast = Toast(
             text_fields=[localization.install[self.lang]],
             duration=ToastDuration.Long,
         )
-        img_path = f'{os.getcwd()}/notify_img.png'
-        test = ToastDisplayImage.fromPath(img_path)
+        test = ToastDisplayImage.fromPath(self.img_path)
         test.position = ToastImagePosition.AppLogo
         test.circleCrop = True
         new_toast.AddImage(test)
@@ -62,11 +67,11 @@ class NotifyService:
         return toaster
 
     def finish_install_notify(self) -> InteractableWindowsToaster:
-        toaster = InteractableWindowsToaster('WTDRP')
+        logger.info('Start finish notify')
+        toaster = InteractableWindowsToaster(self.app_name)
         message = localization.install_complete[self.lang]
         new_toast = Toast([message])
-        img_path = f'{os.getcwd()}/notify_img.png'
-        test = ToastDisplayImage.fromPath(img_path)
+        test = ToastDisplayImage.fromPath(self.img_path)
         test.position = ToastImagePosition.AppLogo
         test.circleCrop = True
         new_toast.AddImage(test)

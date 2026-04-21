@@ -1,7 +1,11 @@
 ## 2.10.0
 ---
 ## V2.10.0
-1. test updater
+1. Added the functionality of updating the application for updates
+2. Added temporary folder cleanup
+3. Improved logging
+4. Increased the polling timeout of the repository to 3 hours
+5. Added notification of update errors
 
 ## How to use the Exe?(Windows)
 
@@ -35,7 +39,11 @@ settings:
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 ## V2.10.0
-1. test updater
+1. Добавил функционал обновления приложения для обновлений
+2. Добавил очистку временной папки
+3. Улучшил логирование
+4. Увеличил таймаут опроса репозитория до 3 часов
+5. Добавил нотификацию об ошибках обновления
 
 ## Как использовать Exe?(Windows)
 

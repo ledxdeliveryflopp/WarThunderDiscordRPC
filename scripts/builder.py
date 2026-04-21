@@ -118,7 +118,6 @@ def build_app_spec(build_params: argparse.Namespace) -> list[str]:
         main_file_path,
         '--clean',
         '--name=WTDRP',
-        '--hidden-import=multiprocessing.spawn',
         '--icon',
         main_file_ico,
     ]

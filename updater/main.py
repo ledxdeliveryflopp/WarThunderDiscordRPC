@@ -132,6 +132,9 @@ class UpdaterService(NotifyService):
                         logger.debug(f'New -> {new_updater}')
                         os.rename(updater_path, new_updater)
                         continue
+                    if 'dist.7z' in src_path:
+                        logger.debug('Skipping dist zip')
+                        continue
                     dst_path = os.path.join(target_root, f)
                     logger.info(f'Copying {src_path} to {dst_path}')
                     shutil.copy2(src_path, dst_path)

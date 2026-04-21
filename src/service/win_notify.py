@@ -1,4 +1,5 @@
 import os
+import signal
 import time
 
 from loguru import logger
@@ -17,6 +18,8 @@ from src.settings import Settings
 class WinNotificationService(GitHubService):
 
     def __init__(self, app_settings: Settings):
+        super().__init__()
+        self.notify_logger = logger.bind(source='notify')
         self.settings = app_settings
         self.icon = f'{os.getcwd()}/notify_img.png'
 
@@ -47,15 +50,15 @@ class WinNotificationService(GitHubService):
     @logger.catch
     def update_callback(self, event_arg: ToastActivatedEventArgs):
         result = event_arg.arguments
-        logger.debug(f'ActivatedEventArgs -> {result}')
+        self.notify_logger.debug(f'ActivatedEventArgs -> {result}')
         if result == 'update':
             check_file = os.path.exists('updater.exe')
             if check_file is True:
+                self.notify_logger.info('Start updater')
                 os.startfile('updater.exe')
-                self.settings.kill_process(self.settings.main_pid)
-                self.settings.kill_process(self.settings.notify_pid)
+                os.kill(os.getpid(), signal.SIGTERM)
             else:
-                logger.warning('updater.exe dont found')
+                self.notify_logger.warning('updater.exe dont found')
                 self.error_notify(
                     error=const.presence_lang.updater_dont_found[
                         self.settings.lang
@@ -65,7 +68,6 @@ class WinNotificationService(GitHubService):
     @logger.catch
     def win_notify_loop(self) -> None:
         """Win notify loop"""
-        logger.add('win_notify.log', level='DEBUG')
         while True:
             latest_release_data = self.get_latest_release()
             if latest_release_data is None:
@@ -95,9 +97,9 @@ class WinNotificationService(GitHubService):
                     date_msg = 'Release date: '
                 message_info = f'{latest_tag} \n{date_msg}{date}'
                 message = f'{message_base}{message_info}'
-                logger.debug('Show notification')
-                logger.debug(f'Notify title -> {title}')
-                logger.debug(f'Notify message -> {message}')
+                self.notify_logger.debug('Show notification')
+                self.notify_logger.debug(f'Notify title -> {title}')
+                self.notify_logger.debug(f'Notify message -> {message}')
                 toaster = InteractableWindowsToaster('WTDRP')
                 new_toast = Toast([message])
                 test = ToastDisplayImage.fromPath(self.icon)

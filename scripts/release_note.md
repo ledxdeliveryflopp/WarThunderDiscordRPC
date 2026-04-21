@@ -1,11 +1,10 @@
-## 2.10.0
+## 2.11.0
 ---
-## V2.10.0
-1. Added the functionality of updating the application for updates
-2. Added temporary folder cleanup
-3. Improved logging
-4. Increased the polling timeout of the repository to 3 hours
-5. Added notification of update errors
+## V2.11.0
+1. Added a tray for closing the application (Suggested and implemented by user [Galaxy-VN](https://github.com/Galaxy-VN))
+2. Switched system notifications for any process to "threading"
+3. Separated service logging
+4. Slightly improved the update service
 
 ## How to use the Exe?(Windows)
 
@@ -38,12 +37,11 @@ settings:
 4. start exe file
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
-## V2.10.0
-1. Добавил функционал обновления приложения для обновлений
-2. Добавил очистку временной папки
-3. Улучшил логирование
-4. Увеличил таймаут опроса репозитория до 3 часов
-5. Добавил нотификацию об ошибках обновления
+## V2.11.0
+1. Добавил трею для закрытия приложения(Предложено и реализовано пользователем [Galaxy-VN](https://github.com/Galaxy-VN))
+2. Перевел систему нотификаций с независимого процесса на "многопоток"
+3. Разделил логирование сервисов
+4. Немного доработал сервис обновлений
 
 ## Как использовать Exe?(Windows)
 

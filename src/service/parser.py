@@ -9,6 +9,7 @@ from pydoll.browser import Chrome
 from pydoll.browser.options import ChromiumOptions
 from yaml import SafeLoader
 
+from src.logger import app_logger
 from src.service.api import WtApi
 from src.settings import settings
 
@@ -20,13 +21,13 @@ class ParserService:
     @lru_cache
     def parse_tank_name(tank_tech_name: str) -> str:
         parsed_name = tank_tech_name.replace('tankModels/', '').lower()
-        logger.debug(f'tank parse name result -> {parsed_name}')
+        app_logger.debug(f'tank parse name result -> {parsed_name}')
         return parsed_name
 
     @logger.catch
     async def get_readable_tank_name(self, tank_parsed_name: str) -> str:
         tank_readable_name = settings.ground_dict.get(tank_parsed_name, None)
-        logger.info(f'Tank readable name -> {tank_readable_name}')
+        app_logger.info(f'Tank readable name -> {tank_readable_name}')
         if tank_readable_name is None:
             await self.__get_vehicle_name_from_wiki(
                 vehicle_code=tank_parsed_name, army_type='tank',
@@ -37,7 +38,7 @@ class ParserService:
     @logger.catch
     async def get_readable_air_name(self, air_name: str) -> str:
         air_readable_name = settings.air_dict.get(air_name, None)
-        logger.info(f'Air readable name -> {air_readable_name}')
+        app_logger.info(f'Air readable name -> {air_readable_name}')
         if air_readable_name is None:
             await self.__get_vehicle_name_from_wiki(
                 vehicle_code=air_name, army_type='air',
@@ -48,14 +49,14 @@ class ParserService:
     @staticmethod
     @logger.catch
     async def get_custom_vehicle_image(vehicle_tech_code: str) -> str:
-        logger.debug(f'Get custom vehicle image for -> {vehicle_tech_code}')
+        app_logger.debug(f'Get custom vehicle image for -> {vehicle_tech_code}')
         vehicle = settings.custom_images_dict.get(vehicle_tech_code, None)
-        logger.debug(f'Vehicle data -> {vehicle}')
+        app_logger.debug(f'Vehicle data -> {vehicle}')
         if vehicle is None:
             wiki_image = WtApi().get_vehicle_image(vehicle_tech_code)
             return wiki_image
         custom_image = vehicle.get('image_code', None)
-        logger.debug(f'Vehicle images -> {custom_image}')
+        app_logger.debug(f'Vehicle images -> {custom_image}')
         if custom_image is None:
             wiki_image = WtApi().get_vehicle_image(vehicle_tech_code)
             return wiki_image
@@ -68,10 +69,10 @@ class ParserService:
             air_readable_name_ru: str,
             air_readable_name_en: str,
     ) -> None:
-        logger.info('Updating air vehicle list')
-        logger.debug(f'air tech name -> {air_tech_name}')
-        logger.debug(f'air readable name ru -> {air_readable_name_ru}')
-        logger.debug(f'air readable name en -> {air_readable_name_en}')
+        app_logger.info('Updating air vehicle list')
+        app_logger.debug(f'air tech name -> {air_tech_name}')
+        app_logger.debug(f'air readable name ru -> {air_readable_name_ru}')
+        app_logger.debug(f'air readable name en -> {air_readable_name_en}')
         with open('air_vehicle.yaml', 'r', encoding='utf-8') as air_data:
             data = yaml.load(air_data, Loader=SafeLoader)
             new_entry = {
@@ -90,10 +91,14 @@ class ParserService:
             ground_readable_name_ru: str,
             ground_readable_name_en: str,
     ) -> None:
-        logger.info('Updating ground vehicle list')
-        logger.debug(f'ground tech name -> {ground_tech_name}')
-        logger.debug(f'ground readable name ru -> {ground_readable_name_ru}')
-        logger.debug(f'ground readable name en -> {ground_readable_name_en}')
+        app_logger.info('Updating ground vehicle list')
+        app_logger.debug(f'ground tech name -> {ground_tech_name}')
+        app_logger.debug(
+            f'ground readable name ru -> {ground_readable_name_ru}',
+        )
+        app_logger.debug(
+            f'ground readable name en -> {ground_readable_name_en}',
+        )
         with open('ground_vehicle.yaml', 'r', encoding='utf-8') as air_data:
             data = yaml.load(air_data, Loader=SafeLoader)
             new_entry = {
@@ -140,9 +145,9 @@ class ParserService:
     async def __get_vehicle_name_from_wiki(
             self, vehicle_code: str, army_type: Literal['tank', 'air'],
     ) -> None:
-        logger.info('Start search vehicle readable name!')
-        logger.debug(f'Empty vehicle name -> {vehicle_code}')
-        logger.debug(f'army_type -> {army_type}')
+        app_logger.info('Start search vehicle readable name!')
+        app_logger.debug(f'Empty vehicle name -> {vehicle_code}')
+        app_logger.debug(f'army_type -> {army_type}')
         options = await self.__setup_browser()
 
         async with Chrome(options=options) as browser:
@@ -158,9 +163,9 @@ class ParserService:
             en_title_bar = await tab.find(class_name='game-unit_name')
             if en_title_bar:
                 en_title_text = await en_title_bar.text
-                logger.debug(f'Vehicle title en -> {en_title_text}')
+                app_logger.debug(f'Vehicle title en -> {en_title_text}')
             else:
-                logger.debug('Error while find en title locator')
+                app_logger.debug('Error while find en title locator')
             tab = await browser.start()
             await tab.go_to(
                 url=f'https://wiki.warthunder.ru/unit/{vehicle_code}',
@@ -169,14 +174,14 @@ class ParserService:
             screenshot_path = os.path.join(
                 f'{os.getcwd()}/static', f'{vehicle_code}_ru.png',
             )
-            logger.debug(f'Save screenshot to -> {screenshot_path}')
+            app_logger.debug(f'Save screenshot to -> {screenshot_path}')
             await tab.take_screenshot(path=screenshot_path)
             ru_title_bar = await tab.find(class_name='game-unit_name')
             if ru_title_bar:
                 ru_title_text = await ru_title_bar.text
-                logger.debug(f'Vehicle title ru -> {ru_title_text}')
+                app_logger.debug(f'Vehicle title ru -> {ru_title_text}')
             else:
-                logger.debug('Error while find title ru locator')
+                app_logger.debug('Error while find title ru locator')
             if ru_title_bar or en_title_bar:
                 if army_type == 'air':
                     await self.__update_air_vehicle_list(

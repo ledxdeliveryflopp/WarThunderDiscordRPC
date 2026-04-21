@@ -1,6 +1,7 @@
 from loguru import logger
 
 from src.const import const
+from src.logger import app_logger
 from src.settings import settings
 from src.shemas.api import MainInfoSchemas, AircraftInfoSchemas
 
@@ -31,7 +32,7 @@ class Builder:
             state_info = const.presence_lang.absolute_altitude[settings.lang]
             altitude_state = f'{state_info}: {altitude}'
         state = f'{speed_state} | {altitude_state}'
-        logger.debug(f'Air state -> {state}')
+        app_logger.debug(f'Air state -> {state}')
         return state
 
     @staticmethod
@@ -45,5 +46,5 @@ class Builder:
         crew_info = const.presence_lang.tank_crew[settings.lang]
         crew_state = f'{crew_info}: {current_crew_count}/{total_crew_count}'
         state = f'{speed_state} | {crew_state}'
-        logger.debug(f'Ground state -> {state}')
+        app_logger.debug(f'Ground state -> {state}')
         return state

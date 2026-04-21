@@ -141,6 +141,7 @@ class Settings:
         ground_vehicle_data = await self.__load_ground_vehicle_settings()
         await self.__set_ground_vehicle_info(settings_data=ground_vehicle_data)
         await self.__set_endpoints()
+        self.win_version()
         app_logger.info('----Settings loaded----')
 
     async def reset_air_vehicle_settings(self) -> None:
@@ -154,36 +155,9 @@ class Settings:
         await self.__set_ground_vehicle_info(settings_data=ground_vehicle_data)
 
     @staticmethod
-    async def store_sys_data(pid: int, os_data: Any) -> None:
-        with open('sys.yaml', 'w') as file:
-            data = {'sys': {'main_pid': pid, 'os': os_data}}
-            yaml.safe_dump(data, file)
-
-    @staticmethod
-    async def add_notify_pid_to_sys_info(pid: int) -> None:
-        with open('sys.yaml', 'r') as file:
-            data = yaml.safe_load(file)
-        data['sys']['notify_pid'] = pid
-        with open('sys.yaml', 'w') as file:
-            yaml.safe_dump(data, file)
-
-    @property
-    def main_pid(self) -> int:
-        with open('sys.yaml', 'r') as file:
-            data = yaml.safe_load(file)
-        return data['sys']['main_pid']
-
-    @property
-    def notify_pid(self) -> int:
-        with open('sys.yaml', 'r') as file:
-            data = yaml.safe_load(file)
-        return data['sys']['notify_pid']
-
-    @property
-    def win_version(self) -> str:
+    def win_version() -> None:
         version = platform.win32_ver()
         app_logger.info(f'Windows data -> {version}')
-        return version[0]
 
     @staticmethod
     def kill_process(pid: int) -> None:

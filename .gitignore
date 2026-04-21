@@ -40,3 +40,4 @@ main.spec
 .spec
 static
 chrome-win64
+scripts/.env

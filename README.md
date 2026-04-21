@@ -59,7 +59,7 @@ This application modifies in no way whatsoever any data from the game, it is com
 
 ![plot](/git_static/notify_settings.png)
 
-![](/git_static/update.gif)
+![](/git_static/en/update.gif)
 
 ## Что это?
 
@@ -143,6 +143,8 @@ This application modifies in no way whatsoever any data from the game, it is com
 ![plot](/git_static/notify_settings.png)
 
 ![plot](/git_static/ru/notify.png)
+
+![](/git_static/ru/update.gif)
 
 ## Что планируется добавить
 1. ~~Дополнительную технику в список форматирования(лучше выглядит и работает быстрее чем резать название).~~

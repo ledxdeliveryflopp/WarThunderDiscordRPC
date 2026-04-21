@@ -4,8 +4,8 @@ from loguru import logger
 from pypresence import ActivityType, PipeClosed, AioPresence
 from pypresence.utils import get_ipc_path
 
-from main import app_logger
 from src.const import const
+from src.logger import app_logger
 from src.service.api import WtApi
 from src.service.builder import Builder
 from src.service.parser import parser

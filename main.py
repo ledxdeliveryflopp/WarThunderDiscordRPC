@@ -5,6 +5,10 @@ import time
 import sys
 from loguru import logger
 import multiprocessing as mp
+import threading
+from PIL import Image, ImageDraw
+import pystray
+from pystray import MenuItem as item
 
 from src.const import const
 from src.service.api import WtApi
@@ -13,7 +17,7 @@ from src.service.win_notify import WinNotificationService
 from src.settings import settings
 
 
-async def main() -> None:
+async def rpc_loop() -> None:
     await settings.set_settings()
     await settings.store_sys_data(
         pid=os.getpid(), os_data=settings.win_version,
@@ -69,9 +73,55 @@ async def main() -> None:
             except Exception as e:
                 logger.warning(e)
 
+def create_image():
+    # Generate an image for the tray icon
+    width = 64
+    height = 64
+    color1 = 'black'
+    color2 = 'red'
+    image = Image.new('RGB', (width, height), color1)
+    dc = ImageDraw.Draw(image)
+    dc.rectangle(
+        (width // 2, 0, width, height // 2),
+        fill=color2,
+    )
+    dc.rectangle(
+        (0, height // 2, width // 2, height),
+        fill=color2,
+    )
+    return image
+
+def exit_action(icon, item):
+    icon.stop()
+    os._exit(0)
+
+def main():
+    # Start the async rpc loop in a daemon thread
+    def run_async_loop():
+        asyncio.run(rpc_loop())
+
+    t = threading.Thread(target=run_async_loop, daemon=True)
+    t.start()
+    
+    # Optional: Load an actual icon if exists, else create one
+    icon_image = create_image()
+    # Try using custom icon if it exists (e.g. at root or static folder)
+    if os.path.exists("icon.ico"):
+        icon_image = Image.open("icon.ico")
+        
+    icon = pystray.Icon(
+        "WT Discord RPC", 
+        icon_image, 
+        "WT Discord RPC", 
+        menu=pystray.Menu(
+            item('Exit', exit_action)
+        )
+    )
+    icon.run()
+
 if __name__ == '__main__':
     mp.freeze_support()
     mp.set_start_method('spawn', force=True)
-    asyncio.run(main())
+    main()
     # updater = UpdaterService()
     # updater.download_release_zip()

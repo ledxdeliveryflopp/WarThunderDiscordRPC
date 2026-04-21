@@ -109,8 +109,15 @@ class Settings:
         log_level = data['settings']['logger']['level']
         logger.add(
             'wt_presence_{time}.log',
-            format="{time:DD-MM-YYYY at HH:mm:ss} | {level} | {message}",
+            filter=lambda record: record["extra"].get("source") == "app",
             level=log_level.upper(),
+            rotation="1 week"
+        )
+        logger.add(
+            "notify.log",
+            filter=lambda record: record["extra"].get("source") == "notify",
+            level="DEBUG",
+            rotation="1 week"
         )
         logger.info(f'Log level -> {log_level}')
 

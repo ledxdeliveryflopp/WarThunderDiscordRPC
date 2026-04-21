@@ -3,7 +3,7 @@
 class Localization:
 
     install = {'en': 'Install', 'ru': 'Установка'}
-    waiting = {'en': 'Waiting', 'ru': 'Ожидайте'}
+    waiting = {'en': 'please stand by', 'ru': 'please stand by'}
     release_data = {'en': 'Getting repository data', 'ru': 'Опрос репозитория'}
     downloading_assets = {
         'en': 'Downloading assets..', 'ru': 'Скачивание ассетов...',

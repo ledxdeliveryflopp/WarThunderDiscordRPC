@@ -59,7 +59,7 @@ This application modifies in no way whatsoever any data from the game, it is com
 
 ![plot](/git_static/notify_settings.png)
 
-![plot](/git_static/en/notify.png)
+![](/git_static/update.gif)
 
 ## Что это?
 

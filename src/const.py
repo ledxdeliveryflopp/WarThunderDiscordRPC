@@ -40,11 +40,17 @@ class Lang:
     close_tray: dict = {
         'en': 'Close app', 'ru': 'Закрыть приложение',
     }
+    update_dont_found: dict = {
+        'en': 'No new releases', 'ru': 'Нет обновлений',
+    }
+    check_updates: dict = {
+        'en': 'Check updates', 'ru': 'Проверить обновления',
+    }
 
 
 class Constants:
 
-    APP_VERSION = '2.11.0'
+    APP_VERSION = '2.11.1'
     game_name: str = 'War Thunder'
     presence_lang: Lang = Lang()
     github: Git = Git()

@@ -9,17 +9,15 @@ from src.const import const
 from src.logger import app_logger
 from src.service.api import WtApi
 from src.service.presence import presence_service
-from src.service.win_notify import WinNotificationService
+from src.service.win_notify import WinNotificationService, notify_service
 from src.settings import settings
 from src.tray import setup_tray
 
 
 async def rpc_loop() -> None:
-    await settings.set_settings()
     settings.rename_updater()
     settings.clear_install_temp()
     app_logger.info(f'App version -> {const.APP_VERSION}')
-    notify_service = WinNotificationService(settings)
     notify_service.start_notify(app_version=const.APP_VERSION)
     if settings.show_update_notifications is True:
         app_logger.info('Start notify loop')
@@ -66,6 +64,8 @@ def signal_handler(signum, frame):
 
 def main() -> None:
     signal.signal(signal.SIGTERM, signal_handler)
+
+    asyncio.run(settings.set_settings())
 
     def run_rpc_loop():
         asyncio.run(rpc_loop())

@@ -4,9 +4,10 @@ import sys
 import pystray
 from PIL import Image, ImageDraw
 from loguru import logger
-from pystray import MenuItem
 
 from src.const import const
+from src.service.win_notify import notify_service
+from src.settings import settings
 
 
 def create_image():
@@ -43,7 +44,14 @@ def setup_tray():
         icon_image,
         'WT Discord RPC',
         menu=pystray.Menu(
-            MenuItem(const.presence_lang.close_tray['en'], exit_action)
-        )
+            pystray.MenuItem(
+                const.presence_lang.close_tray[settings.lang],
+                exit_action,
+            ),
+            pystray.MenuItem(
+                const.presence_lang.check_updates[settings.lang],
+                lambda item: notify_service.check_update_notify(),
+            ),
+        ),
     )
     icon.run()

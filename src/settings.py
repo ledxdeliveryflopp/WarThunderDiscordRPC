@@ -10,7 +10,10 @@ from loguru import logger
 from yaml import SafeLoader
 
 from src.logger import app_logger
-from src.shemas.settings import ApiSettings, PresenceSettings, AirInfoSettings
+from src.shemas.settings import (
+    ApiSettings, PresenceSettings, AirInfoSettings,
+    CoreSettings,
+)
 
 
 class Settings:
@@ -63,6 +66,14 @@ class Settings:
         self.logo_theme = validated.presence.logo_theme
         self.custom_images = validated.presence.custom_images
 
+    async def __set_core_settings(self, settings_data: dict) -> None:
+        validated = CoreSettings(**settings_data)
+        app_logger.debug(
+            f'core settings - {validated.model_dump()}',
+        )
+        self.loop_timeout = validated.core.timeout
+        self.show_update_notifications = validated.core.show_notification
+
     async def __set_air_vehicle_info(self, settings_data: dict) -> None:
         self.air_dict = settings_data
 
@@ -109,16 +120,16 @@ class Settings:
             data = yaml.load(settings_data, Loader=SafeLoader)
         log_level = data['settings']['logger']['level']
         logger.add(
-            'wt_presence_{time}.log',
+            'wt_presence.log',
             filter=lambda record: record['extra'].get('source') == 'app',
             level=log_level.upper(),
-            rotation='1 week',
+            rotation='300 MB',
         )
         logger.add(
             'notify.log',
             filter=lambda record: record['extra'].get('source') == 'notify',
             level='DEBUG',
-            rotation='1 week',
+            rotation='300 MB',
         )
         logger.add('main.log', level='DEBUG')
         app_logger.info(f'Log level -> {log_level}')
@@ -128,9 +139,7 @@ class Settings:
         app_logger.info('----Configuring app----')
         os.makedirs('static', exist_ok=True)
         main_settings_data = await self.__load_main_settings()
-        self.loop_timeout = main_settings_data['core']['timeout']
-        show_notification = main_settings_data['core']['show_notification']
-        self.show_update_notifications = show_notification
+        await self.__set_core_settings(settings_data=main_settings_data)
         await self.__set_api_settings(settings_data=main_settings_data)
         await self.__set_presence_settings(settings_data=main_settings_data)
         custom_images_data = await self.__load_custom_images()
@@ -158,11 +167,6 @@ class Settings:
     def win_version() -> None:
         version = platform.win32_ver()
         app_logger.info(f'Windows data -> {version}')
-
-    @staticmethod
-    def kill_process(pid: int) -> None:
-        app_logger.debug(f'Kill pid -> {pid}')
-        os.kill(pid, signal.SIGTERM)
 
     @staticmethod
     def clear_install_temp() -> None:

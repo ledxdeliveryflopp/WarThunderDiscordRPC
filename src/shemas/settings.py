@@ -25,9 +25,20 @@ class PresenceSettingsData(BaseModel):
     custom_images: bool
 
 
+class CoreSettingsData(BaseModel):
+
+    timeout: int
+    show_notification: bool
+
+
 class PresenceSettings(BaseModel):
 
     presence: PresenceSettingsData
+
+
+class CoreSettings(BaseModel):
+
+    core: CoreSettingsData
 
 
 class AirInfoSettingsData(BaseModel):

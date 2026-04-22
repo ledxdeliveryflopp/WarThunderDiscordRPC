@@ -1,10 +1,11 @@
-## 2.11.0
+## 2.11.1
 ---
-## V2.11.0
-1. Added a tray for closing the application (Suggested and implemented by user [Galaxy-VN](https://github.com/Galaxy-VN))
-2. Switched system notifications for any process to "threading"
-3. Separated service logging
-4. Slightly improved the update service
+## V2.11.1
+1. Added localization to the tray
+2. Added a button to the tray to force the update check.
+3. A small refactoring of the notification service
+4. Remove timestamp from presence log
+5. Add rotation in logs
 
 ## How to use the Exe?(Windows)
 
@@ -37,11 +38,12 @@ settings:
 4. start exe file
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
-## V2.11.0
-1. Добавил трею для закрытия приложения(Предложено и реализовано пользователем [Galaxy-VN](https://github.com/Galaxy-VN))
-2. Перевел систему нотификаций с независимого процесса на "многопоток"
-3. Разделил логирование сервисов
-4. Немного доработал сервис обновлений
+## V2.11.1
+1. Добавил локализацию в трею
+2. Добавил в трею кнопку для принудительной проверки обновлений
+3. Небольшой рефакторинг сервиса нотификаций
+4. Убрал временную метку с логов
+5. Добавил ротацию логов
 
 ## Как использовать Exe?(Windows)
 

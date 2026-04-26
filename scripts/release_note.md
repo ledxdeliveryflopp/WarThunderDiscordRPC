@@ -1,14 +1,18 @@
-## 2.11.2
+## 2.11.1
 ---
-## V2.11.2
-1. Delete autostart_service
-2. Moved the autorun installation functionality to the tray
+## V2.11.1
+1. Added localization to the tray
+2. Added a button to the tray to force the update check.
+3. A small refactoring of the notification service
+4. Remove timestamp from presence log
+5. Add rotation in logs
 
 ## How to use the Exe?(Windows)
 
 1. Download the archive
 2. Unzip it to a folder
 3. Change settings
+## Application Settings
 ```yaml
 settings:
   api:
@@ -34,15 +38,19 @@ settings:
 4. start exe file
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
-## V2.11.2
-1. Удалил autostart_service
-2. Вынес функционал установки автозапуска в трею
+## V2.11.1
+1. Добавил локализацию в трею
+2. Добавил в трею кнопку для принудительной проверки обновлений
+3. Небольшой рефакторинг сервиса нотификаций
+4. Убрал временную метку с логов
+5. Добавил ротацию логов
 
 ## Как использовать Exe?(Windows)
 
 1. Скачайте архив
 2. Распакуйте в папку
 3. Измените настройки по желанию
+## Настройки приложения
 ```yaml
 settings:
   api: 

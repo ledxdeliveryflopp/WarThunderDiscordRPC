@@ -46,11 +46,17 @@ class Lang:
     check_updates: dict = {
         'en': 'Check updates', 'ru': 'Проверить обновления',
     }
+    add_autostart: dict = {
+        'en': 'Add autostart', 'ru': 'Добавить в автозапуск',
+    }
+    delete_autostart: dict = {
+        'en': 'Delete autostart', 'ru': 'Удалить их автозапуска',
+    }
 
 
 class Constants:
 
-    APP_VERSION = '2.11.1'
+    APP_VERSION = '2.11.2'
     game_name: str = 'War Thunder'
     presence_lang: Lang = Lang()
     github: Git = Git()

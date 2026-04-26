@@ -9,7 +9,7 @@ from src.const import const
 from src.logger import app_logger
 from src.service.api import WtApi
 from src.service.presence import presence_service
-from src.service.win_notify import WinNotificationService, notify_service
+from src.service.win_notify import notify_service
 from src.settings import settings
 from src.tray import setup_tray
 

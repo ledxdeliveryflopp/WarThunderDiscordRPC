@@ -40,14 +40,6 @@ def copy_browser_dir() -> None:
     shutil.copytree('chrome-win64', 'dist/chrome-win64', dirs_exist_ok=True)
 
 
-def copy_autostart_service() -> None:
-    logger.info('Copying autostart service')
-    shutil.copy2(
-        'autostart_service.exe',
-        'dist/autostart_service.exe',
-    )
-
-
 def copy_updater_service() -> None:
     logger.info('Copying updater service')
     shutil.copy2(
@@ -180,7 +172,6 @@ if __name__ == '__main__':
     set_default_app_settings()
     set_default_vehicle_files()
     copy_browser_dir()
-    copy_autostart_service()
     copy_updater_service()
     zip_release()
     logger.info('Build complete')

@@ -6,6 +6,7 @@ from PIL import Image, ImageDraw
 from loguru import logger
 
 from src.const import const
+from src.service.autostart_service import autostart_service
 from src.service.win_notify import notify_service
 from src.settings import settings
 
@@ -45,12 +46,20 @@ def setup_tray():
         'WT Discord RPC',
         menu=pystray.Menu(
             pystray.MenuItem(
-                const.presence_lang.close_tray[settings.lang],
-                exit_action,
-            ),
-            pystray.MenuItem(
                 const.presence_lang.check_updates[settings.lang],
                 lambda item: notify_service.check_update_notify(),
+            ),
+            pystray.MenuItem(
+                const.presence_lang.add_autostart[settings.lang],
+                lambda item: autostart_service.add_to_scheduler(),
+            ),
+            pystray.MenuItem(
+                const.presence_lang.delete_autostart[settings.lang],
+                lambda item: autostart_service.delete_startup(),
+            ),
+            pystray.MenuItem(
+                const.presence_lang.close_tray[settings.lang],
+                exit_action,
             ),
         ),
     )

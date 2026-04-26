@@ -1,6 +1,7 @@
 import ctypes
 import getpass
 import os
+import subprocess
 import sys
 import time
 
@@ -14,6 +15,7 @@ class AutostartService:
 
     register_key: str = 'WTRPC'
     target_file: str = 'WTDRP.exe'
+    target_user: str = None
 
     @staticmethod
     def get_user_is_admin() -> bool:
@@ -36,6 +38,7 @@ class AutostartService:
         )
 
         current_user = getpass.getuser()
+        self.target_user = current_user
 
         logger.debug(f'XML schedule user -> {current_user}')
         logger.debug(f'App registration name -> {self.register_key}')
@@ -97,12 +100,11 @@ class AutostartService:
 
     def add_to_scheduler(self) -> None:
         logger.info('Adding task to scheduler')
-        xml_path = self.__create_schedule_xml()
-        cmd = f'schtasks /Create /XML {xml_path} /TN {self.register_key} /F'
-        logger.debug(f'Add task command -> {cmd}')
-        os.system(cmd)
-        logger.info('Task added to scheduler')
-        os.remove('task.xml')
+        xml_path = f'{os.getcwd()}/{self.__create_schedule_xml()}'
+        cmd = f'cmd /k schtasks /Create /XML {xml_path} /TN {self.register_key} /F' # noqa
+        command = f'runas /user:{self.target_user} "{cmd}"'
+        logger.debug(f'Executing command -> {command}')
+        os.system(command)
 
     @logger.catch
     def delete_startup(self):
@@ -116,27 +118,4 @@ class AutostartService:
             logger.error(e)
 
 
-if __name__ == '__main__':
-    logger.add('autostart_service.log', level='DEBUG')
-    input_vars = ('add', 'delete', 'exit', 'a', 'd', 'e')
-    user_input = input(f'Enter a command {input_vars}: ')
-    logger.debug(f'user command: {user_input}')
-    while user_input not in input_vars:
-        logger.warning(f'Invalid command: {user_input}')
-        time.sleep(2)
-        user_input = input(f'Enter a command {input_vars}: ')
-    autostart_service = AutostartService()
-    user_is_admin = autostart_service.get_user_is_admin()
-    if user_is_admin:
-        logger.info('User is admin')
-        if user_input in input_vars:
-            if user_input == 'add' or user_input == 'a':
-                autostart_service.add_to_scheduler()
-            elif user_input == 'delete' or user_input == 'd':
-                autostart_service.delete_startup()
-            elif user_input == 'exit' or user_input == 'e':
-                sys.exit()
-    else:
-        logger.warning('User is not admin')
-        input('Press any key to exit')
-        sys.exit()
+autostart_service = AutostartService()

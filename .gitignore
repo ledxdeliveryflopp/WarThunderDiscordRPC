@@ -41,3 +41,4 @@ main.spec
 static
 chrome-win64
 scripts/.env
+scripts/metrics.json

@@ -28,7 +28,7 @@ class WinNotificationService(GitHubService):
         toaster = InteractableWindowsToaster('WTDRP')
         start_text = const.presence_lang.app_start_notify[settings.lang]
         new_toast = Toast(
-            [f'{start_text}{app_version}.'],
+            [f'{start_text}{app_version}'],
             duration=ToastDuration.Short,
         )
         test = ToastDisplayImage.fromPath(self.icon)

@@ -49,18 +49,13 @@ class ParserService:
     @staticmethod
     @logger.catch
     async def get_custom_vehicle_image(vehicle_tech_code: str) -> str:
-        app_logger.debug(f'Get custom vehicle image for -> {vehicle_tech_code}')
-        vehicle = settings.custom_images_dict.get(vehicle_tech_code, None)
-        app_logger.debug(f'Vehicle data -> {vehicle}')
-        if vehicle is None:
+        app_logger.debug(f'Get custom image for -> {vehicle_tech_code}')
+        custom_images = settings.custom_images_data
+        if vehicle_tech_code in custom_images:
+            return vehicle_tech_code
+        else:
             wiki_image = WtApi().get_vehicle_image(vehicle_tech_code)
             return wiki_image
-        custom_image = vehicle.get('image_code', None)
-        app_logger.debug(f'Vehicle images -> {custom_image}')
-        if custom_image is None:
-            wiki_image = WtApi().get_vehicle_image(vehicle_tech_code)
-            return wiki_image
-        return custom_image
 
     @staticmethod
     @logger.catch

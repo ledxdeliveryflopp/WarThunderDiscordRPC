@@ -50,10 +50,11 @@ class Lang:
 
 class Constants:
 
-    APP_VERSION = '2.11.1'
+    APP_VERSION = '2.12.0'
     game_name: str = 'War Thunder'
     presence_lang: Lang = Lang()
     github: Git = Git()
+    discord_static: str = 'https://discord.com/api/v9/oauth2/applications/1344195597485211790/assets?nocache=true' # noqa
 
 
 const = Constants()

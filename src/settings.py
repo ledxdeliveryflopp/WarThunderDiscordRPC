@@ -1,14 +1,16 @@
+import http
 import os
 import platform
 import shutil
-import signal
 import time
-from typing import Literal, Any
+from typing import Literal
 
+import httpx
 import yaml
 from loguru import logger
 from yaml import SafeLoader
 
+from src.const import const
 from src.logger import app_logger
 from src.shemas.settings import (
     ApiSettings, PresenceSettings, AirInfoSettings,
@@ -34,7 +36,7 @@ class Settings:
         self.air_info_url: str | None = None
         self.air_dict: dict | None = None
         self.ground_dict: dict | None = None
-        self.custom_images_dict: dict | None = None
+        self.custom_images_data: set = set()
         self.loop_timeout: int | None = None
         self.show_update_notifications: bool | None = None
 
@@ -95,10 +97,19 @@ class Settings:
             return data['settings']
 
     @logger.catch(reraise=True)
-    async def __load_custom_images(self) -> dict:
-        with open('custom_images.yaml', 'r') as settings_data:
-            data = yaml.load(settings_data, Loader=SafeLoader)
-            return data['custom_images']
+    async def __load_custom_images(self) -> None:
+        try:
+            response = httpx.get(const.discord_static)
+            logger.debug(f'Discord static status -> {response.status_code}')
+            response_data = response.json()
+            if response.status_code != http.HTTPStatus.OK:
+                logger.warning(f'Discord static json -> {response_data}')
+            logger.debug(f'Discord static json -> {response_data}')
+            data = response.json()
+            for static_info in data:
+                self.custom_images_data.add(static_info['name'])
+        except Exception as e:
+            logger.error(f'Discord static status -> {e}')
 
     @logger.catch(reraise=True)
     async def __load_air_vehicle_settings(self) -> dict:
@@ -142,8 +153,7 @@ class Settings:
         await self.__set_core_settings(settings_data=main_settings_data)
         await self.__set_api_settings(settings_data=main_settings_data)
         await self.__set_presence_settings(settings_data=main_settings_data)
-        custom_images_data = await self.__load_custom_images()
-        self.custom_images_dict = custom_images_data
+        await self.__load_custom_images()
         await self.__set_air_info_settings(settings_data=main_settings_data)
         air_vehicle_data = await self.__load_air_vehicle_settings()
         await self.__set_air_vehicle_info(settings_data=air_vehicle_data)

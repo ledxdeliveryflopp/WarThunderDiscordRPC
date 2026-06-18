@@ -10,7 +10,7 @@ class Builder:
 
     @staticmethod
     @logger.catch
-    async def build_air_state(
+    def build_air_state(
             indicators_schemas: MainInfoSchemas,
             states_schemas: AircraftInfoSchemas,
     ) -> str:
@@ -37,7 +37,7 @@ class Builder:
 
     @staticmethod
     @logger.catch
-    async def build_ground_state(indicators_schemas: MainInfoSchemas) -> str:
+    def build_ground_state(indicators_schemas: MainInfoSchemas) -> str:
         speed = int(indicators_schemas.speed)
         state_info = const.presence_lang.tank_speed[settings.lang]
         speed_state = f'{state_info}: {speed} km/h'

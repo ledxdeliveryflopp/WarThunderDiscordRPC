@@ -1,11 +1,9 @@
-## 2.11.1
+## 2.12.0
 ---
-## V2.11.1
-1. Added localization to the tray
-2. Added a button to the tray to force the update check.
-3. A small refactoring of the notification service
-4. Remove timestamp from presence log
-5. Add rotation in logs
+## V2.13.0
+1. Replaced asyncio with Gevent
+2. Replaced Pydoll-python with Gs4
+3. Delete browser
 
 ## How to use the Exe?(Windows)
 
@@ -38,12 +36,10 @@ settings:
 4. start exe file
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
-## V2.11.1
-1. Добавил локализацию в трею
-2. Добавил в трею кнопку для принудительной проверки обновлений
-3. Небольшой рефакторинг сервиса нотификаций
-4. Убрал временную метку с логов
-5. Добавил ротацию логов
+## V2.13.0
+1. Заменил Asyncio на Gevent
+2. Заменил Pydoll-python на Bs4
+3. Убрал необходимость в браузере для парсинга названия техники
 
 ## Как использовать Exe?(Windows)
 

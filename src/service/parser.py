@@ -1,16 +1,15 @@
-import asyncio
-import os
 from functools import lru_cache
 from typing import Literal
 
+import httpx
 import yaml
+from bs4 import BeautifulSoup
 from loguru import logger
-from pydoll.browser import Chrome
-from pydoll.browser.options import ChromiumOptions
 from yaml import SafeLoader
 
 from src.logger import app_logger
 from src.service.api import WtApi
+from src.service.spawner import gv_service
 from src.settings import settings
 
 
@@ -22,25 +21,28 @@ class ParserService:
     def parse_tank_name(tank_tech_name: str) -> str:
         parsed_name = tank_tech_name.replace('tankModels/', '').lower()
         app_logger.debug(f'tank parse name result -> {parsed_name}')
-        return parsed_name
+        readable_name = parser.get_readable_tank_name(
+            tank_parsed_name=parsed_name,
+        )
+        return readable_name
 
     @logger.catch
-    async def get_readable_tank_name(self, tank_parsed_name: str) -> str:
+    def get_readable_tank_name(self, tank_parsed_name: str) -> str:
         tank_readable_name = settings.ground_dict.get(tank_parsed_name, None)
         app_logger.info(f'Tank readable name -> {tank_readable_name}')
         if tank_readable_name is None:
-            await self.__get_vehicle_name_from_wiki(
+            self.__get_vehicle_name_from_wiki(
                 vehicle_code=tank_parsed_name, army_type='tank',
             )
             return tank_parsed_name
         return tank_readable_name[settings.lang]
 
     @logger.catch
-    async def get_readable_air_name(self, air_name: str) -> str:
+    def get_readable_air_name(self, air_name: str) -> str:
         air_readable_name = settings.air_dict.get(air_name, None)
         app_logger.info(f'Air readable name -> {air_readable_name}')
         if air_readable_name is None:
-            await self.__get_vehicle_name_from_wiki(
+            self.__get_vehicle_name_from_wiki(
                 vehicle_code=air_name, army_type='air',
             )
             return air_name
@@ -48,7 +50,7 @@ class ParserService:
 
     @staticmethod
     @logger.catch
-    async def get_custom_vehicle_image(vehicle_tech_code: str) -> str:
+    def get_custom_vehicle_image(vehicle_tech_code: str) -> str:
         app_logger.debug(f'Get custom image for -> {vehicle_tech_code}')
         custom_images = settings.custom_images_data
         if vehicle_tech_code in custom_images:
@@ -59,7 +61,7 @@ class ParserService:
 
     @staticmethod
     @logger.catch
-    async def __update_air_vehicle_list(
+    def __update_air_vehicle_list(
             air_tech_name: str,
             air_readable_name_ru: str,
             air_readable_name_en: str,
@@ -77,11 +79,11 @@ class ParserService:
             data['air_list'][air_tech_name] = new_entry
         with open('air_vehicle.yaml', 'w', encoding='utf-8') as new_air_data:
             yaml.dump(data, new_air_data, allow_unicode=True, sort_keys=False)
-            await settings.reset_air_vehicle_settings()
+            settings.reset_air_vehicle_settings()
 
     @staticmethod
     @logger.catch
-    async def __update_ground_vehicle_list(
+    def __update_ground_vehicle_list(
             ground_tech_name: str,
             ground_readable_name_ru: str,
             ground_readable_name_en: str,
@@ -107,89 +109,103 @@ class ParserService:
             yaml.dump(
                 data, new_ground_data, allow_unicode=True, sort_keys=False,
             )
-            await settings.reset_ground_vehicle_settings()
+            settings.reset_ground_vehicle_settings()
 
     @staticmethod
     @logger.catch
-    async def __setup_browser() -> ChromiumOptions:
-        options = ChromiumOptions()
-        options.headless = True
-        options.binary_location = 'chrome-win64/chrome.exe'
-        options.add_argument('--window-size=1920,1080')
-        options.add_argument('--window-position=0,0')
-        options.add_argument('--start-maximized')
-        options.add_argument('--start-fullscreen')
-        options.add_argument('--disable-notifications')
-        options.add_argument('--disable-blink-features=AutomationControlled')
-        options.add_argument(
-            '--disable-features=IsolateOrigins,site-per-process',
-        )
-        options.add_argument('--use-gl=swiftshader')
-        options.add_argument('--disable-features=WebGLDraftExtensions')
-        options.add_argument(
-            '--force-webrtc-ip-handling-policy=disable_non_proxied_udp',
-        )
-        options.add_argument('--disable-extensions')
-        options.add_argument('--disable-background-networking')
-        options.add_argument('--disable-gpu')
-        options.add_argument('--disable-software-rasterizer')
-        options.add_argument('--force-device-scale-factor=1')
-        return options
+    def __setup_parser(response_html: str) -> BeautifulSoup:
+        return BeautifulSoup(response_html, 'html.parser')
+
+    @staticmethod
+    def __get_wiki_page(
+            vehicle_code: str, lang: Literal['en', 'ru'],
+    ) -> str | None:
+        urls = {
+            'en': f'https://wiki.warthunder.com/unit/{vehicle_code}',
+            'ru': f'https://wiki.warthunder.ru/unit/{vehicle_code}',
+        }
+        target_url = urls[lang]
+        logger.info(f'Target url -> {target_url}')
+        ru_response = httpx.get(target_url)
+        if ru_response.status_code == 302:
+            logger.info('Wiki redirect status')
+            new_url = ru_response.headers.get('location')
+            logger.info(f'Redirect url -> {new_url}')
+            if not new_url:
+                logger.warning('Empty location header')
+                return None
+            ru_response = httpx.get(new_url)
+            if ru_response.status_code != 200:
+                logger.error(f'Failed ru request -> {ru_response.text}')
+            else:
+                return ru_response.text
+        if ru_response.status_code != 200:
+            logger.error(f'Error while get ru html -> {ru_response.text}')
+            return None
+        return ru_response.text
+
+    def __find_vehicle_name(self, html_text: str) -> str | None:
+        html_parser = self.__setup_parser(response_html=html_text)
+        title = html_parser.find(class_='game-unit_name')
+        title_text = title.get_text(strip=True) if title else None
+        logger.info(f'Title text -> {title_text}')
+        return title_text
 
     @logger.catch
-    async def __get_vehicle_name_from_wiki(
+    def __get_vehicle_name_from_wiki(
             self, vehicle_code: str, army_type: Literal['tank', 'air'],
     ) -> None:
         app_logger.info('Start search vehicle readable name!')
         app_logger.debug(f'Empty vehicle name -> {vehicle_code}')
         app_logger.debug(f'army_type -> {army_type}')
-        options = await self.__setup_browser()
-
-        async with Chrome(options=options) as browser:
-            tab = await browser.start()
-            await tab.go_to(
-                url=f'https://wiki.warthunder.com/unit/{vehicle_code}',
-            )
-            await asyncio.sleep(3)
-            screenshot_path = os.path.join(
-                f'{os.getcwd()}/static', f'{vehicle_code}_en.png',
-            )
-            await tab.take_screenshot(path=screenshot_path)
-            en_title_bar = await tab.find(class_name='game-unit_name')
-            if en_title_bar:
-                en_title_text = await en_title_bar.text
-                app_logger.debug(f'Vehicle title en -> {en_title_text}')
-            else:
-                app_logger.debug('Error while find en title locator')
-            tab = await browser.start()
-            await tab.go_to(
-                url=f'https://wiki.warthunder.ru/unit/{vehicle_code}',
-            )
-            await asyncio.sleep(3)
-            screenshot_path = os.path.join(
-                f'{os.getcwd()}/static', f'{vehicle_code}_ru.png',
-            )
-            app_logger.debug(f'Save screenshot to -> {screenshot_path}')
-            await tab.take_screenshot(path=screenshot_path)
-            ru_title_bar = await tab.find(class_name='game-unit_name')
-            if ru_title_bar:
-                ru_title_text = await ru_title_bar.text
-                app_logger.debug(f'Vehicle title ru -> {ru_title_text}')
-            else:
-                app_logger.debug('Error while find title ru locator')
-            if ru_title_bar or en_title_bar:
-                if army_type == 'air':
-                    await self.__update_air_vehicle_list(
-                        air_tech_name=vehicle_code,
-                        air_readable_name_ru=ru_title_text,
-                        air_readable_name_en=en_title_text,
-                    )
-                elif army_type == 'tank':
-                    await self.__update_ground_vehicle_list(
-                        ground_tech_name=vehicle_code,
-                        ground_readable_name_ru=ru_title_text,
-                        ground_readable_name_en=en_title_text,
-                    )
+        en_url = f'https://wiki.warthunder.com/unit/{vehicle_code}'
+        logger.info(f'Wiki en url -> {en_url}')
+        gevent_tasks = []
+        en_response_task = gv_service.spawn_task(
+            target=self.__get_wiki_page,
+            target_args=[vehicle_code, 'en'],
+        )
+        ru_response_task = gv_service.spawn_task(
+            target=self.__get_wiki_page,
+            target_args=[vehicle_code, 'ru'],
+        )
+        gevent_tasks.append(en_response_task)
+        gevent_tasks.append(ru_response_task)
+        gv_service.run_tasks(gevent_tasks)
+        result = [task.value for task in gevent_tasks]
+        en_response = result[0]
+        ru_response = result[1]
+        if en_response is None or ru_response is None:
+            logger.error('One of response is empty')
+            return None
+        en_title_text_task = gv_service.spawn_task(
+            target=self.__find_vehicle_name,
+            target_args=en_response,
+        )
+        ru_title_text_task = gv_service.spawn_task(
+            target=self.__find_vehicle_name,
+            target_args=ru_response,
+        )
+        gevent_tasks.clear()
+        gevent_tasks.append(en_title_text_task)
+        gevent_tasks.append(ru_title_text_task)
+        gv_service.run_tasks(gevent_tasks)
+        result = [task.value for task in gevent_tasks]
+        en_title_text = result[0]
+        ru_title_text = result[1]
+        if ru_title_text is not None and en_title_text is not None:
+            if army_type == 'air':
+                self.__update_air_vehicle_list(
+                    air_tech_name=vehicle_code,
+                    air_readable_name_ru=ru_title_text,
+                    air_readable_name_en=en_title_text,
+                )
+            elif army_type == 'tank':
+                self.__update_ground_vehicle_list(
+                    ground_tech_name=vehicle_code,
+                    ground_readable_name_ru=ru_title_text,
+                    ground_readable_name_en=en_title_text,
+                )
 
 
 parser = ParserService()

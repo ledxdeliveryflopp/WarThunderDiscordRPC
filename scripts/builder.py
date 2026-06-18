@@ -4,6 +4,7 @@ import os
 import shutil
 
 import PyInstaller.__main__
+import gevent
 import yaml
 from loguru import logger
 from py7zr import py7zr
@@ -33,11 +34,6 @@ def copy_additional_files(files: list[str]) -> None:
     for file_path in files:
         logger.info(f'Copying -> {file_path}')
         shutil.copy(file_path, 'dist')
-
-
-def copy_browser_dir() -> None:
-    logger.info('Copying browser directory')
-    shutil.copytree('chrome-win64', 'dist/chrome-win64', dirs_exist_ok=True)
 
 
 def copy_autostart_service() -> None:
@@ -120,6 +116,7 @@ def build_app_spec(build_params: argparse.Namespace) -> list[str]:
         '--name=WTDRP',
         '--icon',
         main_file_ico,
+        '--exclude-module=gevent.testing',
     ]
     if onefile_param:
         app_base_spec.append(onefile_param)
@@ -177,10 +174,12 @@ if __name__ == '__main__':
     app_spec = build_app_spec(build_params=params)
     build_app(build_info=app_spec)
     copy_additional_files(files=params.additional_files)
-    set_default_app_settings()
-    set_default_vehicle_files()
-    copy_browser_dir()
-    copy_autostart_service()
-    copy_updater_service()
+    gevent_tasks = [
+        gevent.spawn(set_default_app_settings),
+        gevent.spawn(set_default_vehicle_files),
+        gevent.spawn(copy_autostart_service),
+        gevent.spawn(copy_updater_service),
+    ]
+    gevent.joinall(gevent_tasks)
     zip_release()
     logger.info('Build complete')

@@ -4,8 +4,12 @@ import time
 
 from loguru import logger
 from windows_toasts import (
-    InteractableWindowsToaster, Toast,
-    ToastDisplayImage, ToastImagePosition, ToastDuration, ToastButton,
+    InteractableWindowsToaster,
+    Toast,
+    ToastDisplayImage,
+    ToastImagePosition,
+    ToastDuration,
+    ToastButton,
     ToastActivatedEventArgs,
 )
 

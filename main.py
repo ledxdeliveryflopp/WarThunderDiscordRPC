@@ -1,4 +1,3 @@
-import asyncio
 import signal
 import threading
 import time
@@ -9,12 +8,12 @@ from src.const import const
 from src.logger import app_logger
 from src.service.api import WtApi
 from src.service.presence import presence_service
-from src.service.win_notify import WinNotificationService, notify_service
+from src.service.win_notify import notify_service
 from src.settings import settings
 from src.tray import setup_tray
 
 
-async def rpc_loop() -> None:
+def rpc_loop() -> None:
     settings.rename_updater()
     settings.clear_install_temp()
     app_logger.info(f'App version -> {const.APP_VERSION}')
@@ -29,18 +28,18 @@ async def rpc_loop() -> None:
         notify_thread.start()
         app_logger.debug(f'Notify thread -> {notify_thread.name}')
     while True:
-        discord_status = await presence_service.get_discord_pipe()
+        discord_status = presence_service.get_discord_pipe()
         if discord_status is None:
             app_logger.warning('Discord pipe is empty')
             time.sleep(settings.loop_timeout)
             continue
-        game_status = await WtApi().health_check()
+        game_status = WtApi().health_check()
         if game_status is False:
             app_logger.warning('Game status is false')
             if discord_status is not None:
                 try:
                     logger.debug('Close discord connection')
-                    await presence_service.clear()
+                    presence_service.clear()
                 except (AssertionError, RuntimeError) as err:
                     logger.warning(
                         f'Error while clear status -> {err}',
@@ -50,11 +49,11 @@ async def rpc_loop() -> None:
             continue
         else:
             try:
-                await presence_service.set_presence()
+                presence_service.set_presence()
                 time.sleep(3)
             except (AssertionError, RuntimeError) as exc:
                 logger.warning(exc)
-                await presence_service.connect()
+                presence_service.connect()
 
 
 def signal_handler(signum, frame):
@@ -65,10 +64,10 @@ def signal_handler(signum, frame):
 def main() -> None:
     signal.signal(signal.SIGTERM, signal_handler)
 
-    asyncio.run(settings.set_settings())
+    settings.set_settings()
 
     def run_rpc_loop():
-        asyncio.run(rpc_loop())
+        rpc_loop()
 
     presence_thread = threading.Thread(target=run_rpc_loop, daemon=True)
     presence_thread.start()

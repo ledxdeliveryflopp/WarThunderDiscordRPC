@@ -20,7 +20,7 @@ class WtApi:
 
     @staticmethod
     @logger.catch(exclude=httpx.ConnectError)
-    async def get_main_info() -> MainInfoSchemas | None:
+    def get_main_info() -> MainInfoSchemas | None:
         """Indicators"""
         try:
             response = httpx.get(url=settings.main_info_url)
@@ -33,7 +33,7 @@ class WtApi:
 
     @staticmethod
     @logger.catch(exclude=httpx.ConnectError)
-    async def get_map_info() -> MapInfoSchemas | None:
+    def get_map_info() -> MapInfoSchemas | None:
         try:
             response = httpx.get(url=settings.map_info_url)
         except httpx.ConnectError as connect_exc:
@@ -45,7 +45,7 @@ class WtApi:
 
     @staticmethod
     @logger.catch(exclude=httpx.ConnectError)
-    async def get_air_state_request() -> AircraftInfoSchemas | None:
+    def get_air_state_request() -> AircraftInfoSchemas | None:
         try:
             response = httpx.get(url=settings.air_info_url)
         except httpx.ConnectError as connect_exc:
@@ -56,7 +56,7 @@ class WtApi:
         return validated
 
     @staticmethod
-    async def health_check() -> bool:
+    def health_check() -> bool:
         try:
             httpx.head(url=settings.main_info_url)
         except Exception:

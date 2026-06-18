@@ -14,12 +14,13 @@ dependencies = [
     "pyyaml (>=6.0.3,<7.0.0)",
     "httpx (>=0.28.1,<0.29.0)",
     "pyinstaller (>=6.17.0,<7.0.0)",
-    "pydoll-python (>=2.14.0,<3.0.0)",
     "pywin32 (>=311,<312)",
     "py7zr (>=1.1.0,<2.0.0)",
     "python-dotenv (>=1.2.2,<2.0.0)",
     "tufup (>=0.10.0,<0.11.0)",
-    "windows-toasts (>=1.3.1,<2.0.0)"
+    "windows-toasts (>=1.3.1,<2.0.0)",
+    "beautifulsoup4 (>=4.14.3,<5.0.0)",
+    "gevent (>=26.5.0,<27.0.0)",
 ]
 
 

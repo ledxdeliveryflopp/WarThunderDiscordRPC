@@ -200,3 +200,18 @@ ground_list:
   ussr_t_80ue1:
     ru: ⚔Т-80У-Е1
     en: ⚔T-80U-E1
+  germ_pzkpfw_vi_ausf_h1_tiger_west:
+    ru: ⚔Tiger West
+    en: ⚔Tiger West
+  us_xm_8:
+    ru: ⚔XM8
+    en: ⚔XM8
+  us_m3_lee:
+    ru: ⚔M3 Lee
+    en: ⚔M3 Lee
+  us_t77e1:
+    ru: ⚔T77E1
+    en: ⚔T77E1
+  ussr_is_4m:
+    ru: ⚔ИС-4М
+    en: ⚔IS-4M

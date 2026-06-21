@@ -1,0 +1,36 @@
+name: 🐛 Issue
+title: '[Issue] '
+description: Report a issue
+
+body:
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: ⚠️ Checklist
+      description: Before creating a new Issue, make sure you have completed the following steps
+      options:
+        - label: I looked for a solution to the problem in other issues
+        - label: I downloaded ``WarThunderDiscordRPC`` from [official repository releases](https://github.com/ledxdeliveryflopp/WarThunderDiscordRPC/releases)
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Issue description
+      description: Clearly describe the problem you are experiencing.
+      placeholder: Issue description
+    validations:
+      required: true
+
+  - type: upload
+    id: log
+    attributes:
+      label: Upload log file
+      description: Upload main.log file.
+    validations:
+      required: true
+
+  - type: textarea
+    id: additions
+    attributes:
+      label: Additional details
+      description: Additional details we need to know

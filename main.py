@@ -14,9 +14,10 @@ from src.tray import setup_tray
 
 
 def rpc_loop() -> None:
+    app_logger.info(f'App version -> {const.APP_VERSION}')
     settings.rename_updater()
     settings.clear_install_temp()
-    app_logger.info(f'App version -> {const.APP_VERSION}')
+    settings.check_static_files_ro()
     notify_service.start_notify(app_version=const.APP_VERSION)
     if settings.show_update_notifications is True:
         app_logger.info('Start notify loop')

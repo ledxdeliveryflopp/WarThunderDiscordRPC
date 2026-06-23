@@ -70,14 +70,14 @@ class ParserService:
         app_logger.debug(f'air tech name -> {air_tech_name}')
         app_logger.debug(f'air readable name ru -> {air_readable_name_ru}')
         app_logger.debug(f'air readable name en -> {air_readable_name_en}')
-        with open('air_vehicle.yaml', 'r', encoding='utf-8') as air_data:
+        with open(settings.air_file, 'r', encoding='utf-8') as air_data:
             data = yaml.load(air_data, Loader=SafeLoader)
             new_entry = {
                 'ru': f'🛦{air_readable_name_ru}',
                 'en': f'🛦{air_readable_name_en}',
             }
             data['air_list'][air_tech_name] = new_entry
-        with open('air_vehicle.yaml', 'w', encoding='utf-8') as new_air_data:
+        with open(settings.air_file, 'w', encoding='utf-8') as new_air_data:
             yaml.dump(data, new_air_data, allow_unicode=True, sort_keys=False)
             settings.reset_air_vehicle_settings()
 
@@ -96,7 +96,7 @@ class ParserService:
         app_logger.debug(
             f'ground readable name en -> {ground_readable_name_en}',
         )
-        with open('ground_vehicle.yaml', 'r', encoding='utf-8') as air_data:
+        with open(settings.ground_file, 'r', encoding='utf-8') as air_data:
             data = yaml.load(air_data, Loader=SafeLoader)
             new_entry = {
                 'ru': f'⚔{ground_readable_name_ru}',
@@ -104,7 +104,7 @@ class ParserService:
             }
             data['ground_list'][ground_tech_name] = new_entry
         with open(
-                'ground_vehicle.yaml', 'w', encoding='utf-8'
+                settings.ground_file, 'w', encoding='utf-8'
         ) as new_ground_data:
             yaml.dump(
                 data, new_ground_data, allow_unicode=True, sort_keys=False,
@@ -136,11 +136,13 @@ class ParserService:
                 return None
             ru_response = httpx.get(new_url)
             if ru_response.status_code != 200:
-                logger.error(f'Failed ru request -> {ru_response.text}')
+                logger.error(f'Failed ru request -> {ru_response.status_code}')
             else:
                 return ru_response.text
         if ru_response.status_code != 200:
-            logger.error(f'Error while get ru html -> {ru_response.text}')
+            logger.error(
+                f'Error while get ru status -> {ru_response.status_code}',
+            )
             return None
         return ru_response.text
 

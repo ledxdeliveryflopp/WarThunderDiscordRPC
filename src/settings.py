@@ -3,6 +3,7 @@ import os
 import platform
 import shutil
 import time
+from pathlib import Path
 from typing import Literal
 
 import httpx
@@ -19,6 +20,7 @@ from src.shemas.settings import (
     AirInfoSettings,
     CoreSettings,
 )
+from src.utils import utils
 
 
 class Settings:
@@ -42,6 +44,10 @@ class Settings:
         self.custom_images_data: set = set()
         self.loop_timeout: int | None = None
         self.show_update_notifications: bool | None = None
+        self.settings_file = Path('settings.yaml')
+        self.air_file = Path('air_vehicle.yaml')
+        self.ground_file = Path('ground_vehicle.yaml')
+        self.logs_path = Path('logs')
 
     def __set_api_settings(self, settings_data: dict) -> None:
         validated = ApiSettings(**settings_data)
@@ -95,7 +101,7 @@ class Settings:
 
     @logger.catch(reraise=True)
     def __load_main_settings(self) -> dict:
-        with open('settings.yaml', 'r') as settings_data:
+        with open(self.settings_file, 'r') as settings_data:
             data = yaml.load(settings_data, Loader=SafeLoader)
             return data['settings']
 
@@ -116,42 +122,42 @@ class Settings:
 
     @logger.catch(reraise=True)
     def __load_air_vehicle_settings(self) -> dict:
-        with open('air_vehicle.yaml', 'r', encoding='utf-8') as settings_data:
+        with open(self.air_file, 'r', encoding='utf-8') as settings_data:
             data = yaml.load(settings_data, Loader=SafeLoader)
             app_logger.debug(f'Air list -> {data}')
             return data['air_list']
 
     @logger.catch(reraise=True)
     def __load_ground_vehicle_settings(self) -> dict:
-        with open('ground_vehicle.yaml', 'r', encoding='utf-8') as settings_data:
+        with open(self.ground_file, 'r', encoding='utf-8') as settings_data:
             data = yaml.load(settings_data, Loader=SafeLoader)
             app_logger.debug(f'Ground list -> {data}')
             return data['ground_list']
 
-    @staticmethod
-    def __load_logs_settings() -> None:
-        with open('settings.yaml', 'r') as settings_data:
+    def __load_logs_settings(self) -> None:
+        with open(self.settings_file, 'r') as settings_data:
             data = yaml.load(settings_data, Loader=SafeLoader)
         log_level = data['settings']['logger']['level']
+        os.makedirs(self.logs_path.name, exist_ok=True)
         logger.add(
-            'wt_presence.log',
+            self.logs_path.joinpath('wt_presence.log'),
             filter=lambda record: record['extra'].get('source') == 'app',
             level=log_level.upper(),
             rotation='300 MB',
         )
         logger.add(
-            'notify.log',
+            self.logs_path.joinpath('notify.log'),
             filter=lambda record: record['extra'].get('source') == 'notify',
             level='DEBUG',
             rotation='300 MB',
         )
         logger.add(
-            'gevent.log',
+            self.logs_path.joinpath('gevent.log'),
             filter=lambda record: record['extra'].get('source') == 'gevent',
             level='DEBUG',
             rotation='300 MB',
         )
-        logger.add('main.log', level='DEBUG')
+        logger.add(self.logs_path.joinpath('main.log'), level='DEBUG')
         app_logger.info(f'Log level -> {log_level}')
 
     def set_settings(self) -> None:
@@ -246,6 +252,13 @@ class Settings:
             os.remove('updater.exe')
             os.rename(new_updater, save_path)
             return
+
+    def check_static_files_ro(self) -> None:
+        file_list = [self.settings_file, self.air_file, self.ground_file]
+        for file_path in file_list:
+            check_ro_result = utils.check_read_only(file_path)
+            if check_ro_result:
+                utils.drop_file_chmod(file_path)
 
 
 settings = Settings()

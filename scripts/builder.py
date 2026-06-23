@@ -2,12 +2,26 @@ import argparse
 import logging
 import os
 import shutil
+import stat
+from pathlib import Path
 
 import PyInstaller.__main__
 import gevent
 import yaml
 from loguru import logger
 from py7zr import py7zr
+
+
+def check_read_only(path: Path) -> bool:
+    file_info = os.stat(path)
+    result = bool(file_info.st_file_attributes & stat.FILE_ATTRIBUTE_READONLY)
+    logger.info(f'File -> {path.name} stats result -> {result}')
+    return result
+
+
+def drop_file_chmod(path: Path) -> None:
+    logger.warning(f'Change chmod for file -> {path.name}')
+    os.chmod(path, stat.S_IWRITE)
 
 
 def build_app(build_info: list[str]) -> None:
@@ -88,6 +102,16 @@ def set_default_app_settings() -> None:
     logger.debug(f'Settings -> {data}')
     with open('dist/settings.yaml', 'w') as file:
         yaml.safe_dump(data, file)
+
+
+def check_files_ro() -> None:
+    logger.info('Checking files RO')
+    files = get_release_files()
+    for file_path in files:
+        path = Path('dist').joinpath(Path(file_path))
+        ro_check = check_read_only(path)
+        if ro_check:
+            drop_file_chmod(path)
 
 
 def zip_release():
@@ -181,5 +205,6 @@ if __name__ == '__main__':
         gevent.spawn(copy_updater_service),
     ]
     gevent.joinall(gevent_tasks)
+    check_files_ro()
     zip_release()
     logger.info('Build complete')

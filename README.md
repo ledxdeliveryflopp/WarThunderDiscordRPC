@@ -3,6 +3,8 @@
 
 [EN](#About) | [RU](#что-это)
 
+![Latest Release Downloads](https://shields.io)
+
 ## About
 
 This is a application which adds War Thunder as a Discord Rich Presence.

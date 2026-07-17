@@ -3,7 +3,7 @@
 
 [EN](#About) | [RU](#что-это)
 
-![Latest Release Downloads](https://shields.io)
+![Latest Release Downloads](https://img.shields.io)
 
 ## About
 

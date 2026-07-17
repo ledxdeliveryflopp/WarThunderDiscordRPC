@@ -3,7 +3,7 @@
 
 [EN](#About) | [RU](#что-это)
 
-![Latest Release Downloads](https://img.shields.io)
+![GitHub Downloads (all assets, specific tag)](https://img.shields.io/github/downloads/ledxdeliveryflopp/WarThunderDiscordRPC/latest/total)
 
 ## About
 
